@@ -24,10 +24,11 @@
 .menu {
     display: flex;
 }
-.primary a,
-.menu a {
+.primary > li > a,
+.menu > li > a {
     margin-right: 14px;
     padding: 8px;
+    color: white;
 }
 .logo {
     display: block;
