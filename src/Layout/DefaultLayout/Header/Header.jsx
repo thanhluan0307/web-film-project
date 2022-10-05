@@ -14,11 +14,13 @@ function Header() {
             <div className={cx('content')}>
                 <a href="/"><img className={cx('image')} src={logoFilm} alt="" /></a>
                 <ul className={cx('nav')}>
-                  <li><a href="/">Amine</a></li>
-                  <li><a href="/">Shop</a></li>
-                  <li><a href="/">Tin tức</a></li>
-                  <li><a href="/">Truyện</a></li>
-                  <li><a href="/">BXH</a></li>
+                  <li><a href="/">Phim Bộ</a></li>
+                  <li><a href="/">Phim Lẻ</a></li>
+                  <li><a href="/">Shows</a></li>
+                  <li><a href="/">Hoạt Hình</a></li>
+                  <li><a href="/">Thể Loại</a></li>
+                  <li><a href="/">Quốc Gia</a></li>
+                  <li><a href="/">Sắp Chiếu</a></li>
                 </ul>
             </div>
 
@@ -29,7 +31,6 @@ function Header() {
 
             <div className={cx('action')}>
                 <div><a href="/"><FontAwesomeIcon icon={faSun}/></a></div>
-                <div><a href="/"><FontAwesomeIcon icon={faUser}/></a></div>
             </div>
         </div>
     </header>
