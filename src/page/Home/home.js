@@ -1,6 +1,9 @@
+import TypeOfMovie from "~/components/TypeOfMovie/TypeOfMovie";
 function Home() {
     return ( 
-        <h1>Home</h1>
+        <>
+           <TypeOfMovie title="Phim Bộ"/>
+        </>
      );
 }
 

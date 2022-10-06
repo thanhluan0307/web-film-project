@@ -5,7 +5,7 @@ import Person from '~/page/Person/person';
 
 
 const publicRoutes = [
-    {path:'/',component: Home},
+    {path:'/',component: Home,layout:true},
     {path:'/tv',component: Tv},
     {path:'/movie',component: Movie},
     {path:'/person',component: Person},

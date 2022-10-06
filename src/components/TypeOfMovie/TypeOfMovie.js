@@ -1,14 +1,34 @@
-import style from "./TypeOfMovie.module.scss"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames/bind"
-import {Link} from "react-router-dom"
+import MovieItem from "~/components/MovieItem/MovieItem"
+import axios from "axios"
+import style from './TypeOfMovie.module.scss'
+import { useEffect, useState } from "react"
 
 const cx = classNames.bind(style)
-function TypeOfMovie () {
+function TypeOfMovie ({title}) {
+    const [lists, setLists] = useState({})
+    useEffect(() => {
+        axios.get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=1')
+            .then(res => {
+                setLists(res.data)
+            })
+            .catch(err => console.log(err))
+    }, [])
     return (
         <div className={cx('wrapper')}>
-            <Link to="/">
-                <img src="https://s199.imacdn.com/vg/2022/10/03/c7706430d0a195cf_75bf068e65587988_28059166478870463.jpg" alt=""/>
-            </Link>
+            <h2 className={cx('heading')}>
+                {title} 
+                <FontAwesomeIcon className={cx('icon')} icon={faChevronRight}/>
+            </h2>
+            <div className={cx('movie-list')}>
+                {lists.items && lists.items.map(item => {
+                    return (
+                        <MovieItem key={item._id} thumbUrl={lists.pathImage && lists.pathImage+ item.thumb_url} />
+                    )
+                })}
+            </div>
         </div>
     )
 }

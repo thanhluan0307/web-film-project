@@ -3,26 +3,23 @@ import {publicRoutes} from '~/routes'
 import DefaultLayout from '~/Layout/DefaultLayout/DefaultLayout';
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <BrowserRouter> 
         <Routes>
           {publicRoutes.map(function (route,index) {
-            const Layout = route.layout || DefaultLayout
               return (
                 <Route 
                   key={index}
                   path={route.path} 
                   element={
-                    <Layout>
+                    <DefaultLayout>
                         <route.component/>
-                    </Layout>
+                    </DefaultLayout>
                   }
                 />
               )
             })
           }
         </Routes>
-      </div>
     </BrowserRouter>
   );
 }
