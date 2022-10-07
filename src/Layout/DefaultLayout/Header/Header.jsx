@@ -14,11 +14,11 @@ function Header() {
             <div className={cx('content')}>
                 <a href="/"><img className={cx('image')} src={logoFilm} alt="" /></a>
                 <ul className={cx('nav')}>
-                  <li><a href="/">Amine</a></li>
+                  {/* <li><a href="/">Amine</a></li>
                   <li><a href="/">Shop</a></li>
                   <li><a href="/">Tin tức</a></li>
                   <li><a href="/">Truyện</a></li>
-                  <li><a href="/">BXH</a></li>
+                  <li><a href="/">BXH</a></li> */}
                 </ul>
             </div>
 
