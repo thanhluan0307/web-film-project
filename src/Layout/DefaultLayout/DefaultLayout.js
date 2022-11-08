@@ -1,5 +1,5 @@
 import Header from "./Header/Header";
-import Footer from "./Footer";
+import Footer from "./Footer/footer";
 import classNames from "classnames/bind";
 import style from './DefaultLayout.scss'
 const cx = classNames.bind(style)
