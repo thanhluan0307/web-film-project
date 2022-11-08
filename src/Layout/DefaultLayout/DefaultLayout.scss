@@ -1,4 +1,95 @@
-.contaier {
-    width: 90%;
-    margin: 0 auto;
+//Header
+.wrapper {
+    font-size: 13px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%)
+}
+.subnav{
+    display: flex;
+    background: #f2f2f2;
+    padding: 4px 0;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+.phone{
+    font-weight: 500;
+}
+
+.icon{
+    margin-right: 5px;
+    color:  #999;
+    font-size: 13px;
+}
+
+.numb{
+    color: #252a2b;
+}
+
+.info-user{
+    display: flex;
+    column-gap: 10px;
+}
+
+.text{
+    color: #252a2b;
+}
+.quantity{
+    color: #f40000;
+}
+
+.nav-box{
+    display: flex;
+    padding: 10px 60px 10px 40px;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav {
+    display: flex;
+    li {
+        padding: 20px 0;
+        margin: 0 11px;
+        font-weight: 500;
+    } 
+    a {
+        position: relative;
+    }
+}
+.nav li a::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    bottom: 0px;
+    left: 50%;
+    width: 0;
+    transform: translateX(-50%);
+    background: #252a2b;
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+.nav li a:hover::after {
+    width: 80%;
+}
+.logo img {
+    width: 150px;
+    height: 44px;
+}
+.search {
+    padding: 6px 15px;
+    position: relative;
+    border-radius: 22px;
+    background-color: #fefefe;
+    border: solid 1px #a7a7a7;
+}
+// .icon-seacrh {
+//     margin-left: 10px;
+// }
+.btnSearch {
+    font-size: 0;
+    border: none;
+    width: 20px;
+    top: 50%;
+    left: 82%;
+    height: 20px;
+    position: absolute;
+    transform: translateY(-50%);
+    background: url(../../images/icon-search.svg);
 }

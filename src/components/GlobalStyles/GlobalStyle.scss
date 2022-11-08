@@ -18,7 +18,7 @@ html {
 }
 
 body {
-    font-family:  'Roboto', sans-serif;
+    font-family: Quicksand;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
@@ -30,4 +30,17 @@ ul {
 a {
     color: black;
     text-decoration: none;
+    padding: 10px 0;
+}
+input {
+    outline:  none;
+    border: none;
+}
+::-webkit-input-placeholder {
+    font-size: 10px;
+    opacity: 0.5;
+}
+@font-face {
+    font-family: Quicksand ;
+    src: url(../../font/quicksand/SPECIMENPOSTER_4967.jpg);
 }
