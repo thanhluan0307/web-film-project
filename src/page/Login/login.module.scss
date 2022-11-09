@@ -1,0 +1,119 @@
+.login{
+	width: 100%;
+	height: 500px;
+	background-image: url('https://bucket.nhanh.vn/store2/70105/bn/sb_1595380517_155.png?fbclid=IwAR2NS-M0jEdPg9vEjAkZDzD5C8Te76TEDWHl3MZ8RLvzhn7WOHeibO7NIHg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+}
+.form-login{
+    width: 30%;
+	float: right;
+	margin-top: 20px;
+    border: 1px solid orange;
+    border-radius: 8px;
+    text-align: center;
+    // background-image: url("https://i.pinimg.com/564x/0c/94/f1/0c94f15fc457d9bdbc76240c13dd9edc.jpg");
+}
+.form-login h1{
+	font-size: 65px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	background-image: linear-gradient( to right,  orange,  orangered);
+
+}
+.inp-login{
+    width: 75%;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-top-right-radius: 20px;
+	margin: 30px 0;
+	border: none;
+	border-bottom: 1px solid #333;
+	outline: none;
+	background-color: opacity($color: white);
+}
+.save{
+	float: right;
+}
+
+.bnt-login{
+    width: 75%;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    background-image: linear-gradient( to right, orange  , orangered);
+    margin: 35px 0;
+}
+
+
+span{
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	background-image: linear-gradient( to right,  orange,  orangered);
+	position: relative;
+}
+span::before{
+	content: '';
+    background-image: linear-gradient( to right, orange  , orangered);
+	width: 0;
+	height: 5px;
+	position: absolute;
+	bottom: -5px;
+	left: 50%;
+	transform: translate(-50%);
+	transition: width 0.2s;
+}
+span:hover::before{
+	width: 100%;
+}
+
+.form-signup{
+	width: 30%;
+	background-color: opacity($color: white);
+	border: 2px solid orange;
+	border-radius: 8px;
+	text-align: center;
+	float: right;
+}
+.form-signup h1{
+	font-size: 65px;
+	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	background-image: linear-gradient( to right,  orange,  orangered);
+	
+}
+.inp-SignUp{
+	width: 75%;
+	height: 50px;
+    border: 1px solid #ccc;
+	margin: 10px 0;
+	border: none;
+	border-bottom: 1px solid #333;
+	outline: none;
+}
+.bnt-signup{
+	width: 75%;
+    height: 50px;
+    border: none;
+	border-radius: 20px;
+    background-image: linear-gradient( to right, orange  , orangered);
+    margin-bottom: 10px;
+}
+
+
+
+.err-msg{
+	color: red;
+	text-align: right;
+	margin-right: 50px;
+	font-size: 12px;
+}
+.hidden{
+	visibility: hidden;
+}
