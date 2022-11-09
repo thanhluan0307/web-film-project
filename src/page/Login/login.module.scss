@@ -1,7 +1,7 @@
 .login{
 	width: 100%;
-	height: 500px;
-	background-image: url('https://bucket.nhanh.vn/store2/70105/bn/sb_1595380517_155.png?fbclid=IwAR2NS-M0jEdPg9vEjAkZDzD5C8Te76TEDWHl3MZ8RLvzhn7WOHeibO7NIHg');
+	height: 630px;
+	background-image: url('../../assets/images/onion\ \(2\).jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;
 
@@ -9,15 +9,16 @@
 .form-login{
     width: 30%;
 	float: right;
-	margin-top: 20px;
     border: 1px solid orange;
+	margin-top: 50px;
+	margin-right: 70px;
     border-radius: 8px;
     text-align: center;
-    // background-image: url("https://i.pinimg.com/564x/0c/94/f1/0c94f15fc457d9bdbc76240c13dd9edc.jpg");
+	height: 495px;
+	background: rgba(255, 255, 255, 0.5);
 }
 .form-login h1{
-	font-size: 65px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 55px;
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;
@@ -29,11 +30,12 @@
     height: 50px;
     border: 1px solid #ccc;
     border-top-right-radius: 20px;
-	margin: 30px 0;
+	margin: 10px 0;
 	border: none;
 	border-bottom: 1px solid #333;
 	outline: none;
-	background-color: opacity($color: white);
+	background: rgba(255, 255, 255, 0.5);
+
 }
 .save{
 	float: right;
@@ -45,18 +47,19 @@
     border: none;
     border-radius: 20px;
     background-image: linear-gradient( to right, orange  , orangered);
-    margin: 35px 0;
+    margin: 55px 0;
+	color: white;
 }
 
 
-span{
+.change{
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;
 	background-image: linear-gradient( to right,  orange,  orangered);
 	position: relative;
 }
-span::before{
+.change::before{
 	content: '';
     background-image: linear-gradient( to right, orange  , orangered);
 	width: 0;
@@ -67,7 +70,7 @@ span::before{
 	transform: translate(-50%);
 	transition: width 0.2s;
 }
-span:hover::before{
+.change:hover::before{
 	width: 100%;
 }
 
@@ -78,10 +81,12 @@ span:hover::before{
 	border-radius: 8px;
 	text-align: center;
 	float: right;
+	height: 495px;
+	margin-top: 50px;
+	margin-right: 70px;
 }
 .form-signup h1{
-	font-size: 65px;
-	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 55px;
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;
@@ -92,10 +97,11 @@ span:hover::before{
 	width: 75%;
 	height: 50px;
     border: 1px solid #ccc;
-	margin: 10px 0;
+	margin: 5px 0;
 	border: none;
 	border-bottom: 1px solid #333;
 	outline: none;
+	background: rgba(255, 255, 255, 0.5);
 }
 .bnt-signup{
 	width: 75%;
@@ -104,6 +110,7 @@ span:hover::before{
 	border-radius: 20px;
     background-image: linear-gradient( to right, orange  , orangered);
     margin-bottom: 10px;
+	color: white;
 }
 
 
