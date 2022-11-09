@@ -36,6 +36,7 @@ function Header() {
             <li><a href="/">PHỤ KIỆN</a></li>
             <li><a href="/">ỐP IPAD</a></li>
             <li><a href="/">APPLE WATCH</a></li>    
+            <li><a href="/">APPLE WATCH</a></li>    
          </ul>
          <div className={cx('search')}>
             <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
