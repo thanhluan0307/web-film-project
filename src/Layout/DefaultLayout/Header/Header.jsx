@@ -1,14 +1,32 @@
-import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
+import { useState,useEffect } from 'react';
+
+import BackToTopButton from '../BackToTopButton/BackToTopButton';
+import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 
 
 const cx = classNames.bind(styles)
 
 function Header() {
+  const [fix,setFix] = useState(false)
+
+  function setFixed () {
+    console.log(window.scrollY)
+    if(window.scrollY > 100) {
+      console.log(1)
+      setFix(true)
+    }else {
+      setFix(false)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll',setFixed)
+  },[])
+
   return (
-    <header className={cx('header')}>
+    <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
         <div className={cx('phone')}>
           <FontAwesomeIcon className={cx('icon')} icon={faPhone}/>
@@ -43,10 +61,10 @@ function Header() {
             <input type="submit" className={cx('btnSearch')}/>
          </div>
       </div>
-     
+      <BackToTopButton/>
     </header>
   )
  
  }
  
- export default Header;
+ export default (Header);

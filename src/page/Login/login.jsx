@@ -18,6 +18,7 @@ function Login() {
     const [inpConfirmPass , setInpConfirmPass] = useState('')
     const regUsername = /^[a-zA-Z]{2,8}$/
     const regEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+    // eslint-disable-next-line no-useless-escape
     const regPass = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,24}$/
     function toSignUp(){
         setCount(count+1)

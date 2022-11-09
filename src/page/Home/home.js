@@ -20,6 +20,7 @@ function Home() {
               data.map(item => {
                 return (
                   <Card
+                  key={item._id}
                     hoverable
                     style={{
                       width: 240,
