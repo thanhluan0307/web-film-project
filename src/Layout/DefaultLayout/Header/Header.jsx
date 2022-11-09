@@ -1,14 +1,14 @@
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPhone,faSearch,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 const cx = classNames.bind(styles)
 
 function Header() {
   return (
-    <header className={cx('wrapper')}>
+    <header className={cx('header')}>
       <div className={cx('subnav')}>
         <div className={cx('phone')}>
           <FontAwesomeIcon className={cx('icon')} icon={faPhone}/>
@@ -38,9 +38,9 @@ function Header() {
             <li><a href="/">APPLE WATCH</a></li>    
          </ul>
          <div className={cx('search')}>
-            <input type="text" placeholder='Tìm kiếm...' />
-            {/* <FontAwesomeIcon className={cx('icon-seacrh')} icon={faSearch}/> */}
-            <input type="submit" class="btnSearch"/>
+            <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
+            
+            <input type="submit" className={cx('btnSearch')}/>
          </div>
       </div>
      
