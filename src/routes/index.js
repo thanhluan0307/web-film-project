@@ -1,6 +1,7 @@
 import Home from '~/page/Home/home';
 import Category from '~/page/Category/category';
 import Login from '~/page/Login/login';
+import 'antd/dist/antd.min.css'
 import DetailProduct from '~/page/DetailProduct/detailProduct';
 
 
