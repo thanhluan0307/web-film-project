@@ -1,44 +1,49 @@
-import { faSun } from '@fortawesome/free-regular-svg-icons';
-import {Link} from 'react-router-dom'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import classNames from 'classnames/bind';
-import logoFilm from '~/images/logo-ophim-4.png'
-import style from './Header.module.scss'
-import Tippy from '@tippyjs/react';
-const cx = classNames.bind(style)
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
+
+
+const cx = classNames.bind(styles)
 
 function Header() {
   return (
-    <header className={cx("wrapper")}>
-        <div className={cx('contaier')}>
-            <div className={cx('content')}>
-                <a href="/"><img className={cx('image')} src={logoFilm} alt="" /></a>
-                <ul className={cx('nav')}>
-                  <li><Link href="/">Phim Bộ</Link></li>
-                  <li><Link href="/">Phim Lẻ</Link></li>
-                  <li><Link href="/">Shows</Link></li>
-                  <li><Link href="/">Hoạt Hình</Link></li>
-
-                  <Tippy content="342342">
-                    <li><Link href="/">Thể Loại</Link></li>
-                  </Tippy>
-
-                  <li><Link href="/">Quốc Gia</Link></li>
-
-                  <li><Link href="/">Sắp Chiếu</Link></li>
-                </ul>
-            </div>
-
-            <div className={cx('search')}>
-              <input type="text" placeholder="Tìm kiếm phim"/>
-              <FontAwesomeIcon icon={faMagnifyingGlass}/>
-            </div>
-
-            <div className={cx('action')}>
-              <div><Link href="/"><FontAwesomeIcon icon={faSun}/></Link></div>
-            </div>
+    <header className={cx('header')}>
+      <div className={cx('subnav')}>
+        <div className={cx('phone')}>
+          <FontAwesomeIcon className={cx('icon')} icon={faPhone}/>
+          <span className={cx('numb')}>0964.26.36.36</span>
         </div>
+        <ul className={cx('info-user')}>
+        <li>
+              <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
+              <span className={cx('text')}>Tài khoản</span>
+          </li>
+          <li>
+              <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
+              <span className={cx('text')}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
+          </li>
+        </ul>
+      </div>
+      <div className={cx('nav-box')}>
+         <div className={cx('logo')}>
+            <img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" />
+         </div>
+         <ul className={cx('nav')}>   
+            <li><a href="/">ỐP IPHONE</a></li>
+            <li><a href="/">DÁN MÀN</a></li>
+            <li><a href="/">ỐP AIRPODS</a></li>
+            <li><a href="/">PHỤ KIỆN</a></li>
+            <li><a href="/">ỐP IPAD</a></li>
+            <li><a href="/">APPLE WATCH</a></li>    
+         </ul>
+         <div className={cx('search')}>
+            <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
+            
+            <input type="submit" className={cx('btnSearch')}/>
+         </div>
+      </div>
+     
     </header>
   )
  
