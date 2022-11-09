@@ -45,9 +45,10 @@ function Login() {
 
     return ( 
         <>
+        
         <div  className={cx('login')}>
             <form style={{display:(count%2===0) ? "none" : "block"}} className={cx('form-login')}>
-                <h1>Login</h1>
+                <h1>Login 1</h1>
                 
                 <input className={cx('inp-login')} value={inpUserName} onChange={(e)=>setInpUserName(e.target.value)} onInput={checkInp} type="text" placeholder='username'/> <br />
                 <p className={cx((booleanInp)?'err-msg' : 'hidden')}>*sai form rồi lè ^.^</p>
