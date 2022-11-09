@@ -5,24 +5,28 @@ import { useState,useEffect } from 'react';
 
 import BackToTopButton from '../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
+import { Link } from 'react-router-dom';
 
 
 const cx = classNames.bind(styles)
 
 function Header() {
   const [fix,setFix] = useState(false)
+  const [backToTop,setBackToTop] = useState(false)
 
-  function setFixed () {
-    console.log(window.scrollY)
+  const setFixed = () => {
     if(window.scrollY > 100) {
-      console.log(1)
+      setBackToTop(true) 
       setFix(true)
     }else {
       setFix(false)
+      setBackToTop(false) 
     }
   }
+
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
+  
   },[])
 
   return (
@@ -35,7 +39,7 @@ function Header() {
         <ul className={cx('info-user')}>
         <li>
               <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-              <span className={cx('text')}>Tài khoản</span>
+              <Link to="/login" className={cx('text')}>Tài khoản</Link>
           </li>
           <li>
               <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
@@ -61,7 +65,7 @@ function Header() {
             <input type="submit" className={cx('btnSearch')}/>
          </div>
       </div>
-      <BackToTopButton/>
+      <BackToTopButton view={backToTop}/>
     </header>
   )
  
