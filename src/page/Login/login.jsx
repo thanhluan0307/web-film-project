@@ -1,4 +1,4 @@
-import 'antd/dist/antd.min.css'
+
 import React, { useState } from 'react'
 import classnames from 'classnames/bind';
 import styles from './login.module.scss'

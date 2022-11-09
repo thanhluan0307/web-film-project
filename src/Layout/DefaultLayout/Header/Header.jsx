@@ -39,7 +39,6 @@ function Header() {
          </ul>
          <div className={cx('search')}>
             <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
-            
             <input type="submit" className={cx('btnSearch')}/>
          </div>
       </div>
