@@ -28,7 +28,7 @@ function Header() {
     window.addEventListener('scroll',setFixed)
   
   },[])
-
+   
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -49,7 +49,7 @@ function Header() {
       </div>
       <div className={cx('nav-box')}>
          <div className={cx('logo')}>
-            <img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" />
+            <Link to="/"><img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" /></Link>
          </div>
          <ul className={cx('nav')}>   
             <li><a href="/">ỐP IPHONE</a></li>

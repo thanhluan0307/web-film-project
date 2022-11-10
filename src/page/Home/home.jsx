@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
 import { Card } from 'antd';
 import React from 'react';
+
 import axios from "~/axios";
+import IconLoading from "~/components/IconLoading/IconLoading";
 
 const { Meta } = Card;
 
 function Home() {
   const [data,setdata] = useState([])
+  const [loading,setLoading] = useState (true)
   useEffect(() => {
     axios.get('/product/get-all-products')
     .then(res => {
-      console.log(res.data)
+     setTimeout(()=>{
+      setLoading(false)
       setdata(res.data.products)
+     },500)
     })
   },[])
-    return ( 
-        <>
+    return loading ? <IconLoading/> : ( 
+        <div style={{display:"flex"}}>
           {
               data.map(item => {
                 return (
                   <Card
-                  key={item._id}
+                    key={item._id}
                     hoverable
                     style={{
                       width: 240,
@@ -32,7 +37,7 @@ function Home() {
                 )
               })
           }
-        </>
+        </div>
      );
 }
 
