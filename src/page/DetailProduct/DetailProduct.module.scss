@@ -4,9 +4,11 @@
     a {
         padding: 10px;
     }
+    font-size: 13px;
 }
 
 .body {
+    font-size: 15px;
     div {
         padding: 20px;
     }
@@ -72,6 +74,8 @@
         cursor: pointer;
         color: white;
         background-color: black;
+        font-family: cursive;
+        font-size: 14px;
     }
 }
 
@@ -99,6 +103,8 @@
         color: grey;
         border-style: none;
         border-radius: 0px 10px;
+        font-family: "Lucida Console", Courier, monospace;
+        font-weight: bold;
 
         &:hover {
             color: white;
@@ -165,6 +171,8 @@
         font-weight: bold;
         text-align: left;
         padding-bottom: 15px;
+        font-size: 15px;
+        font-family: math;
 
         &:hover {
             border-style: none none solid none;
@@ -176,9 +184,8 @@
 .stores {
     img {
         text-align: center;
-        height: 350px;
-        width: 1500px;
         display: block;
+        object-fit: cover;
     }
 
     a {
@@ -189,7 +196,8 @@
         color: white;
         border-style: ridge;
         left: 40%;
-        bottom: 200px;
+        bottom: 150px;
+        font-size: 18px;
 
         &:hover {
             background-color: black;
