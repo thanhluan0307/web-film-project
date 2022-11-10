@@ -1,0 +1,21 @@
+.inp-login{
+    width: 75%;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-top-right-radius: 20px;
+	margin: 10px 0;
+	border: none;
+	border-bottom: 1px solid #333;
+	outline: none;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.err-msg{
+	color: red;
+	text-align: right;
+	margin-right: 50px;
+	font-size: 15px;
+}
+.hidden{
+	visibility: hidden;
+}
