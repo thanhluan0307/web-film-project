@@ -39,7 +39,7 @@ function Header() {
         <ul className={cx('info-user')}>
         <li>
               <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-              <Link to="/login" className={cx('text')}>Tài khoản</Link>
+              <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
           </li>
           <li>
               <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>

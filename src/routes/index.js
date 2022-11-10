@@ -9,7 +9,7 @@ const publicRoutes = [
     {path:'/',component: Home,layout:true},
     {path:'/category',component: Category},
     {path:'/login',component: Login},
-    {path:'/allpro',component: DetailProduct},
+    {path:'/product/:productID',component: DetailProduct},
 ]
 
 const privateRoutes = [
