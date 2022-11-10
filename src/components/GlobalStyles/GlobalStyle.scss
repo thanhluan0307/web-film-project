@@ -1,11 +1,5 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,500;0,600;1,200&family=Roboto:wght@300;400;500;700&display=swap');
-
-
-
-:root {
-    --primary-color:3,37,65;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -15,15 +9,23 @@
 
 html {
     font-size: 62.5%;
+   
+    
 }
 
 body {
-    font-family: Quicksand;
-    font-size: 1.6rem;
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
 }
-
+h4 {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
 ul {
     list-style: none;
 }
@@ -32,15 +34,15 @@ a {
     text-decoration: none;
     padding: 10px 0;
 }
-input {
+input,button {
     outline:  none;
     border: none;
 }
+
 ::-webkit-input-placeholder {
-    font-size: 10px;
+    font-size: 12px;
     opacity: 0.5;
 }
-@font-face {
-    font-family: Quicksand ;
-    src: url(../../font/quicksand/SPECIMENPOSTER_4967.jpg);
-}
+
+
+
