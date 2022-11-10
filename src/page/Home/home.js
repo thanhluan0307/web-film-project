@@ -1,37 +1,28 @@
-import { useEffect, useState } from "react";
-import { Card } from 'antd';
-import React from 'react';
-import axios from "~/axios";
+import { useEffect,useState } from "react";
 
-const { Meta } = Card;
+import axios from "~/axios";
+import ContaierProduct from "~/components/ContaierProduct/ContaierProduct";
 
 function Home() {
-  const [data,setdata] = useState([])
+  const [category,setCategory] = useState([])
+
   useEffect(() => {
-    axios.get('/product/get-all-products')
-    .then(res => {
-      console.log(res.data)
-      setdata(res.data.products)
-    })
+    axios.get('/category/get-all-categories')
+      .then(res => {
+        const data = res.data.categories
+        const categories = data.map(item => {
+          return item._id
+        })
+       setCategory(categories)
+      })
   },[])
+  
     return ( 
         <>
-          {
-              data.map(item => {
-                return (
-                  <Card
-                  key={item._id}
-                    hoverable
-                    style={{
-                      width: 240,
-                    }}
-                    cover={<img alt="example" src={'https://shope-b3.thaihm.site/' + item.thumbnail} />}
-                  >
-                    <Meta title="Europe Street beat" description="www.instagram.com" />
-                  </Card>
-                )
-              })
-          }
+          <ContaierProduct  categorie={category} filter="Chuột"/>
+          <ContaierProduct  categorie={category} filter="Điện Thoại"/>
+          <ContaierProduct  categorie={category} filter="Laptop"/>
+          <ContaierProduct  categorie={category} filter="Keyboard"/>
         </>
      );
 }
