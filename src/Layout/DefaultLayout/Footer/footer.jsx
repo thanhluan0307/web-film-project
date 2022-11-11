@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +8,7 @@ import { faFacebookF, faInstagram, faYoutube } from '@fortawesome/free-brands-sv
 const cx = classNames.bind(styles)
 
 function Footer () {
-  
+   
     return ( 
        <>
           <div className={cx("infos-footer")}>
@@ -15,8 +16,12 @@ function Footer () {
                <h4>GỌI MUA HÀNG ( 08:30-21:30 )</h4>
                <div className={cx("content")}>
                      <p>
-                        <span className={cx("box-icon")}><FontAwesomeIcon className={cx("phone-icon")} icon={faPhone}/></span>
-                        <span className={cx("box-phone")}><a className={cx("btn-phone")} href="tel:0964263636">0964263636</a></span>
+                        <span className={cx("box-icon")}>
+                           <FontAwesomeIcon className={cx("phone-icon")} icon={faPhone}/>
+                        </span>
+                        <span className={cx("box-phone")}>
+                           <a className={cx("btn-phone")} href="tel:0964263636">0964263636</a>
+                        </span>
                      </p>
                      <span className={cx("time")}>Tất cả các ngày trong tuần</span>
                </div>
@@ -25,8 +30,12 @@ function Footer () {
                <h4>GÓP Ý, KHIẾU NẠI ( 08:30-20:30 )</h4>
                <div className={cx("content")}>
                      <p>
-                        <span className={cx("box-icon")}><FontAwesomeIcon className={cx("phone-icon")} icon={faPhone}/></span>
-                        <span className={cx("box-phone")}><a className={cx("btn-phone")} href="tel:0964263636">0964263636</a></span>
+                        <span className={cx("box-icon")}>
+                           <FontAwesomeIcon className={cx("phone-icon")} icon={faPhone}/>
+                        </span>
+                        <span className={cx("box-phone")}>
+                           <a className={cx("btn-phone")} href="tel:0964263636">0964263636</a>
+                        </span>
                      </p>
                      <span className={cx("time")}>Các ngày trong tuần ( trừ ngày lễ )</span>
                </div>
@@ -34,16 +43,28 @@ function Footer () {
             <div className={cx("info")}>
                <h4>ĐĂNG KÝ NHẬN THÔNG TIN MỚI</h4>
                <div className={cx('box-email')}>
-                  <input type="text"  placeholder='Nhập email của bạn tại đây' />
+                  <input type="email"  placeholder='Nhập email của bạn tại đây' />
                   <button className={cx("btn")}>Đăng ký</button>
                </div>
             </div>
             <div className={cx("info")}>
                <h4>THEO DÕI CHÚNG TÔI</h4>
                <ul className={cx('box-brands')}>
-                  <li><a href="/"><FontAwesomeIcon icon={faFacebookF}/></a></li>
-                  <li><a href="/"><FontAwesomeIcon icon={faInstagram}/></a></li>
-                  <li><a href="/"><FontAwesomeIcon icon={faYoutube}/></a></li>
+                  <li>
+                     <a href="https://www.facebook.com/phukienonion" 
+                        target="_blank"><FontAwesomeIcon icon={faFacebookF}/>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.instagram.com/onion.phukien/" 
+                        target="_blank"><FontAwesomeIcon icon={faInstagram}/>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.youtube.com/" 
+                        target="_blank"><FontAwesomeIcon icon={faYoutube}/>
+                     </a>
+                  </li>
                </ul>
             </div>
            
