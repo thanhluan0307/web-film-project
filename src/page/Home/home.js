@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 
 import axios from "~/axios";
 import ContaierProduct from "~/components/ContaierProduct/ContaierProduct";
-import AutoPlay from '~/components/SlideShow/slideauto'
+import Slide from '~/components/SlideShow/slideauto'
 
 function Home() {
   const [category,setCategory] = useState([])
@@ -20,7 +20,7 @@ function Home() {
   
     return ( 
         <>
-          <AutoPlay/>
+          <Slide/>
           <ContaierProduct  categorie={category} filter="Điện Thoại"/>
           <ContaierProduct  categorie={category} filter="Laptop"/>
           <ContaierProduct  categorie={category} filter="Keyboard"/>
