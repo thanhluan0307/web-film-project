@@ -8,9 +8,12 @@ function DefaultLayout({children}) {
     const [load,setLoad] = useState(true)
 
     useEffect(()=> {
-        setTimeout(()=> {
+        const timeID = setTimeout(() => {
             setLoad(false)
         },1000)
+        return () => {
+            clearTimeout(timeID)
+        }
     },[])
     return ( 
         <>

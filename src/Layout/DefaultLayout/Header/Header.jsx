@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useCallback } from 'react';
 
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
+import axios from '~/axios';
 
 
 const cx = classNames.bind(styles)
@@ -13,8 +14,9 @@ const cx = classNames.bind(styles)
 function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
+  const [data,setData] = useState([])
 
-  const setFixed = () => {
+  const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 
       setFix(true)
@@ -22,11 +24,22 @@ function Header() {
       setFix(false)
       setBackToTop(false) 
     }
-  }
+  })
+ 
+  useEffect(() => {
+    axios.get('/category/get-all-categories')
+    .then (res => {
+        const categorieArray = res.data.categories
+        const categories = categorieArray.map(item =>{
+        return item.categoryName 
+      })
+      setData(categories)
+     
+    }) 
+  },[])
 
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
-  
   },[])
    
   return (
@@ -52,13 +65,11 @@ function Header() {
             <Link to="/"><img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" /></Link>
          </div>
          <ul className={cx('nav')}>   
-            <li><a href="/">ỐP IPHONE</a></li>
-            <li><a href="/">DÁN MÀN</a></li>
-            <li><a href="/">ỐP AIRPODS</a></li>
-            <li><a href="/">PHỤ KIỆN</a></li>
-            <li><a href="/">ỐP IPAD</a></li>
-            <li><a href="/">APPLE WATCH</a></li>    
-            <li><a href="/">APPLE WATCH</a></li>    
+            {data.map(category => {
+              return (
+                <li key={category}><Link to={`/${category}`}>{category}</Link></li>
+              )
+            })}
          </ul>
          <div className={cx('search')}>
             <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />

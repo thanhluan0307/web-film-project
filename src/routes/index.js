@@ -5,7 +5,7 @@ import StoreInfor from "~/page/StoreInfor/StoreInfor"
 import DetailProduct from '~/page/DetailProduct/detailProduct';
 
 
-const publicRoutes = [
+const pageRoutes = [
     {path:'/',component: Home,layout:true},
     {path:'/category',component: Category},
     {path:'/login',component: Login},
@@ -13,8 +13,5 @@ const publicRoutes = [
     {path: "/storeInfor",component: StoreInfor}
 ]
 
-const privateRoutes = [
 
-]
-
-export { privateRoutes,publicRoutes}
+export {pageRoutes}

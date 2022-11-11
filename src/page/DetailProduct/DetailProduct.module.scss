@@ -181,28 +181,3 @@
     }
 }
 
-.stores {
-    img {
-        text-align: center;
-        display: block;
-        object-fit: cover;
-    }
-
-    a {
-        position: relative;
-        padding: 20px 40px;
-        opacity: 0.7;
-        background-color: black;
-        color: white;
-        border-style: ridge;
-        left: 40%;
-        bottom: 150px;
-        font-size: 18px;
-
-        &:hover {
-            background-color: black;
-            cursor: pointer;
-            opacity: 1;
-        }
-    }
-}

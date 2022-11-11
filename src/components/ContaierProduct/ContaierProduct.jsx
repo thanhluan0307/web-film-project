@@ -6,6 +6,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Product from "../Product/product";
 import styles from "./ContaierProduct.module.scss"
+import {memo} from "react"
+
 const cx = classNames.bind(styles) 
 
 function ContaierProduct({filter}) {
@@ -43,4 +45,4 @@ function ContaierProduct({filter}) {
      );
 }
 
-export default ContaierProduct;
+export default memo(ContaierProduct);
