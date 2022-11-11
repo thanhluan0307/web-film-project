@@ -30,9 +30,9 @@ function Product({data}) {
                 </Link>)}
             </div>
             <div className={cx("info")}>
-                <p className={cx("name")}>{ load ? <Skeleton height={0}/> : data.productName  }</p>
+                <p className={cx("name")}>{ load ? <Skeleton className={cx("loadText")}/> : data.productName  }</p>
                 <p className={cx("price")}>
-                    {load ? <Skeleton height={30}/> : data.price?.toLocaleString('en-US', {style:'currency',currency:'VND'})}
+                    {load ? <Skeleton className={cx("loadText")}/> : data.price?.toLocaleString('en-US', {style:'currency',currency:'VND'})}
                 </p>
             </div>
             <div className={cx('action')}>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect } from 'react';
 
-import BackToTopButton from '../BackToTopButton/BackToTopButton';
+import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
 

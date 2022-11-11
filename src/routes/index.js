@@ -1,7 +1,7 @@
 import Home from '~/page/Home/home';
 import Category from '~/page/Category/category';
 import Login from '~/page/Login/login';
-
+import StoreInfor from "~/page/StoreInfor/StoreInfor"
 import DetailProduct from '~/page/DetailProduct/detailProduct';
 
 
@@ -10,6 +10,7 @@ const publicRoutes = [
     {path:'/category',component: Category},
     {path:'/login',component: Login},
     {path:'/product/:productID',component: DetailProduct},
+    {path: "/storeInfor",component: StoreInfor}
 ]
 
 const privateRoutes = [
