@@ -3,9 +3,25 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faLocationDot, faMagnifyingGlass, faMinus, faNoteSticky, faPhone, faPlus, faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {useState} from "react"
 
 const cx = classNames.bind(styles)
 function Person() {
+    const [count,setCount] = useState(1)
+    var sum = count 
+    function Minus (){
+        if (sum >= 2 && sum <=20) {
+            sum-=1
+            setCount(sum)
+        }
+    }
+    function Add (){
+      if (sum >= 1 && sum <=19) {
+        sum+=1
+        setCount(sum)
+      }
+
+    }
     return (
         <>
             <div className={cx("header")}>
@@ -36,9 +52,9 @@ function Person() {
                         <u>Chọn màu và loại máy khi đặt hàng</u>
                     </div>
                     <div className={cx("addMinus")}>
-                        <button>-</button>
-                        <input type="number" min={1} max={20}></input>
-                        <button>+</button>
+                        <button onClick={Minus}>-</button>
+                        <input type="number" value={count} min={1} max={20}/>
+                        <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
                         <button>Thêm Vào Giỏ Hàng</button>
