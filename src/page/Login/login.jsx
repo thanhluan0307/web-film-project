@@ -1,9 +1,11 @@
+/* eslint-disable no-useless-escape */
 
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import classnames from 'classnames/bind';
 import styles from './login.module.scss';
 import axios from 'axios';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const cx=classnames.bind(styles)
 
@@ -21,6 +23,7 @@ function Login() {
     const [inpPass , setInpPass] = useState('')
     const [inpEmail , setInpEmail] = useState('')
     const [inpConfirmPass , setInpConfirmPass] = useState('')
+    const next = useNavigate()
 
     
     const Username= /^[a-zA-Z]{2,}$/;
@@ -77,8 +80,44 @@ function Login() {
     const forLogin = (e)=>{
         e.preventDefault()
         console.log(inpEmail , inpPass);
+        axios.post(`/auth/sign-in` , {
+            'email' : inpEmail,
+            'password' : inpPass
+        })
+        .then(res =>{     
+            localStorage.setItem("Token",res.data.token)
+            localStorage.setItem("email",res.email)
+            next("/")
+            alert('ĐĂNG NHẬP THÀNH CÔNG')
+        })
+        .catch(err=>{
+            message.error('ĐĂNG NHẬP THẤT BẠI')
+        })
 
+    }
+
+    const forSignUp =(e) =>{
+
+        e.preventDefault()
+            if (inpConfirmPass === inpPass) {
+            axios.post(`/auth/sign-up` , {
+                'username' : inpUserName,
+                'email' : inpEmail,
+                'password' : inpPass
+            })
+            .then(res =>{
+                next("/")
+                // console.log(res);
+                alert('ĐĂNG KÍ THÀNH KÔNG');
+            })
+            .catch(er =>{
+                console.log(er);
+            })
+        }else{
+            alert('ĐĂNG KÍ THẤT BẠI')
         }
+        
+    }
 
 
 
@@ -99,10 +138,10 @@ function Login() {
                     onChange={(e)=>setInpEmail(e.target.value)} 
                     onInput={checkInpEmail} type="text" 
                     placeholder='Email'
-                /> 
+                />    
                 <br />
-                <p className={cx((booleanUser)?'err-msg' : 'hidden')}>
-                    *sai form rồi lè ^.^
+                <p className={cx((booleanEmail)?'err-msg' : 'hidden')}>
+                    *sai định dạng !!
                 </p>
                 <input 
                     className={cx('inp-login')}     
@@ -112,7 +151,7 @@ function Login() {
                     type="password" 
                     placeholder='Password'/> <br /> 
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
-                    *sai form rồi lè ^.^
+                    *sai định dạng !!
                 </p>
                 <div style={{textAlign:'right' , marginRight:"50px"}}>
                     <input type="checkbox"/> Renember me
@@ -132,6 +171,7 @@ function Login() {
 
 
             <form 
+                onSubmit={forSignUp}
                 style={{display:(count%2===1) ? "none" : "block"}} 
                 className={cx('form-signup')}
             >
@@ -146,7 +186,7 @@ function Login() {
                 /> 
                 <br />
                 <p className={cx((booleanUser)?'err-msg' : 'hidden')}>
-                    *sai form rồi lè ^.^
+                    *sai định dạng !!
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
@@ -158,7 +198,7 @@ function Login() {
                 /> 
                 <br />
                 <p className={cx((booleanEmail)?'err-msg' : 'hidden')}>
-                    *sai form rồi lè ^.^
+                    *sai định dạng !!
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
@@ -168,7 +208,7 @@ function Login() {
                     type="password" 
                     placeholder='Password'/> <br />
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
-                    *sai form rồi lè ^.^
+                    *sai định dạng !!
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
@@ -180,7 +220,7 @@ function Login() {
                 /> 
                 <br />
                 <p className={cx((booleanConfirmPass)?'err-msg' : 'hidden')}>
-                    *mật khẩu không khớp ^.^
+                    *mật khẩu không khớp
                 </p>
                 <button className={cx('bnt-signup')}>
                     SignUp
