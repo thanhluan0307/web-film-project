@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "plugins": [
       ["module-resolver", {
@@ -9,3 +10,14 @@
   }
 
   
+=======
+{
+    "plugins": [
+      ["module-resolver", {
+        "alias": {
+          "~": "./src"      
+        }
+      }]
+    ]
+  }
+>>>>>>> xuanbach

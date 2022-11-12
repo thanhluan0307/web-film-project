@@ -1,0 +1,25 @@
+.wrapper {
+	width: 400px;
+	height: 100vh;
+	background-color: #ccc;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.nav {
+	&-cotainer {
+		width: calc(100% + 20px);
+		height: 100%;
+		overflow: scroll;
+		position: relative;
+		min-height: 100%;
+	}
+}
+.active {
+	background-color: red;
+}
+
+.clearfix {
+	clear: both;
+}
