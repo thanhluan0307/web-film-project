@@ -7,6 +7,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Product from "../Product/product";
 import styles from "./ContaierProduct.module.scss"
 import {memo} from "react"
+import {useSelector} from 'react-redux'
 
 const cx = classNames.bind(styles) 
 
@@ -14,7 +15,7 @@ function ContaierProduct({filter}) {
 
     const [productFilter,setProductFilter] = useState([])
     const [load,setLoad] = useState(true)
-    
+    const couter = useSelector(state => state.couterReducer)
     useEffect (()=> {
         axios.get('/product/get-all-products')
         .then(res =>{   
@@ -25,13 +26,13 @@ function ContaierProduct({filter}) {
             setProductFilter(dataFilter)
             setTimeout(() => {
                 setLoad(false)
-            },1000)
+            },500)
         })
         .catch(error =>{
             console.log(error)
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[couter])
     return  ( 
         <div className={cx("wrapper")}>
            <h1 className={cx("title")}>{load ? <Skeleton/> :filter}</h1>

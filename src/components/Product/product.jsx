@@ -18,7 +18,7 @@ function Product({data}) {
     useEffect(() => {
         const timeID = setTimeout(() => {
             setLoad(false)
-        },1000)
+        },500)
         return () => {
             clearTimeout(timeID)
         }

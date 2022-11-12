@@ -8,7 +8,7 @@ function IconCategory({data}) {
     
     return ( 
         <li className={cx("body")}>
-            <Link to={`/${data.categoryName}`}>
+            <Link to={`/category/${data.categoryName}`}>
                 <img src={"https://shope-b3.thaihm.site/" + data.thumbnail} alt="" />
             </Link>
             <p>{data.categoryName}</p>
