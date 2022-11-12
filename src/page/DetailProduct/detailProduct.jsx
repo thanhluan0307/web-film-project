@@ -1,9 +1,16 @@
 import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faLocationDot, faMagnifyingGlass, faMinus, faNoteSticky, faPhone, faPlus, faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import { 
+    faHouse, 
+    faLocationDot, 
+    faMagnifyingGlass, 
+    faMinus, faNoteSticky,
+    faPhone, faPlus, 
+    faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import {useState} from "react"
+import HomeStore from "~/components/HomeStore/homeStore";
 
 const cx = classNames.bind(styles)
 function Person() {
@@ -121,6 +128,7 @@ function Person() {
                 <button>CÓ THỂ BẠN THÍCH</button>
                 <button>SẢN PHẨM BÁN CHẠY</button>
             </div>
+            <HomeStore/>
         </>
     );
 }

@@ -4,6 +4,7 @@ import ContaierProduct from "~/components/ContaierProduct/ContaierProduct";
 import classNames from "classnames/bind";
 import styles from "./home.module.scss"
 import IconCategory from "./IconCategory";
+import HomeStore from "~/components/HomeStore/homeStore";
 
 const cx= classNames.bind(styles)
 function Home() {
@@ -39,6 +40,7 @@ function Home() {
               <ContaierProduct key={categorie} filter={categorie}/>
             )
           })}
+          <HomeStore/>
         </>
      );
 }
