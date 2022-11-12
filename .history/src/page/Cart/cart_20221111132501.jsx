@@ -5,12 +5,11 @@ export const Cart = () => {
     const cx = classNames.bind(styles)
   return (
     <nav className={cx('wrapper', ['clearfix'])}>
-        <div className={cx('nav_container')}>
-           <div className={cx('nav_content')}>
-            <p className={cx('title')}>Shopping Cart</p>
-              <span>Bạn đang có <strong>0</strong> sản phẩm trong giỏ hàng</span>
-              <img src="" alt="" className={cx('product_image')} />
-              <p className={cx('text')}>Hiện chưa có sản phẩm nào trong giỏ hàng</p>
+        <div className={cx('nav-container')}>
+           <div className={cx('nav-content')}>
+            <h3>Shopping Cart</h3>
+              <p>Bạn đang có <strong>0</strong> sản phẩm trong giỏ hàng</p>
+              <p>Hiện chưa có sản phẩm nào trong giỏ hàng</p>
               <h1 className={cx('total')}>Tổng tiền tạm tính:</h1>
               <span>0 <u>đ</u> </span>
            </div>
