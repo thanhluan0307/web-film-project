@@ -1,3 +1,4 @@
+
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
@@ -24,7 +25,7 @@ function Header() {
       setFix(false)
       setBackToTop(false) 
     }
-  })
+  },[])
  
   useEffect(() => {
     axios.get('/category/get-all-categories')
@@ -34,12 +35,12 @@ function Header() {
         return item.categoryName 
       })
       setData(categories)
-     
     }) 
   },[])
-
+  
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
+    /* eslint-disable react-hooks/exhaustive-deps */
   },[])
    
   return (

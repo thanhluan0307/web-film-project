@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
+import HomeStore from "~/components/HomeStore/homeStore";
 
 
 const cx = classNames.bind(styles)
@@ -54,6 +55,7 @@ function Store() {
                 <button>Thích</button>
                 <button>Chia sẻ</button>
             </div>
+            <HomeStore/>
         </div>
     );
 }
