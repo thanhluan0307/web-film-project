@@ -5,8 +5,6 @@ import classNames from "classnames/bind";
 import styles from "./home.module.scss"
 import IconCategory from "./IconCategory";
 
-
-
 const cx= classNames.bind(styles)
 function Home() {
   const [catgory,setCategory] = useState([])
@@ -26,7 +24,6 @@ function Home() {
   },[])
     return  ( 
         <>
-    
           <div>
             <div className={cx("slider")}></div>
             <ul className={cx('icons')}>

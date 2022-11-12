@@ -7,7 +7,12 @@ const cx = classNames.bind(styles)
 function IconCategory({data}) {
     
     return ( 
-        <li className={cx("body")}><Link to={`/${data.categoryName}`}><img src={"https://shope-b3.thaihm.site/" + data.thumbnail} alt="" /></Link></li>
+        <li className={cx("body")}>
+            <Link to={`/${data.categoryName}`}>
+                <img src={"https://shope-b3.thaihm.site/" + data.thumbnail} alt="" />
+            </Link>
+            <p>{data.categoryName}</p>
+        </li>
      );
 }
 
