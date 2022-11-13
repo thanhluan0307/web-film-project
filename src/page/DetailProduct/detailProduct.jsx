@@ -29,7 +29,7 @@ function Person() {
     useEffect(() => {
         axios.get(`{{PORT}}/product/get-one-product/${id}`)
             .then(res => console.log(res))
-            .catch(err => message.error('Lỗi rồi!'))
+            .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
     return (
