@@ -2,41 +2,47 @@ import classNames from "classnames/bind";
 import {useState,useEffect} from 'react'
 
 import axios from "~/axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Product from "../Product/product";
 import styles from "./ContaierProduct.module.scss"
+import {memo} from "react"
+
 const cx = classNames.bind(styles) 
 
 function ContaierProduct({filter}) {
 
-    const [product,setProduct] = useState([])
-
+    const [productFilter,setProductFilter] = useState([])
+    const [load,setLoad] = useState(true)
+    
     useEffect (()=> {
         axios.get('/product/get-all-products')
-        .then(res =>{
-            setProduct(res.data.products)
-                        
+        .then(res =>{   
+            const data =(res.data.products)  
+            const dataFilter = data.filter(item =>{
+                return item.categoryId.categoryName === filter
+            })
+            setProductFilter(dataFilter)
+            setTimeout(() => {
+                setLoad(false)
+            },1000)
         })
         .catch(error =>{
             console.log(error)
         })
     },[])
-  
-    return ( 
+    return  ( 
         <div className={cx("wrapper")}>
-           <h1 className={cx("title")}>{filter}</h1>
+           <h1 className={cx("title")}>{load ? <Skeleton/> :filter}</h1>
            <div className={cx("body")}>
-               {/* eslint-disable-next-line array-callback-return */}
-               {product.map(item => {
-                console.log(item.categoryId.categoryName)
-                if(item.categoryId.categoryName === filter) {
+               {productFilter.map(item => {
                     return (
                         <Product key={item._id} data={item}/>
                     )
-                }
                })}
            </div>
         </div>
      );
 }
 
-export default ContaierProduct;
+export default memo(ContaierProduct);

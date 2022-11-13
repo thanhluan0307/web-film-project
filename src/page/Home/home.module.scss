@@ -1,0 +1,26 @@
+.slider {
+    background:no-repeat center/100% url("../../assets/images/backroundWebOfB5.png") ;
+    height: 90vh;  
+}
+.icons {
+    display: flex;
+    margin-bottom: 100px;
+    justify-content: center;
+}
+//IconCategory
+.body {
+    width: 60px;
+    height: 60px;
+    margin: 0 20px;
+    img {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 50%;
+        padding: 10px;
+        height: 60px;
+        background: linear-gradient(-180deg,#fbfbfb 0%,#f1f1f1 100%);
+        border: 1px solid #c3c3c3;
+        box-shadow: 0 1px 4px 0 rgb(0 0 0 / 12%);
+    }
+}

@@ -1,0 +1,183 @@
+.header {
+    margin-left: 50px;
+
+    a {
+        padding: 10px;
+    }
+    font-size: 13px;
+}
+
+.body {
+    font-size: 15px;
+    div {
+        padding: 20px;
+    }
+
+    img {
+        width: 650px;
+        height: 700px
+    }
+
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    div {
+        text-align: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    span {
+        margin-left: 10px;
+        color: rgb(133, 126, 126);
+    }
+}
+
+.infor {
+    p {
+        font-weight: bold;
+    }
+
+    u:hover {
+        text-decoration: none;
+        cursor: pointer
+    }
+}
+
+.addMinus {
+    margin-bottom: -20px;
+
+    button {
+        padding: 10px;
+        width: 50px;
+        border-color: aliceblue;
+        border-style: double;
+        cursor: pointer;
+    }
+
+    input {
+        padding: 10px;
+        border-style: groove;
+        width: 60px;
+    }
+}
+
+.function {
+    button {
+        margin-right: 10px;
+        padding: 15px 15px;
+        border-style: none;
+        cursor: pointer;
+        color: white;
+        background-color: black;
+        font-family: cursive;
+        font-size: 14px;
+    }
+}
+
+.shareFB {
+    margin-left: 100px;
+
+    span {
+        padding-right: 10px;
+        color: rgba($color: #5c5555, $alpha: 1.0)
+    }
+
+    a {
+        & :hover {
+            color: lightgrey;
+        }
+    }
+}
+
+.address {
+    button {
+        padding: 10px;
+        margin-right: 5px;
+        cursor: pointer;
+        background-color: lightgrey;
+        color: grey;
+        border-style: none;
+        border-radius: 0px 10px;
+        font-family: "Lucida Console", Courier, monospace;
+        font-weight: bold;
+
+        &:hover {
+            color: white;
+            background-color: grey;
+        }
+
+        &:nth-child(1) {
+            background-color: grey;
+            color: white
+        }
+    }
+
+    div {
+        border-radius: 5px 5px;
+        background-color: rgba($color: #bce4ee, $alpha: 1.0);
+        span {
+            margin-left: 10px;
+        }
+    }
+}
+.addressNone {
+    display: none;
+}
+
+.exchange {
+    p {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        border-style: none none solid none;
+        border-color: rgba($color: #b5aaaac6, $alpha: 1.0);
+    }
+
+    span {
+        margin-left: 250px;
+        cursor: pointer;
+    }
+}
+
+.delivery {
+    margin-top: -20px;
+    margin-bottom: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: left;
+
+    span {
+        padding-top: 30px;
+        color: rgb(89, 85, 85);
+    }
+
+    p:nth-child(2) {
+        color: rgb(72, 67, 67);
+    }
+}
+
+.otherInfor {
+    margin-left: 50px;
+
+    button {
+        border: none;
+        border-color: rgb(179, 195, 198);
+        background-color: white;
+        width: 250px;
+        font-weight: bold;
+        text-align: left;
+        padding-bottom: 15px;
+        font-size: 15px;
+        font-family: math;
+
+        &:hover {
+            border-style: none none solid none;
+            border-color: black;
+        }
+    }
+}
+

@@ -1,11 +1,11 @@
 import {BrowserRouter ,Routes,Route} from 'react-router-dom'
-import {publicRoutes} from '~/routes'
+import {pageRoutes} from '~/routes'
 import DefaultLayout from '~/Layout/DefaultLayout/DefaultLayout';
 function App() {
   return (
     <BrowserRouter> 
         <Routes>
-          {publicRoutes.map(function (route,index) {
+          {pageRoutes.map(function (route,index) {
               return (
                 <Route 
                   key={index}

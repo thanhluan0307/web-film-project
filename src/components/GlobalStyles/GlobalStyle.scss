@@ -29,11 +29,25 @@ h4 {
 ul {
     list-style: none;
 }
+
 a {
     color: black;
     text-decoration: none;
-    padding: 10px 0;
 }
+
+.d-flex{
+    display: flex;
+}
+
+.slick-prev:before, .slick-next:before{
+    font-size: 30px;
+}
+
+.slick-dots{
+bottom:2%;
+}
+
+
 input,button {
     outline:  none;
     border: none;
