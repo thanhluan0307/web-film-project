@@ -3,10 +3,15 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faLocationDot, faMagnifyingGlass, faMinus, faNoteSticky, faPhone, faPlus, faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import { useParams} from "react-router-dom";
+import axios from 'axios'
+import { message } from 'antd'
 
 const cx = classNames.bind(styles)
 function Person() {
+    const { id } = useParams()
+    const [list, setList] = useState({})
     const [count,setCount] = useState(1)
     var sum = count 
     function Minus (){
@@ -20,8 +25,13 @@ function Person() {
         sum+=1
         setCount(sum)
       }
-
     }
+    useEffect(() => {
+        axios.get(`{{PORT}}/product/get-one-product/${id}`)
+            .then(res => console.log(res))
+            .catch(err => message.error('Lỗi rồi!'))
+    }, [])
+
     return (
         <>
             <div className={cx("header")}>
