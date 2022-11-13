@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { useState,useEffect, useCallback } from 'react';
-
+import {useState, useEffect, useCallback} from 'react';
+import {Cart} from '~/page/Cart/modalCart'
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
@@ -40,12 +40,12 @@ function Header(callback, deps) {
 
   useEffect(() => {
     window.addEventListener('scroll', setFixed)
-  },[])
+  })
 
   const handleCart = () =>{
     alert('Hello')
   }
-
+  const btn_close = document.querySelectorAll('.btn_close')
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -82,61 +82,7 @@ function Header(callback, deps) {
       </div>
       <BackToTopButton view={backToTop}/>
         {/* Cart */}
-        <div className={cx('cart_wrapper')}>
-          <div className={cx("cart_content")}>
-            <div className={cx('cart_content_list')}>
-              <h3>Giỏ hàng</h3>
-                <p>Bạn có <strong>0</strong> sản phẩm trong giỏ hàng</p>
-              <button className={'btn_close'}>
-                <img src="https://onionphukien.vn/tp/T0298/img/tmp/iconclose.png" alt="đóng" />
-              </button>
-                <div className={cx('cart_vỉew')}>
-                    {
-                        0 ?
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td className={cx('product_image')}>
-                                        <a href=""><img src="" alt="cart_img"/></a>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>:
-                            <table id={'cart_view'}>
-                                <tbody>
-                                <tr>
-                                    <td>Hiện chưa có sản phẩm</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                    }
-
-                    <span className={cx('line')}></span>
-                    <table className={cx('cart_total')}>
-                        <tbody>
-                        <tr>
-                            <td className={cx('text-left')}><b>TỔNG TIỀN TẠM TÍNH</b></td>
-                            <td className={cx('text-right')}>0đ</td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2}>
-                                <a href="#" className="btn_checkout">Tiến hành đặt hàng</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2}>
-                                <a href="" className={cx('cart_link')}>Xem chi tiết giỏ hàng
-                                <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
-                                </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-          </div>
-        </div>
+        <Cart/>
     </header>
 
   )
