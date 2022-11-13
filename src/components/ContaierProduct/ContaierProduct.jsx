@@ -30,7 +30,7 @@ function ContaierProduct({filter}) {
         .catch(error =>{
             console.log(error)
         })
-    },[])
+    },[filter])
     return  ( 
         <div className={cx("wrapper")}>
            <h1 className={cx("title")}>{load ? <Skeleton/> :filter}</h1>
