@@ -63,16 +63,16 @@ function Login() {
     function checkInpComfirmPass(){
         if (inpConfirmPass === inpPass) {
             setBooleanConfirmPass(true)
-            console.log(booleanConfirmPass);
+           
         }else{
             setBooleanConfirmPass(false)
-            console.log(booleanConfirmPass);
+           
         }
     }
 
     const forLogin = (e)=>{
         e.preventDefault()
-        console.log(inpEmail , inpPass);
+       
 
         }
     return ( 

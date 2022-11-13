@@ -9,7 +9,6 @@ import './slide.css'
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
-  console.log(className);
   return (
     <div
       className={`${className} ${styles.nextPrevButton}`}

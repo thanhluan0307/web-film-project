@@ -10,7 +10,7 @@ const pageRoutes = [
     {path:'/category/:categoryID',component: Category},
     {path:'/login',component: Login},
     {path:'/product/:productID',component: DetailProduct},
-    {path: "/storeInfor",component: StoreInfor}
+    {path: "/storeInfor",component: StoreInfor},
 ]
 
 

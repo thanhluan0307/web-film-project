@@ -1,9 +1,10 @@
-.contaier {
-    
 
+.contaier {
     width: 90%;
+    overflow: hidden;
     margin:0 auto ;
 }
+
 //Header
 .header {
     font-size: 13px;
@@ -116,6 +117,8 @@
 
 .btnSearch {
     font-size: 0;
+    padding: 13px;
+    cursor: pointer;
     border: none;
     width: 20px;
     top: 50%;

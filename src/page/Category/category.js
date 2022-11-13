@@ -4,7 +4,6 @@ import HomeStore from "~/components/HomeStore/homeStore";
 
 function Category() {
     const {categoryID} = useParams()
-    console.log(categoryID)
     return ( 
        <>
             <ContaierProduct filter={categoryID}/>

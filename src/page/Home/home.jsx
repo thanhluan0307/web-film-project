@@ -16,7 +16,7 @@ function Home() {
     axios.get('/category/get-all-categories')
     .then (res => {
         const data = res.data.categories
-        console.log(data)
+  
         const categories = data.map(item =>{
         return item.categoryName 
       })
@@ -30,7 +30,7 @@ function Home() {
             <div className={cx("slider")}></div>
             <ul className={cx('icons')}>
               {catgoryObj?.map(item => {
-                console.log(item)
+        
                 return (
                   <IconCategory key={item._id} data={item}/>
                 )

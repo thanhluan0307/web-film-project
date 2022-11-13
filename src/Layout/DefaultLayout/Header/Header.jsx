@@ -6,10 +6,11 @@ import { useState,useEffect, useCallback } from 'react';
 
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import axios from '~/axios';
 import { useDispatch } from 'react-redux';
 import { upCouter } from '~/reducer/couterSlice';
+
 
 
 const cx = classNames.bind(styles)
@@ -18,8 +19,10 @@ function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
-  const dispatch = useDispatch()
+  const [searchProduct,setSearchProduct] = useState('')
 
+  const dispatch = useDispatch()
+  const nav = useNavigate()
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 
@@ -47,6 +50,14 @@ function Header() {
   },[])
    const handleClick = () => {
      dispatch(upCouter + 1)
+   }
+   const filterPrduct =() => {
+      axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
+        .then(res => {
+          if (res.data.products.length === 0) {
+              nav('/login')
+          }
+        })
    }
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
@@ -78,8 +89,14 @@ function Header() {
             })}
          </ul>
          <div className={cx('search')}>
-            <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
-            <input type="submit" className={cx('btnSearch')}/>
+            <input 
+              type = "text"
+              value = {searchProduct}
+              className = {cx("value-product")} 
+              onChange = {e => setSearchProduct(e.target.value)}
+              placeholder ='Tìm kiếm...' />
+              
+            <button onClick={filterPrduct} className={cx('btnSearch')}></button>
          </div>
       </div>
       <BackToTopButton view={backToTop}/>

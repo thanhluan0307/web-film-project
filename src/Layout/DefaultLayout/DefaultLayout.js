@@ -17,10 +17,10 @@ function DefaultLayout({children}) {
     },[])
     return ( 
         <>
-            <Header/>
-                <div className={cx('contaier')}>
-                    {children}
-                </div>
+            <Header/>  
+            <div className={cx('contaier')}>
+                {children}
+            </div>
             {load || <Footer/>}
         </>
      );
