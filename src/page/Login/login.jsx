@@ -4,7 +4,6 @@ import React, {  useState } from 'react'
 import classnames from 'classnames/bind';
 import styles from './login.module.scss';
 import axios from 'axios';
-import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const cx=classnames.bind(styles)
@@ -15,6 +14,7 @@ function Login() {
     const [booleanPass , setBooleanPass] = useState(false)
     const [booleanEmail , setBooleanEmail] = useState(false)
     const [booleanConfirmPass , setBooleanConfirmPass] = useState(false)
+
 
   
 
@@ -66,13 +66,19 @@ function Login() {
 
 
     function checkInpComfirmPass(){
-        if (inpConfirmPass === inpPass) {
+        setTimeout(() => {
+            console.log(11,inpConfirmPass);
+            console.log(12,inpPass);
+          
+        if ( inpPass === inpConfirmPass) {
+            setBooleanConfirmPass(false)
+            console.log(13,booleanConfirmPass);
+
+        }else{
             setBooleanConfirmPass(true)
             console.log(booleanConfirmPass);
-        }else{
-            setBooleanConfirmPass(false)
-            console.log(booleanConfirmPass);
         }
+        }, 1000);
     }
 
 
@@ -91,7 +97,7 @@ function Login() {
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
-            message.error('ĐĂNG NHẬP THẤT BẠI')
+            console.log(err);
         })
 
     }
@@ -99,7 +105,7 @@ function Login() {
     const forSignUp =(e) =>{
 
         e.preventDefault()
-            if (inpConfirmPass === inpPass) {
+        if (inpConfirmPass === inpPass) {
             axios.post(`/auth/sign-up` , {
                 'username' : inpUserName,
                 'email' : inpEmail,
@@ -212,9 +218,9 @@ function Login() {
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
-                    value={inpConfirmPass} 
+                    value={inpConfirmPass}  
                     onChange={(e)=>setInpConfirmPass(e.target.value)} 
-                    onInput={checkInpComfirmPass} 
+                    onInput={checkInpComfirmPass()} 
                     type="password" 
                     placeholder='Confirm password'
                 /> 
