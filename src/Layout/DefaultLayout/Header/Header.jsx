@@ -8,8 +8,6 @@ import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
 import axios from '~/axios';
-import { useDispatch } from 'react-redux';
-import { upCouter } from '~/reducer/couterSlice';
 
 
 const cx = classNames.bind(styles)
@@ -18,8 +16,8 @@ function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
-  const dispatch = useDispatch()
-
+  const [searchProduct,setSearchProduct] = useState('')
+console.log(searchProduct)
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 
@@ -40,14 +38,20 @@ function Header() {
       setData(categories)
     }) 
   },[])
-  
+  const getProductByValue = () => {
+    axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
+      .then (res => {
+          console.log(res.data.products)
+          let data = res.data.products
+          if (data.length !== 0) {
+            
+          }
+      })
+  }
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
     /* eslint-disable react-hooks/exhaustive-deps */
   },[])
-   const handleClick = () => {
-     dispatch(upCouter + 1)
-   }
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -73,13 +77,18 @@ function Header() {
          <ul className={cx('nav')}>   
             {data.map(category => {
               return (
-                <li key={category}><Link onClick={handleClick} to={`/category/${category}`}>{category}</Link></li>
+                <li key={category}><Link to={`/category/${category}`}>{category}</Link></li>
               )
             })}
          </ul>
          <div className={cx('search')}>
-            <input type="text" className={cx("value-product")} placeholder='Tìm kiếm...' />
-            <input type="submit" className={cx('btnSearch')}/>
+            <input 
+              type="text" 
+              className={cx("value-product")} 
+              value={searchProduct}
+              onChange={e => setSearchProduct(e.target.value)}
+              placeholder='Tìm kiếm...' />
+            <button onClick={getProductByValue} className={cx('btnSearch')}></button>
          </div>
       </div>
       <BackToTopButton view={backToTop}/>

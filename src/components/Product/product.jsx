@@ -12,8 +12,8 @@ import { useEffect } from "react";
 
 const cx = classNames.bind(styles) 
 
-function Product({data}) {
-    const [load,setLoad] = useState(true)
+function Product({data,isload}) {
+    const [load,setLoad] = useState(isload)
 
     useEffect(() => {
         const timeID = setTimeout(() => {
