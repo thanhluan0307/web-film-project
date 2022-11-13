@@ -1,11 +1,12 @@
 .contaier {
-    margin-top: 10px;
-    padding: 0 40px;
+    
+
+    width: 90%;
+    margin:0 auto ;
 }
 //Header
 .header {
     font-size: 13px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 20%)
 }
 .header.fixed {
     position: fixed;
@@ -15,6 +16,7 @@
     z-index: 999;
     background-color: white;
     animation: myfixed .6s both;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
     opacity: 0;
 }
 @keyframes myfixed {
@@ -78,13 +80,14 @@
     a {
         position: relative;
         font-weight: 700;
+        font-size: 20px;
     }
 }
 .nav li a::after {
     content: '';
     position: absolute;
     height: 2px;
-    bottom: 0px;
+    bottom: -10px;
     left: 50%;
     width: 0;
     transform: translateX(-50%);

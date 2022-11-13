@@ -38,14 +38,14 @@ function Person() {
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
                 <FontAwesomeIcon icon={faMinus} />
-                <a>Ốp Iphone</a>
+                <a href="/">Ốp Iphone</a>
                 <FontAwesomeIcon icon={faMinus} />
-                <a>Óp</a>
+                <a href="/">Óp</a>
             </div>
             <div className={cx("body")}>
                 <div></div>
                 <div className={cx("image")}>
-                    <img src="https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg"></img>
+                    <img src="https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg" alt=""></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -130,10 +130,6 @@ function Person() {
             <div className={cx("otherInfor")}>
                 <button>CÓ THỂ BẠN THÍCH</button>
                 <button>SẢN PHẨM BÁN CHẠY</button>
-            </div>
-            <div className={cx("stores")}>
-                <img src="https://bucket.nhanh.vn/store2/70105/bn/sb_1609068698_58.png"></img>
-                <a>Xem Danh Sách Cửa Hàng</a>
             </div>
         </>
     );
