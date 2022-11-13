@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-const cx = classNames.bind(styles) 
+const cx = classNames.bind(styles)
 
 function Product({data}) {
     const [load,setLoad] = useState(true)
@@ -23,7 +23,7 @@ function Product({data}) {
             clearTimeout(timeID)
         }
     },[])
-    return ( 
+    return (
         <div className={cx("wrapper")}>
             <div>
                 {load ? <Skeleton className={cx('loadImage')}/> :(<Link

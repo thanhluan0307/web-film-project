@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPhone,faUser, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect, useCallback } from 'react';
 
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
@@ -11,37 +11,41 @@ import axios from '~/axios';
 
 const cx = classNames.bind(styles)
 
-function Header() {
+function Header(callback, deps) {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
-
+  const [cart, setCart] = useState([])
   const setFixed = useCallback(() => {
-    if(window.scrollY > 100) {
-      setBackToTop(true) 
-      setFix(true)
-    }else {
-      setFix(false)
-      setBackToTop(false) 
-    }
-  })
- 
+      if (window.scrollY > 100) {
+          setBackToTop(true)
+          setFix(true)
+      } else {
+          setFix(false)
+          setBackToTop(false)
+      }
+  }, [])
+
   useEffect(() => {
     axios.get('/category/get-all-categories')
     .then (res => {
         const categorieArray = res.data.categories
         const categories = categorieArray.map(item =>{
-        return item.categoryName 
+        return item.categoryName
       })
       setData(categories)
-     
-    }) 
+
+    })
   },[])
 
   useEffect(() => {
-    window.addEventListener('scroll',setFixed)
+    window.addEventListener('scroll', setFixed)
   },[])
-   
+
+  const handleCart = () =>{
+    alert('Hello')
+  }
+
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -56,7 +60,7 @@ function Header() {
           </li>
           <li>
               <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
-              <span className={cx('text')}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
+              <span className={cx('text', ['cart'])} onClick={handleCart}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
           </li>
         </ul>
       </div>
@@ -64,7 +68,7 @@ function Header() {
          <div className={cx('logo')}>
             <Link to="/"><img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" /></Link>
          </div>
-         <ul className={cx('nav')}>   
+         <ul className={cx('nav')}>
             {data.map(category => {
               return (
                 <li key={category}><Link to={`/${category}`}>{category}</Link></li>
@@ -77,9 +81,66 @@ function Header() {
          </div>
       </div>
       <BackToTopButton view={backToTop}/>
+        {/* Cart */}
+        <div className={cx('cart_wrapper')}>
+          <div className={cx("cart_content")}>
+            <div className={cx('cart_content_list')}>
+              <h3>Giỏ hàng</h3>
+                <p>Bạn có <strong>0</strong> sản phẩm trong giỏ hàng</p>
+              <button className={'btn_close'}>
+                <img src="https://onionphukien.vn/tp/T0298/img/tmp/iconclose.png" alt="đóng" />
+              </button>
+                <div className={cx('cart_vỉew')}>
+                    {
+                        0 ?
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td className={cx('product_image')}>
+                                        <a href=""><img src="" alt="cart_img"/></a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>:
+                            <table id={'cart_view'}>
+                                <tbody>
+                                <tr>
+                                    <td>Hiện chưa có sản phẩm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                    }
+
+                    <span className={cx('line')}></span>
+                    <table className={cx('cart_total')}>
+                        <tbody>
+                        <tr>
+                            <td className={cx('text-left')}><b>TỔNG TIỀN TẠM TÍNH</b></td>
+                            <td className={cx('text-right')}>0đ</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <a href="#" className="btn_checkout">Tiến hành đặt hàng</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <a href="" className={cx('cart_link')}>Xem chi tiết giỏ hàng
+                                <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
     </header>
+
   )
- 
+
  }
- 
+
  export default (Header);
