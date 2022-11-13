@@ -8,7 +8,6 @@ import axios from "~/axios";
 import HomeStore from "~/components/HomeStore/homeStore";
 import Product from "~/components/Product/product";
 
-
 const cx =classNames.bind(styles)
 
 function Category() {

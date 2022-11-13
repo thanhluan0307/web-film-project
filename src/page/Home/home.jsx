@@ -11,6 +11,7 @@ function Home() {
   
   const [catgoryObj,setCategoryObj] = useState([])
 
+  
  
   useEffect(() => {
     axios.get('/category/get-all-categories')
@@ -32,7 +33,7 @@ function Home() {
               })}
             </ul>
           </div>
-            <ContaierProduct/>
+          <ContaierProduct/>
           <HomeStore/>
         </>
      );

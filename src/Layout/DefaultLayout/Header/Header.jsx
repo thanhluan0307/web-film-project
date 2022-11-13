@@ -8,16 +8,20 @@ import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
 import axios from '~/axios';
+import { useDispatch } from 'react-redux';
+import {addProduct} from '~/reducer/dataSearchSlice'
+import {useNavigate} from "react-router-dom"
 
 
 const cx = classNames.bind(styles)
 
 function Header() {
+  const dispatch =useDispatch()
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
   const [searchProduct,setSearchProduct] = useState('')
-console.log(searchProduct)
+  const nav = useNavigate()
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 
@@ -41,10 +45,13 @@ console.log(searchProduct)
   const getProductByValue = () => {
     axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
       .then (res => {
-          console.log(res.data.products)
           let data = res.data.products
           if (data.length !== 0) {
-            
+            const action = addProduct(data)
+            dispatch(action)
+            nav(`/search?q=${searchProduct}`)
+          }else {
+              nav('/404')
           }
       })
   }

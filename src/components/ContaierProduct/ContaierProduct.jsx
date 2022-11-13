@@ -7,10 +7,10 @@ import Product from "../Product/product";
 import styles from "./ContaierProduct.module.scss"
 import {memo} from "react"
 
+
 const cx = classNames.bind(styles) 
 
 function ContaierProduct() {
-
     const [productAll,setProductAll] = useState([])
     useEffect (()=> {
         axios.get('/product/get-all-products')

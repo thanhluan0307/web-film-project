@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit'
-import couterReducer from '~/reducer/couterSlice'
+import searchProduc from '~/reducer/dataSearchSlice'
 
 export const store = configureStore({
     reducer: {
-       couterReducer
+       searchProduc
     }
 })
