@@ -62,6 +62,7 @@
 	-webkit-background-clip: text;
 	background-image: linear-gradient( to right,  orange,  orangered);
 	position: relative;
+	cursor: pointer;
 }
 .change::before{
 	content: '';

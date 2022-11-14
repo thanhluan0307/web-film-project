@@ -75,7 +75,7 @@ function Login() {
             setBooleanConfirmPass(true)
             console.log(booleanConfirmPass);
         }
-        }, 1000);
+        },500);
     }
 
     const forLogin = (e)=>{
@@ -87,7 +87,6 @@ function Login() {
         })
         .then(res =>{     
             localStorage.setItem("Token",res.data.token)
-            localStorage.setItem("email",res.email)
             next("/")
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
@@ -107,8 +106,8 @@ function Login() {
                 'password' : inpPass
             })
             .then(res =>{
-                next("/")
-                // console.log(res);
+                setCount(count+1)
+                localStorage.setItem("name",inpUserName)
                 alert('ĐĂNG KÍ THÀNH KÔNG');
             })
             .catch(er =>{
