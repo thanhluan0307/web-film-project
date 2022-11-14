@@ -4,8 +4,7 @@ import ContaierProduct from "~/components/ContaierProduct/ContaierProduct";
 import classNames from "classnames/bind";
 import styles from "./home.module.scss"
 import IconCategory from "./IconCategory";
-
-
+import HomeStore from "~/components/HomeStore/homeStore";
 
 const cx= classNames.bind(styles)
 function Home() {
@@ -17,6 +16,7 @@ function Home() {
     axios.get('/category/get-all-categories')
     .then (res => {
         const data = res.data.categories
+        console.log(data)
         const categories = data.map(item =>{
         return item.categoryName 
       })
@@ -26,11 +26,11 @@ function Home() {
   },[])
     return  ( 
         <>
-    
           <div>
             <div className={cx("slider")}></div>
             <ul className={cx('icons')}>
               {catgoryObj?.map(item => {
+                console.log(item)
                 return (
                   <IconCategory key={item._id} data={item}/>
                 )
@@ -42,6 +42,7 @@ function Home() {
               <ContaierProduct key={categorie} filter={categorie}/>
             )
           })}
+          <HomeStore/>
         </>
      );
 }
