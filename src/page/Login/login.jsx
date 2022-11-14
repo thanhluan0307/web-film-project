@@ -78,7 +78,7 @@ function Login() {
             setBooleanConfirmPass(true)
             console.log(booleanConfirmPass);
         }
-        }, 1000);
+        },500);
     }
 
 
@@ -92,7 +92,7 @@ function Login() {
         })
         .then(res =>{     
             localStorage.setItem("Token",res.data.token)
-            localStorage.setItem("email",res.email)
+            localStorage.setItem("name",res.email)
             next("/")
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
@@ -113,7 +113,8 @@ function Login() {
             })
             .then(res =>{
                 next("/")
-                // console.log(res);
+                localStorage.setItem("Token",res.data.token)
+                localStorage.setItem("name",res.email)
                 alert('ĐĂNG KÍ THÀNH KÔNG');
             })
             .catch(er =>{
