@@ -87,11 +87,13 @@ function Login() {
         })
         .then(res =>{     
             localStorage.setItem("Token",res.data.token)
+            localStorage.setItem("email",inpEmail.slice(0 ,inpEmail.indexOf("@")))
             next("/")
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
             console.log(err);
+            alert('')
         })
 
     }
@@ -120,7 +122,7 @@ function Login() {
     }
 
     return ( 
-        <>        
+        <>
         <div className={cx('login')}>
             <form 
                 onSubmit={forLogin}
@@ -128,7 +130,6 @@ function Login() {
                 className={cx('form-login')}
             >
                 <h1>Login</h1>
-                
                 <input
                     className={cx('inp-login')} 
                     value={inpEmail} 
@@ -153,6 +154,7 @@ function Login() {
                 <div style={{textAlign:'right' , marginRight:"50px"}}>
                     <input type="checkbox"/> Renember me
                     <p>For got your password?</p>
+
                 </div>
                 <button className={cx('bnt-login')} >Login</button>
                 <h2>
