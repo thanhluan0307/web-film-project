@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPhone,faUser, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPhone,faUser} from '@fortawesome/free-solid-svg-icons';
 import {useState, useEffect, useCallback} from 'react';
 import {Cart} from '~/page/Cart/modalCart'
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
@@ -15,7 +15,7 @@ function Header(callback, deps) {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
-  const [cart, setCart] = useState([])
+  const [showModal, setShowModal] = useState(false)
   const setFixed = useCallback(() => {
       if (window.scrollY > 100) {
           setBackToTop(true)
@@ -40,12 +40,11 @@ function Header(callback, deps) {
 
   useEffect(() => {
     window.addEventListener('scroll', setFixed)
-  })
+  }, [])
 
-  const handleCart = () =>{
-    alert('Hello')
-  }
-  const btn_close = document.querySelectorAll('.btn_close')
+  const handleCancel = () =>{
+    setShowModal(false)
+    }
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -58,9 +57,9 @@ function Header(callback, deps) {
               <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
               <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
           </li>
-          <li>
+          <li onClick={() => setShowModal(true)}>
               <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
-              <span className={cx('text', ['cart'])} onClick={handleCart}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
+              <span className={cx('text', ['cart'])}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
           </li>
         </ul>
       </div>
@@ -82,7 +81,7 @@ function Header(callback, deps) {
       </div>
       <BackToTopButton view={backToTop}/>
         {/* Cart */}
-        <Cart/>
+        <Cart show={showModal} close={handleCancel} setShow={setShowModal}></Cart>
     </header>
 
   )
