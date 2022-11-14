@@ -87,7 +87,6 @@ function Login() {
         })
         .then(res =>{     
             localStorage.setItem("Token",res.data.token)
-            localStorage.setItem("name",res.email)
             next("/")
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
@@ -107,9 +106,8 @@ function Login() {
                 'password' : inpPass
             })
             .then(res =>{
-                next("/")
-                localStorage.setItem("Token",res.data.token)
-                localStorage.setItem("name",res.email)
+                setCount(count+1)
+                localStorage.setItem("name",inpUserName)
                 alert('ĐĂNG KÍ THÀNH KÔNG');
             })
             .catch(er =>{
