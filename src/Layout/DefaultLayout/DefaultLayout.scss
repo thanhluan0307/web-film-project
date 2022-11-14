@@ -52,6 +52,9 @@
 .info-user{
     display: flex;
     column-gap: 10px;
+    li {
+        padding: 0 8px;
+    }
 }
 
 .text{

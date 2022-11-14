@@ -25,7 +25,7 @@ function Category() {
                })
     },[categoryID])
     return ( 
-       <>
+       <> 
            <div className={cx("wrapper")}>
                {category.map(item => {
                    return ( <Product key={item._id} data={item} isload={false}/>)

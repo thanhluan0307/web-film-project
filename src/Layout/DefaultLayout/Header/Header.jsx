@@ -1,7 +1,7 @@
 
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPhone,faRightFromBracket,faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
@@ -16,15 +16,13 @@ import { counterTotalProduct } from '~/reducer/totalProductSlice';
 const cx = classNames.bind(styles)
 
 function Header() {
-  const dispatch =useDispatch()
-  const productInStore=useSelector(state=>state.counterProduct)
- 
- 
-  
+  const dispatch = useDispatch()
+  const productInStore = useSelector(state=>state.counterProduct) 
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
   const [searchProduct,setSearchProduct] = useState('')
+  const token = localStorage.getItem('Token')
   const nav = useNavigate()
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
@@ -65,6 +63,9 @@ function Header() {
     /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
   },[])
+  const removeToken = () => {
+    localStorage.removeItem('Token')
+  }
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -73,10 +74,21 @@ function Header() {
           <span  className={cx('numb')}>0964.26.36.36</span>
         </div>
         <ul className={cx('info-user')}>
-        <li>
+          {token ? (
+            <>
+              <li>
+                <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
+                <Link to="/user" className={cx('text')}>Cá nhân</Link>
+              </li>
+              <li>
+                <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
+                <Link to="/" onClick={removeToken} className={cx('text')}>Đăng xuất</Link>
+              </li>
+            </>) 
+            : (<li>
               <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
               <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
-          </li>
+          </li>)}
           <li >
               <Link to="/myStore" >
                 <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>

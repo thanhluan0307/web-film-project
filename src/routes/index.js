@@ -16,7 +16,9 @@ const pageRoutes = [
     {path: "/storeInfor",component: StoreInfor},
     {path: "/search",component: Search},
     {path: "*",component: Error404},
-    {path: "/myStore",component: MyStore}
+    {path: "/myStore",component: MyStore},
+    {path: "/user",component: Login},
+
 ]
 
 
