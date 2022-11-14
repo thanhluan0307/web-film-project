@@ -59,10 +59,12 @@
         cursor: pointer;
     }
 
-    input {
+    span {
         padding: 10px;
+        display: inline-block;
         border-style: groove;
         width: 60px;
+        text-align: center;
     }
 }
 

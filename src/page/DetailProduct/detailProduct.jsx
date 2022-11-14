@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +10,10 @@ import {
     faPhone, faPlus, 
     faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useEffect, useState} from "react"
+import {useEffect, useState} from "react";
+import { useParams} from "react-router-dom";
+import axios from 'axios'
+import { message } from 'antd'
 import HomeStore from "~/components/HomeStore/homeStore";
 import {counterTotalProduct,} from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
@@ -19,6 +23,8 @@ const cx = classNames.bind(styles)
 
 function Person() {
     const disPatch=useDispatch()
+    const { productID } = useParams()
+    const [product, setProduct] = useState({})
     const [count,setCount] = useState(1)
     const [check,setCheck] = useState(false)
     var sum = count 
@@ -33,16 +39,7 @@ function Person() {
         sum+=1
         setCount(sum)
       }
-
     }
-    
-    useEffect(()=>{
-        const clearAlert=setTimeout(()=>{
-            setCheck(false)
-        },3500)
-        return ()=>clearTimeout(clearAlert)
-    },[check])
-
     const HandleAddProduct=()=>{   
         let Storage=localStorage.getItem('myStore')
         if (Storage){
@@ -82,9 +79,16 @@ function Person() {
                 Storage.push(infoProduct)
                 localStorage.setItem('myStore',JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
+            
         }
-        setCheck(true) 
+        setCheck(true)
     }
+    useEffect(() => {
+        axios.get(`/product/get-one-product/${productID}`)
+            .then(res => {console.log(res.data.product)
+                setProduct(res.data.product)})
+            .catch(err => message.err("Lỗi rồi!"))
+    }, [])
 
     return (
         <>  
@@ -93,14 +97,14 @@ function Person() {
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
                 <FontAwesomeIcon icon={faMinus} />
-                <a href="/">Ốp Iphone</a>
+                <span>{product.brand}</span>
                 <FontAwesomeIcon icon={faMinus} />
-                <a href="/">Óp</a>
+                <span>{product.productName}</span>
             </div>
             <div className={cx("body")}>
                 <div></div>
                 <div className={cx("image")}>
-                    <img src="https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg" alt=""></img>
+                    <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -108,17 +112,17 @@ function Person() {
                 </div>
                 <div>
                     <div className={cx("infor")}>
-                        <p>Ốp</p>
-                        <p>Mã sản phẩm: <span></span></p>
+                        <p>{product.productName}</p>
+                        <p>Mã sản phẩm: <span>{product._id}</span></p>
                         <p>Còn hàng</p>
-                        <p>Giá</p>
+                        <p>Giá: <span>{product.price}</span></p>
                         <p>MÀU SẮC</p>
                         <p>LOẠI MÁY</p>
                         <u>Chọn màu và loại máy khi đặt hàng</u>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
-                        <input type="number" value={count} min={1} max={20}/>
+                        <span>{count}</span>
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
