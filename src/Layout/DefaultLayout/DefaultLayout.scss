@@ -115,6 +115,8 @@
 }
 
 .btnSearch {
+    cursor: pointer;
+    padding: 13px;
     font-size: 0;
     border: none;
     width: 20px;
@@ -124,7 +126,12 @@
     position: absolute;
     transform: translateY(-50%);
     background: url('../../assets/images/icon-search.svg');
+    &:hover {
+        opacity: 0.6;
+       
+    }
 }
+
 //footer
 .infos-footer {
     display: flex;
@@ -204,7 +211,7 @@
     background: #f1f1f1;
     display: flex;
     justify-content: space-around;
-    padding: 10px 0 30px ;
+    padding: 10px 70px 30px ;
 }
 .item ul li {
     padding: 5px 0;
@@ -230,10 +237,10 @@
 //backtotopbutn
 .up-top {
     display: flex;
-    align-items: center;
     position: fixed;
     right: -20px;
     bottom: 100px;
+    align-items: center;
     cursor: pointer;
     color: #000;
     font-size: 11px;

@@ -8,7 +8,7 @@ import MyStore from '~/page/MyStore/myStore'
 
 const pageRoutes = [
     {path:'/',component: Home,layout:true},
-    {path:'/category',component: Category},
+    {path:'/category/:categoryID',component: Category},
     {path:'/login',component: Login},
     {path:'/product/:productID',component: DetailProduct},
     {path: "/storeInfor",component: StoreInfor},

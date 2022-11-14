@@ -10,9 +10,6 @@ function myStore() {
         price:'120000',
     }
     ]
-
-    
-
   return (
     <>  
     <div className={styles.container}>

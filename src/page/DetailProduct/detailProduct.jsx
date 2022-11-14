@@ -1,17 +1,24 @@
 import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faLocationDot, faMagnifyingGlass, faMinus, faNoteSticky, faPhone, faPlus, faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import { 
+    faHouse, 
+    faLocationDot, 
+    faMagnifyingGlass, 
+    faMinus, faNoteSticky,
+    faPhone, faPlus, 
+    faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useEffect, useState} from "react"
+import {useEffect, useState} from "react";
 import { useParams} from "react-router-dom";
 import axios from 'axios'
 import { message } from 'antd'
+import HomeStore from "~/components/HomeStore/homeStore";
 
 const cx = classNames.bind(styles)
 function Person() {
-    const { id } = useParams()
-    const [list, setList] = useState({})
+    const { productID } = useParams()
+    const [product, setProduct] = useState({})
     const [count,setCount] = useState(1)
     var sum = count 
     function Minus (){
@@ -27,8 +34,9 @@ function Person() {
       }
     }
     useEffect(() => {
-        axios.get(`{{PORT}}/product/get-one-product/${id}`)
-            .then(res => console.log(res))
+        axios.get(`/product/get-one-product/${productID}`)
+            .then(res => {console.log(res.data.product)
+                setProduct(res.data.product)})
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
@@ -38,14 +46,14 @@ function Person() {
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
                 <FontAwesomeIcon icon={faMinus} />
-                <a href="/">Ốp Iphone</a>
+                <span>{product.brand}</span>
                 <FontAwesomeIcon icon={faMinus} />
-                <a href="/">Óp</a>
+                <span>{product.productName}</span>
             </div>
             <div className={cx("body")}>
                 <div></div>
                 <div className={cx("image")}>
-                    <img src="https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg" alt=""></img>
+                    <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -53,17 +61,17 @@ function Person() {
                 </div>
                 <div>
                     <div className={cx("infor")}>
-                        <p>Ốp</p>
-                        <p>Mã sản phẩm: <span></span></p>
+                        <p>{product.productName}</p>
+                        <p>Mã sản phẩm: <span>{product._id}</span></p>
                         <p>Còn hàng</p>
-                        <p>Giá</p>
+                        <p>Giá: <span>{product.price}</span></p>
                         <p>MÀU SẮC</p>
                         <p>LOẠI MÁY</p>
                         <u>Chọn màu và loại máy khi đặt hàng</u>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
-                        <input type="number" value={count} min={1} max={20}/>
+                        <span>{count}</span>
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
@@ -131,6 +139,7 @@ function Person() {
                 <button>CÓ THỂ BẠN THÍCH</button>
                 <button>SẢN PHẨM BÁN CHẠY</button>
             </div>
+            <HomeStore/>
         </>
     );
 }
