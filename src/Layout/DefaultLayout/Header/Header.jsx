@@ -78,7 +78,7 @@ function Header() {
             <>
               <li>
                 <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-                <Link to="/user" className={cx('text')}>Cá nhân</Link>
+                <Link to="/user" className={cx('text')}>{localStorage.getItem('name')}</Link>
               </li>
               <li>
                 <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
