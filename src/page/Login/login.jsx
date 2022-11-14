@@ -15,9 +15,6 @@ function Login() {
     const [booleanEmail , setBooleanEmail] = useState(false)
     const [booleanConfirmPass , setBooleanConfirmPass] = useState(false)
 
-
-  
-
     const [count , setCount] = useState(0)
     const [inpUserName , setInpUserName] = useState('')
     const [inpPass , setInpPass] = useState('')
@@ -81,8 +78,6 @@ function Login() {
         },500);
     }
 
-
-    
     const forLogin = (e)=>{
         e.preventDefault()
         console.log(inpEmail , inpPass);
@@ -126,9 +121,6 @@ function Login() {
         
     }
 
-
-
-
     return ( 
         <>        
         <div className={cx('login')}>
@@ -164,18 +156,13 @@ function Login() {
                     <input type="checkbox"/> Renember me
                     <p>For got your password?</p>
                 </div>
-
-
                 <button className={cx('bnt-login')} >Login</button>
-
-
                 <h2>
                     or <span className={cx('change')} onClick={toSignUp}>
                             SignUp
                        </span>
                 </h2>
             </form>
-
 
             <form 
                 onSubmit={forSignUp}
