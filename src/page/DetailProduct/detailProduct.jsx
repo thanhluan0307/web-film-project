@@ -78,25 +78,17 @@ function Person() {
                 price:9000,
                 amount:count
             }
-            let kt=false
-            for (let item of Storage){
-                if (item.name===infoProduct.name) {
-                    kt=true
-                    break
-                }}
-            if (kt===false) {
                 Storage=[]
                 Storage.push(infoProduct)
                 localStorage.setItem('myStore',JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
-            }
         }
         setCheck(true) 
     }
 
     return (
         <>  
-            {check==true?<Alert/>:null}
+            {check === true ? <Alert/> : null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>

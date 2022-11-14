@@ -18,6 +18,9 @@ const cx = classNames.bind(styles)
 function Header() {
   const dispatch =useDispatch()
   const productInStore=useSelector(state=>state.counterProduct)
+ 
+ 
+  
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
@@ -49,6 +52,7 @@ function Header() {
           let data = res.data.products
           if (data.length !== 0) {
             const action = addProduct(data)
+            console.log(action)
             dispatch(action)
             nav(`/search?q=${searchProduct}`)
           }else {
