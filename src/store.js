@@ -1,8 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit'
-import searchProduc from '~/reducer/dataSearchSlice'
+import dateSearch from '~/reducer/dataSearchSlice'
+import counterProduct from '~/reducer/totalProductSlice'
+import amountProduct from '~/reducer/amountSlice'
 
 export const store = configureStore({
     reducer: {
-       searchProduc
+       dateSearch,
+       counterProduct,
+       amountProduct,
     }
 })

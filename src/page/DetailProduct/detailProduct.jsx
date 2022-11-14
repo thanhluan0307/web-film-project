@@ -9,12 +9,18 @@ import {
     faPhone, faPlus, 
     faTruckFast } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import HomeStore from "~/components/HomeStore/homeStore";
+import {counterTotalProduct,} from '~/reducer/totalProductSlice'
+import { useDispatch } from "react-redux";
+import Alert from '~/components/Alert/alert'
 
 const cx = classNames.bind(styles)
+
 function Person() {
+    const disPatch=useDispatch()
     const [count,setCount] = useState(1)
+    const [check,setCheck] = useState(false)
     var sum = count 
     function Minus (){
         if (sum >= 2 && sum <=20) {
@@ -29,8 +35,68 @@ function Person() {
       }
 
     }
+    
+    useEffect(()=>{
+        const clearAlert=setTimeout(()=>{
+            setCheck(false)
+        },3500)
+        return ()=>clearTimeout(clearAlert)
+    },[check])
+
+    const HandleAddProduct=()=>{   
+        let Storage=localStorage.getItem('myStore')
+        if (Storage){
+            Storage=JSON.parse(Storage)
+            let infoProduct={
+                name:' ốp Ihone 14-PRO-Max ',
+                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
+                size:'',
+                color:'',
+                price:9000,
+                amount:count
+            }
+            let kt=false
+            for (let item of Storage){
+                if (item.name===infoProduct.name) {
+                    kt=true
+                    item.amount+=count
+                    localStorage.setItem('myStore',JSON.stringify(Storage))
+                    break
+                }}
+            if (kt===false) {
+                Storage.push(infoProduct)
+                localStorage.setItem('myStore',JSON.stringify(Storage))
+                disPatch(counterTotalProduct())
+            }
+        }
+        else {
+            let infoProduct={
+                name:' ốp Ihone 14-PRO-Max ',
+                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
+                size:'',
+                color:'',
+                price:9000,
+                amount:count
+            }
+            let kt=false
+            for (let item of Storage){
+                if (item.name===infoProduct.name) {
+                    kt=true
+                    break
+                }}
+            if (kt===false) {
+                Storage=[]
+                Storage.push(infoProduct)
+                localStorage.setItem('myStore',JSON.stringify(Storage))
+                disPatch(counterTotalProduct())
+            }
+        }
+        setCheck(true) 
+    }
+
     return (
-        <>
+        <>  
+            {check==true?<Alert/>:null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
@@ -64,7 +130,7 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button>Thêm Vào Giỏ Hàng</button>
+                        <button onClick={HandleAddProduct} >Thêm Vào Giỏ Hàng</button>
                         <button>Mua Ngay</button>
                     </div>
                     <div className={cx("shareFB")}>

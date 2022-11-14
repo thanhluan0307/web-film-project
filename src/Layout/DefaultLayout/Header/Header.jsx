@@ -3,20 +3,21 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPhone,faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect, useCallback } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
 import { Link } from 'react-router-dom';
 import axios from '~/axios';
-import { useDispatch } from 'react-redux';
 import {addProduct} from '~/reducer/dataSearchSlice'
 import {useNavigate} from "react-router-dom"
+import { counterTotalProduct } from '~/reducer/totalProductSlice';
 
 
 const cx = classNames.bind(styles)
 
 function Header() {
   const dispatch =useDispatch()
+  const productInStore=useSelector(state=>state.counterProduct)
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
@@ -58,6 +59,7 @@ function Header() {
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
     /* eslint-disable react-hooks/exhaustive-deps */
+    dispatch(counterTotalProduct())
   },[])
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
@@ -71,9 +73,11 @@ function Header() {
               <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
               <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
           </li>
-          <li>
-              <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
-              <span className={cx('text')}>Giỏ hàng <span className={cx('quantity')}>(0)</span></span>
+          <li >
+              <Link to="/myStore" >
+                <FontAwesomeIcon className={cx('icon')} icon={faCartShopping}/>
+                <span className={cx('text')}>Giỏ hàng <span className={cx('quantity')}>({productInStore})</span></span>
+              </Link>
           </li>
         </ul>
       </div>
