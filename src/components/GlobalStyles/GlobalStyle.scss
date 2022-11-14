@@ -1,6 +1,10 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+
+$main-color : linear-gradient( to right, orange, orangered);
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,6 +34,7 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
 }
+
 h4 {
     font-size: 15px;
     text-transform: uppercase;
