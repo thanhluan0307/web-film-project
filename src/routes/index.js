@@ -6,6 +6,7 @@ import DetailProduct from '~/page/DetailProduct/detailProduct';
 import Error404 from '~/page/Error404/Error404';
 import Search from '~/page/Search/serch';
 import MyStore from '~/page/MyStore/myStore'
+import Profile from '~/page/Pofile/profile';
 
 
 const pageRoutes = [
@@ -17,7 +18,7 @@ const pageRoutes = [
     {path: "/search",component: Search},
     {path: "*",component: Error404},
     {path: "/myStore",component: MyStore},
-    {path: "/user",component: Login},
+    {path: "/user",component: Profile},
 
 ]
 

@@ -1,0 +1,24 @@
+.slide_404Err{
+    border-top: 5px solid #ccc;
+    border-bottom: 5px solid #ccc;
+    height: 70vh;
+    text-align: center;
+}
+.slide_404Err button{
+    padding: 30px;
+    border-radius: 50px;
+    background-image: linear-gradient( to right, orange , orangered );
+    color: white;
+    cursor: pointer;
+    font-size: 25px;
+
+}
+
+.Error-notification{
+    margin: 150px 50px 20px 50px;
+    font-size: 90px;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient( to right,  orange,  orangered);
+}
