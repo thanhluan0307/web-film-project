@@ -9,13 +9,16 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import Product from "~/components/Product/product";
 import SlideShow from "~/components/SlideShow/slideauto"
 
+
 const cx =classNames.bind(styles)
 
 function Category() {
     const {categoryID} = useParams()
     const [category,setCategory] = useState([])
     const [branchs,setBranchs] = useState([])
-    console.log(branchs)
+    const [filter,setFilter] = useState(null)
+    const [active,setActive] = useState(null)
+    
     useEffect(() => {
           axios.get('/product/get-all-products')
                .then (res => {
@@ -28,21 +31,37 @@ function Category() {
                     })
                     setBranchs([...new Set(branchs)])
                     setCategory(productByCategory)
-               })
+          })
+          return () => {
+               setFilter(null)
+          }
     },[categoryID])
+    const handleClick = (name,index) => {
+          let data = category.filter(item => {
+               return item.brand === name
+          })
+         setFilter(data)
+         setActive(index)
+    }
     return ( 
        <> 
           <SlideShow/>
-          {branchs.map(item => {
-               return (<><input name="branch" type="radio" /> <label for="html">{item}</label><br/></>)
-          })}
-          <div className={cx("wrapper")}>
-          {category.map(item => {
-               return ( <Product key={item._id} data={item} isload={false}/>)
-          })}
+          <div className={cx("name-filter")}>
+               {branchs.map((item,index) => {
+                    return ( <p className={active === index ? cx('active') : null}key={item} onClick={()=> handleClick(item,index)} >{item}</p>)
+               })}
           </div>
-          
-            <HomeStore/>
+          <p className={cx("title")}>{categoryID}</p>
+          <div className={cx("wrapper")}>
+          { !filter ? category.map(item => {
+               return (<Product  key={item._id} data={item} isload={true}/>)
+          }):
+             filter.map(item => {
+               return (<Product key={item._id} data={item} isload={true}/>)
+             })
+          }
+          </div>
+          <HomeStore/>
        </>
      );
 }

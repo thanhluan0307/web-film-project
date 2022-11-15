@@ -6,10 +6,9 @@ import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
-import { Link } from 'react-router-dom';
+import { Link, NavLink,useNavigate } from 'react-router-dom';
 import axios from '~/axios';
 import {addProduct} from '~/reducer/dataSearchSlice'
-import {useNavigate} from "react-router-dom"
 import { counterTotalProduct } from '~/reducer/totalProductSlice';
 
 
@@ -104,9 +103,10 @@ function Header() {
          <ul className={cx('nav')}>   
             {data.map(category => {
               return (
-                <li key={category}><Link to={`/category/${category}`}>{category}</Link></li>
+                <li key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>
               )
             })}
+          
          </ul>
          <div className={cx('search')}>
             <input 

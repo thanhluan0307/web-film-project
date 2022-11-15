@@ -17,12 +17,10 @@ function Error404() {
     return ( 
         <>
         <SlideShow />
-   
-         <div className ={cx("slide_404Err")}>
-             <h1 className={cx("Error-notification")}>Không Tìm Thấy Sản phẩm</h1>
+        <div className ={cx("slide_404Err")}>
+            <h1 className={cx("Error-notification")}>Không Tìm Thấy Sản phẩm</h1>
             <button onClick={isBack}>Come back home</button>
         </div>
-        
         <HomeStore/>
         </>
      );
