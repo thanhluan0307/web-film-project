@@ -24,8 +24,6 @@ function Header() {
   const [searchProduct,setSearchProduct] = useState('')
   const token = localStorage.getItem('Token')
   const nav = useNavigate()
-  const data1 =useSelector(state => state.favourite)
-  console.log(data1)
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 

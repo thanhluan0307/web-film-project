@@ -64,16 +64,11 @@ function Login() {
 
     function checkInpComfirmPass(){
         setTimeout(() => {
-            console.log(11,inpConfirmPass);
-            console.log(12,inpPass);
-          
         if ( inpPass === inpConfirmPass) {
             setBooleanConfirmPass(false)
-            console.log(13,booleanConfirmPass);
 
         }else{
             setBooleanConfirmPass(true)
-            console.log(booleanConfirmPass);
         }
         },500);
     }

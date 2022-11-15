@@ -26,13 +26,11 @@ function Product({data,isload}) {
     },[])
     const addFavorite = () => {
         const action = addProduct(data)
-        console.log(action.payload)
         setCheck(false)
         dispatch(action)
     }
     const removeFavorite = () => {
         const action = deleteProduct(data)
-        console.log(action.payload)
         setCheck(true)
         dispatch(action)
     }

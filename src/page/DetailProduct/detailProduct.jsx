@@ -92,7 +92,7 @@ function Person() {
     }
     useEffect(() => {
         axios.get(`/product/get-one-product/${productID}`)
-            .then(res => {console.log(res.data)
+            .then(res => {
                 setProduct(res.data.product)
                 setListDtail(res.data.product.listDtail)})
             .catch(err => message.err("Lỗi rồi!"))
