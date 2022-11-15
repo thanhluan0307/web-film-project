@@ -2,107 +2,118 @@
 import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-    faHouse, 
-    faLocationDot, 
-    faMagnifyingGlass, 
+import {
+    faHouse,
+    faLocationDot,
+    faMagnifyingGlass,
     faMinus, faNoteSticky,
-    faPhone, faPlus, 
-    faTruckFast } from "@fortawesome/free-solid-svg-icons";
+    faPhone, faPlus,
+    faTruckFast
+} from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useEffect, useState} from "react";
-import { useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { message } from 'antd'
 import HomeStore from "~/components/HomeStore/homeStore";
-import {counterTotalProduct,} from '~/reducer/totalProductSlice'
+import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert'
 
 const cx = classNames.bind(styles)
-
+var clone = [{price: "",
+            ram: "",
+            rom:"",
+            status: ""}]
 function Person() {
-    const disPatch=useDispatch()
+    const disPatch = useDispatch()
     const { productID } = useParams()
     const [product, setProduct] = useState({})
-    const [count,setCount] = useState(1)
-    const [check,setCheck] = useState(false)
+    const [count, setCount] = useState(1)
+    const [check, setCheck] = useState(false)
     const [listDtail, setListDtail] = useState([])
-    const [src,setSrc] = useState()
-    var sum = count 
-    function Minus (){
-        if (sum >= 2 && sum <=20) {
-            sum-=1
+    const [secondListDtail, setSecondListDtail] = useState(clone)
+    const [src, setSrc] = useState()
+    var sum = count
+    function Minus() {
+        if (sum >= 2 && sum <= 20) {
+            sum -= 1
             setCount(sum)
         }
     }
-    function Add (){
-      if (sum >= 1 && sum <=19) {
-        sum+=1
-        setCount(sum)
-      }
+    function Add() {
+        if (sum >= 1 && sum <= 19) {
+            sum += 1
+            setCount(sum)
+        }
     }
-    function changeImg (index) {
+    function changeImg(index) {
+        var cloneListDtail = [...listDtail]
+        var a = cloneListDtail.splice(index,1)
+        setSecondListDtail(a)
         setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
     }
-    const HandleAddProduct=()=>{   
-        let Storage=localStorage.getItem('myStore')
-        if (Storage){
-            Storage=JSON.parse(Storage)
-            let infoProduct={
-                name:' ốp Ihone 14-PRO-Max ',
-                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size:'',
-                color:'',
-                price:9000,
-                amount:count
+    const HandleAddProduct = () => {
+        let Storage = localStorage.getItem('myStore')
+        if (Storage) {
+            Storage = JSON.parse(Storage)
+            let infoProduct = {
+                name: ' ốp Ihone 14-PRO-Max ',
+                img: 'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
+                size: '',
+                color: '',
+                price: 9000,
+                amount: count
             }
-            let kt=false
-            for (let item of Storage){
-                if (item.name===infoProduct.name) {
-                    kt=true
-                    item.amount+=count
-                    localStorage.setItem('myStore',JSON.stringify(Storage))
+            let kt = false
+            for (let item of Storage) {
+                if (item.name === infoProduct.name) {
+                    kt = true
+                    item.amount += count
+                    localStorage.setItem('myStore', JSON.stringify(Storage))
                     break
-                }}
-            if (kt===false) {
+                }
+            }
+            if (kt === false) {
                 Storage.push(infoProduct)
-                localStorage.setItem('myStore',JSON.stringify(Storage))
+                localStorage.setItem('myStore', JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }
         else {
-            let infoProduct={
-                name:' ốp Ihone 14-PRO-Max ',
-                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size:'',
-                color:'',
-                price:9000,
-                amount:count
+            let infoProduct = {
+                name: ' ốp Ihone 14-PRO-Max ',
+                img: 'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
+                size: '',
+                color: '',
+                price: 9000,
+                amount: count
             }
-                Storage=[]
-                Storage.push(infoProduct)
-                localStorage.setItem('myStore',JSON.stringify(Storage))
-                disPatch(counterTotalProduct())
-            
+            Storage = []
+            Storage.push(infoProduct)
+            localStorage.setItem('myStore', JSON.stringify(Storage))
+            disPatch(counterTotalProduct())
+
         }
         setCheck(true)
     }
     useEffect(() => {
         axios.get(`/product/get-one-product/${productID}`)
-            .then(res => {console.log(res.data)
+            .then(res => {
+                console.log(res.data)
                 setProduct(res.data.product)
-                setListDtail(res.data.product.listDtail)})
+                setListDtail(res.data.product.listDtail)
+            })
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
     useEffect(() => {
         setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
-    },[product])
+    }, [product])
 
     return (
-        <>  
-            {check === true ? <Alert/> : null}
+        <>
+            {check === true ? <Alert /> : null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
@@ -113,9 +124,9 @@ function Person() {
             </div>
             <div className={cx("body")}>
                 <div className={cx("side_img")}>
-                    {listDtail.map((value,index)=>{
+                    {listDtail.map((value, index) => {
                         return (
-                            <button onClick={function(){changeImg(index)}}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                            <button onClick={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
                         )
                     })}
                 </div>
@@ -128,19 +139,27 @@ function Person() {
                 </div>
                 <div>
                     <div className={cx("infor")}>
-                        <p>Tên sản phẩm: {product.productName}</p>
+                        <p>Nhãn hiệu: <span>{product.brand}</span></p>
+                        <p>Tên sản phẩm: <span>{product.productName}</span></p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-                        <p>Giá: <span>{product.price}</span></p>
-                        <div>
-                            <p>Các thông tin chính <u>(Kiểm tra khi đặt hàng)</u></p>
-                            {listDtail.map((value)=>{
-                                return (
-                                    <>
-                                    <button>{value.color}</button>
-                                    </>
-                                )
-                            })}
-                        </div>
+                        {secondListDtail.map((value, index) => {
+                            return (
+                                <>
+                                    <p>Giá: <span>{value.price}</span></p>
+                                    <p>Ram: <span>{value.ram}</span></p>
+                                    <p>Rom: <span>{value.rom}</span></p>
+                                    <p>Trạng thái: <span>{value.status}</span></p>
+                                </>
+                            )
+                        })}
+                        Màu Sắc: {listDtail.map((value, index) => {
+                            return (
+                                <>
+                                    <button onClick={function () { changeImg(index) }}>{value.color}</button>
+                                </>
+                            )
+                        })}
+                         <p><u>(Kiểm tra khi đặt hàng)</u></p>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
@@ -214,7 +233,7 @@ function Person() {
                 <button>CÓ THỂ BẠN THÍCH</button>
                 <button>SẢN PHẨM BÁN CHẠY</button>
             </div>
-            <HomeStore/>
+            <HomeStore />
         </>
     );
 }
