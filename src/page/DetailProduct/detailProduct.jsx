@@ -29,6 +29,8 @@ function Person() {
     const [product, setProduct] = useState({})
     const [count,setCount] = useState(1)
     const [check,setCheck] = useState(false)
+    const [listDtail, setListDtail] = useState([])
+    const [src,setSrc] = useState()
     var sum = count 
     function Minus (){
         if (sum >= 2 && sum <=20) {
@@ -41,6 +43,9 @@ function Person() {
         sum+=1
         setCount(sum)
       }
+    }
+    function changeImg (index) {
+        setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
     }
     const HandleAddProduct=()=>{   
         let Storage=localStorage.getItem('myStore')
@@ -87,10 +92,15 @@ function Person() {
     }
     useEffect(() => {
         axios.get(`/product/get-one-product/${productID}`)
-            .then(res => {console.log(res.data.product)
-                setProduct(res.data.product)})
+            .then(res => {console.log(res.data)
+                setProduct(res.data.product)
+                setListDtail(res.data.product.listDtail)})
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
+
+    useEffect(() => {
+        setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
+    },[product])
 
     return (
         <>  
@@ -105,9 +115,15 @@ function Person() {
                 <span>{product.productName}</span>
             </div>
             <div className={cx("body")}>
-                <div></div>
-                <div className={cx("image")}>
-                    <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
+                <div className={cx("side_img")}>
+                    {listDtail.map((value,index)=>{
+                        return (
+                            <button onClick={function(){changeImg(index)}}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                        )
+                    })}
+                </div>
+                <div className={cx("mainImg")}>
+                    <img src={src} alt={src}></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -115,13 +131,19 @@ function Person() {
                 </div>
                 <div>
                     <div className={cx("infor")}>
-                        <p>{product.productName}</p>
+                        <p>Tên sản phẩm: {product.productName}</p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-                        <p>Còn hàng</p>
                         <p>Giá: <span>{product.price}</span></p>
-                        <p>MÀU SẮC</p>
-                        <p>LOẠI MÁY</p>
-                        <u>Chọn màu và loại máy khi đặt hàng</u>
+                        <div>
+                            <p>Các thông tin chính <u>(Kiểm tra khi đặt hàng)</u></p>
+                            {listDtail.map((value)=>{
+                                return (
+                                    <>
+                                    <button>{value.color}</button>
+                                    </>
+                                )
+                            })}
+                        </div>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
@@ -129,7 +151,7 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button onClick={HandleAddProduct} >Thêm Vào Giỏ Hàng</button>
+                        <button onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
                         <button>Mua Ngay</button>
                     </div>
                     <div className={cx("shareFB")}>
@@ -159,12 +181,14 @@ function Person() {
                         </div>
                     </div>
                     <div className={cx("exchange")}>
-                        <p>THÔNG SỐ SẢN PHẨM
-                            <span><FontAwesomeIcon icon={faPlus} /></span>
-                        </p>
-                        <p>CHÍNH SÁCH ĐỔI TRẢ
-                            <span><FontAwesomeIcon icon={faPlus} /></span>
-                        </p>
+                        <div>
+                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
+                        <div>
+                            <span className={cx("text")}>CHÍNH SÁCH ĐỔI TRẢ</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
                     </div>
                     <div className={cx("delivery")}>
                         <span><FontAwesomeIcon icon={faTruckFast} /></span>
