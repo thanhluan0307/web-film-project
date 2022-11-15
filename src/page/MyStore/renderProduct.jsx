@@ -43,12 +43,14 @@ function RenderProduct() {
     useEffect(()=>{
         const dataTest=JSON.parse(localStorage.getItem('myStore'))  
         let newData=[...dataTest]
+        // eslint-disable-next-line array-callback-return
         newData.map((value)=>{
             if (value.amount==null) value.amount=amountProduct
             value.totalPrice=value.price*value.amount
             value.style='something'
         })
         setData(newData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
   

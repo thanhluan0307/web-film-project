@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import styles from './Error404.module.scss';
 import { useNavigate } from "react-router-dom";
 import SlideShow from '~/components/SlideShow/slideauto'
-import { Divider } from "antd";
+
 
 const cx =classnames.bind(styles)
 
