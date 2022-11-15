@@ -18,6 +18,8 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import {counterTotalProduct,} from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert'
+import SlideShow from "~/components/SlideShow/slideauto"
+
 
 const cx = classNames.bind(styles)
 
@@ -92,6 +94,7 @@ function Person() {
 
     return (
         <>  
+            <SlideShow/>
             {check === true ? <Alert/> : null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />

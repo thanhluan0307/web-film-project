@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
 import HomeStore from "~/components/HomeStore/homeStore";
+import SlideShow from "~/components/SlideShow/slideauto"
 
 
 const cx = classNames.bind(styles)

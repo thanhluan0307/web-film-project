@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles) 
 
-function alert() {
+function alert({url,title,title2}) {
   return (
     <div className={cx('alert-container')}>
         <Alert 
@@ -15,7 +15,7 @@ function alert() {
             onClose={() => {}}
         >
             <AlertTitle className={cx('alert-title')} >Success</AlertTitle>
-            <div>Bạn đã thêm vào giỏ hàng — <Link to='/myStore'><strong>Xem cửa hàng</strong></Link></div>
+            <div>{title}<Link to={url}><strong>{title2}</strong></Link></div>
         </Alert>
     </div>
   )

@@ -7,6 +7,7 @@ import styles from "./category.module.scss"
 import axios from "~/axios";
 import HomeStore from "~/components/HomeStore/homeStore";
 import Product from "~/components/Product/product";
+import SlideShow from "~/components/SlideShow/slideauto"
 
 const cx =classNames.bind(styles)
 
@@ -26,11 +27,12 @@ function Category() {
     },[categoryID])
     return ( 
        <> 
-           <div className={cx("wrapper")}>
-               {category.map(item => {
-                   return ( <Product key={item._id} data={item} isload={false}/>)
-               })}
-           </div>
+          <SlideShow/>
+          <div className={cx("wrapper")}>
+          {category.map(item => {
+               return ( <Product key={item._id} data={item} isload={false}/>)
+          })}
+          </div>
           
             <HomeStore/>
        </>

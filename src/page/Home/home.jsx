@@ -11,8 +11,6 @@ function Home() {
   
   const [catgoryObj,setCategoryObj] = useState([])
 
-  
- 
   useEffect(() => {
     axios.get('/category/get-all-categories')
       .then (res => {
@@ -26,7 +24,6 @@ function Home() {
             <div className={cx("slider")}></div>
             <ul className={cx('icons')}>
               {catgoryObj.map(item => {
-              
                 return (
                   <IconCategory key={item._id} data={item}/>
                 )
