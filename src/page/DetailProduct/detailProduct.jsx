@@ -28,7 +28,7 @@ function Person() {
     const [count,setCount] = useState(1)
     const [check,setCheck] = useState(false)
     const [listDtail, setListDtail] = useState([])
-    
+    const [src,setSrc] = useState()
     var sum = count 
     function Minus (){
         if (sum >= 2 && sum <=20) {
@@ -43,7 +43,7 @@ function Person() {
       }
     }
     function changeImg (index) {
-        // setImg()
+        setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
     }
     const HandleAddProduct=()=>{   
         let Storage=localStorage.getItem('myStore')
@@ -96,6 +96,10 @@ function Person() {
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
+    useEffect(() => {
+        setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
+    },[product])
+
     return (
         <>  
             {check === true ? <Alert/> : null}
@@ -115,8 +119,8 @@ function Person() {
                         )
                     })}
                 </div>
-                <div className={cx("image")}>
-                    <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
+                <div className={cx("mainImg")}>
+                    <img src={src} alt={src}></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -126,13 +130,14 @@ function Person() {
                     <div className={cx("infor")}>
                         <p>Tên sản phẩm: {product.productName}</p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-                        <p>Còn hàng</p>
                         <p>Giá: <span>{product.price}</span></p>
-                        <p>MÀU SẮC <u>Chọn màu khi đặt hàng</u></p>
                         <div>
+                            <p>Các thông tin chính <u>(Kiểm tra khi đặt hàng)</u></p>
                             {listDtail.map((value)=>{
                                 return (
+                                    <>
                                     <button>{value.color}</button>
+                                    </>
                                 )
                             })}
                         </div>
