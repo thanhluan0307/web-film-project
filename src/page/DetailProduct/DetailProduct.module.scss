@@ -4,7 +4,11 @@
     a {
         padding: 10px;
     }
+    span {
+        padding: 10px;
+    }
     font-size: 13px;
+    margin-bottom: 10px;
 }
 
 .body {
@@ -20,6 +24,21 @@
 
     display: flex;
     justify-content: center;
+}
+
+.side_img {
+    display: flex;
+    flex-direction: column;
+    img {
+        width: 50px;
+        height: 60px;
+        border-color: black;
+        margin: 5px;
+    }
+    button {
+        padding: 1px;
+        cursor: pointer;
+    }
 }
 
 .image {
@@ -39,17 +58,37 @@
 
 .infor {
     p {
-        font-weight: bold;
+        font-weight: bolder;
+        padding: 5px 5px 5px 0px;
     }
 
     u:hover {
         text-decoration: none;
         cursor: pointer
     }
+    u {
+        font-weight: normal;
+        font-size: small;
+    }
+    div {
+        margin-left: -20px;
+    }
+    button {
+        font-weight: normal;
+        padding: 10px;
+        margin: 0px 5px 0px 0px;
+        background-color: white;
+        border-style: double;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .addMinus {
     margin-bottom: -20px;
+    margin-top: -20px;
 
     button {
         padding: 10px;
@@ -132,16 +171,21 @@
 }
 
 .exchange {
-    p {
+    div {
         padding-bottom: 10px;
         padding-top: 10px;
         border-style: none none solid none;
         border-color: rgba($color: #b5aaaac6, $alpha: 1.0);
     }
 
-    span {
-        margin-left: 250px;
+    .text {
         cursor: pointer;
+        margin-left: -20px;
+        display: inline-block;
+        width: 200px;
+    }
+    .plusicon {
+        margin-left: 250px
     }
 }
 

@@ -1,6 +1,5 @@
 .body {
-    position: relative;
-    left: 250px;
+    padding: 0px 250px;
     font-size: 25px;
 }
 .labelAddress{
@@ -8,6 +7,9 @@
     margin: 20px 0px;
 }
 .time {
+    span {
+        padding-left: 10px;
+    }
     font-size: 15px;
     margin: 10px;
 }
