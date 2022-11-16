@@ -18,7 +18,8 @@ import { message } from 'antd'
 import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
-import Alert from '~/components/Alert/alert'
+import Alert from '~/components/Alert/alert';
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 var clone = [{price: "",
@@ -34,6 +35,10 @@ function Person() {
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
+    const [address,setAddress] = useState(1)
+    const [addressAll,setAddressAll] = useState()
+    const [disable,setDisable] = useState(true)
+
     var sum = count
     function Minus() {
         if (sum >= 2 && sum <= 20) {
@@ -53,6 +58,25 @@ function Person() {
         setSecondListDtail(a)
         setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
     }
+
+    function changeStatus() {
+        if (secondListDtail[0].status == "disable") {
+            setDisable(true)
+        }
+        else (setDisable(false))
+        console.log(secondListDtail[0].status);
+    }
+
+    function changeAddressAll() {
+        setAddressAll()
+        setAddress(1)
+    }
+
+    function changeAddress() {
+        setAddress()
+        setAddressAll(1)
+    }
+
     const HandleAddProduct = () => {
         let Storage = localStorage.getItem('myStore')
         if (Storage) {
@@ -126,16 +150,18 @@ function Person() {
                 <div className={cx("side_img")}>
                     {listDtail.map((value, index) => {
                         return (
-                            <button onClick={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                            <button onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
                         )
                     })}
                 </div>
-                <div className={cx("mainImg")}>
+                <div className={cx("main_Img")}>
                     <img src={src} alt={src}></img>
-                    <div>
+                    <Link to = "">
+                        <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        <span>Click xem hình ảnh lớn hơn</span>
-                    </div>
+                        <button>Click xem hình ảnh lớn hơn</button>
+                        </div>
+                    </Link>
                 </div>
                 <div>
                     <div className={cx("infor")}>
@@ -155,7 +181,7 @@ function Person() {
                         Màu Sắc: {listDtail.map((value, index) => {
                             return (
                                 <>
-                                    <button onClick={function () { changeImg(index) }}>{value.color}</button>
+                                    <button onClick={changeStatus} onClickCapture={function changeStatus() { changeImg(index) }}>{value.color}</button>
                                 </>
                             )
                         })}
@@ -167,18 +193,18 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
-                        <button>Mua Ngay</button>
+                        <button disabled = {disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
+                        <button disabled = {disable}>Mua Ngay</button>
                     </div>
                     <div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
                         <a href="https://www.facebook.com/profile.php?id=100009786037668"><FontAwesomeIcon icon={faFacebook} /></a>
                     </div>
                     <div className={cx("address")}>
-                        <button>Toàn Quốc</button>
-                        <button>Hà Nội</button>
-                        <button>Hồ Chính Minh</button>
-                        <div className={cx("addressDetail")}>
+                        <button onClick={changeAddressAll}>Toàn Quốc</button>
+                        <button onClick={changeAddress}>Hà Nội</button>
+                        <button onClick={changeAddress}>Hồ Chính Minh</button>
+                        <div hidden={addressAll} className={cx("addressDetail")}>
                             <p>
                                 <FontAwesomeIcon icon={faLocationDot} />
                                 <span>265 Trần Đăng Ninh - Phường Dịch Vọng (Hết hàng)</span>
@@ -192,7 +218,7 @@ function Person() {
                                 <span>61 Nguyễn Phi Khanh, P Tân Định (Hết hàng)</span>
                             </p>
                         </div>
-                        <div className={cx("addressNone")}>
+                        <div hidden={address} className={cx("addressNone")}>
                             <p>Không còn cửa hàng nào khu vực này còn hàng!!!</p>
                         </div>
                     </div>

@@ -40,21 +40,26 @@
         padding: 1px;
         cursor: pointer;
         border-style: groove;
+        &:hover {
+            border-color: #e18949;
+        }
     }
 }
 
-.mainImg {
+.main_Img {
     div {
         text-align: center;
+        background-color: white;
 
         &:hover {
             cursor: pointer;
         }
     }
 
-    span {
+    button {
         margin-left: 10px;
         color: rgb(133, 126, 126);
+        background-color: white;
     }
     img {
         width: 450px;
@@ -109,6 +114,9 @@
             position: absolute;
             top: 0;
             left: 0;
+        }
+        &:active {
+            border-color: #fe6a00;
         }
     }
 }
@@ -192,9 +200,6 @@
             margin-left: 10px;
         }
     }
-}
-.addressNone {
-    display: none;
 }
 
 .exchange {
