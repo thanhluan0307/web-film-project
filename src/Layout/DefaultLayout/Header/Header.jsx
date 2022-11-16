@@ -38,7 +38,7 @@ function Header() {
     .then (res => {
         const categorieArray = res.data.categories
         const categories = categorieArray.map(item =>{
-        return item.categoryName 
+        return item.categoryName
       })
       setData(categories)
     }) 
@@ -100,7 +100,7 @@ function Header() {
          <div className={cx('logo')}>
             <Link to="/"><img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" /></Link>
          </div>
-         <ul className={cx('nav')}>   
+         <ul className={cx('nav')}>
             {data.map(category => {
               return (
                 <li key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>
@@ -120,8 +120,9 @@ function Header() {
       </div>
       <BackToTopButton view={backToTop}/>
     </header>
+
   )
- 
+
  }
- 
+
  export default (Header);
