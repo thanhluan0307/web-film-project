@@ -17,7 +17,7 @@ import {createSlice} from '@reduxjs/toolkit'
 //     }
 //     ]
 
-// localStorage.setItem('myStore',JSON.stringify(dataTest))
+// localStorage.setItem('myStore',[])
 
 export const totalProductSlice=createSlice({
     name:'totalProduct',

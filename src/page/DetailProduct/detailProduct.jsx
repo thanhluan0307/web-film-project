@@ -45,10 +45,10 @@ function Person() {
         if (Storage){
             Storage=JSON.parse(Storage)
             let infoProduct={
-                name:' ốp Ihone 14-PRO-Max ',
-                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size:'',
-                color:'',
+                name:product.productName,
+                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
+                size:product.listDtail[0].ram,
+                color:product.listDtail[0].color,
                 price:9000,
                 amount:count
             }
@@ -68,10 +68,10 @@ function Person() {
         }
         else {
             let infoProduct={
-                name:' ốp Ihone 14-PRO-Max ',
-                img:'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size:'',
-                color:'',
+                name:product.productName,
+                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
+                size:product.listDtail[0].ram,
+                color:product.listDtail[0].color,
                 price:9000,
                 amount:count
             }
@@ -83,10 +83,20 @@ function Person() {
         }
         setCheck(true)
     }
+    useEffect(()=>{
+        const clearAlert=setTimeout(()=>{
+            setCheck(false)
+        },3500)
+    return ()=>clearTimeout(clearAlert)
+    },[check])
+
     useEffect(() => {
+        window.scroll(0,0)
         axios.get(`/product/get-one-product/${productID}`)
-            .then(res => {console.log(res.data.product)
-                setProduct(res.data.product)})
+            .then(res => {
+                console.log(res.data.product)
+                setProduct(res.data.product)
+            })
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
@@ -104,6 +114,7 @@ function Person() {
             <div className={cx("body")}>
                 <div></div>
                 <div className={cx("image")}>
+                    <div></div>
                     <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />

@@ -11,7 +11,10 @@ function RenderProduct() {
     const [data,setData]=useState([])
     const totalProduct=useSelector(state=> state.counterProduct)
     const dispatch = useDispatch();
-    dispatch(counterTotalProduct())
+    
+    // useEffect(()=>{
+    //     setData(data)
+    // },[totalProduct])
     
     const amountProduct=useSelector(state=>state.amountProduct)
     
@@ -38,6 +41,7 @@ function RenderProduct() {
         localStorage.removeItem('myStore')
         localStorage.setItem('myStore',JSON.stringify(newData))
         setData(newData)
+        dispatch(counterTotalProduct())
     }
 
     useEffect(()=>{
@@ -49,6 +53,7 @@ function RenderProduct() {
             value.style='something'
         })
         setData(newData)
+        dispatch(counterTotalProduct())
     },[])
 
   
@@ -72,7 +77,7 @@ function RenderProduct() {
     </div>
 
     { data.map((value,index)=> {
-        return(
+        return(<>
             <div className={ styles.childProductContainer} key={index}>
                 <div className={styles.childProductContainerDeal}>
                     <div className={styles.ProductDeal}>
@@ -103,7 +108,37 @@ function RenderProduct() {
                         <div className={styles.navTitle} onClick={()=>{handleDelete(index)}}>Xoá</div>
                     </div>
                 </div>
+                <div className={styles.voucher}>
+                    <img  width='30px' src='https://asset.chiaki.vn/images/category/voucher.png?v=06062022'></img>
+                    <p>Shop voucher giảm giá đến 5%</p>
+                    <p>Xem thêm Voucher</p>
+                </div>
+                <div className={styles.voucher}>
+                    <img  width='30px' src='data:image/png;base64,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  '></img>
+                    <p>Giảm ₫15.000 phí vận chuyển đơn tối thiểu ₫50.000; Giảm ₫25.000 phí vận chuyển đơn tối thiểu ₫99.000</p>
+                    <p>Tìm hiểu thêm</p>
+                </div>
             </div>
+
+            {/* <div classNAme={styles.payContainer}>
+                <div classNAme={styles.topPay}>
+             
+                    <img  width='30px' src='https://asset.chiaki.vn/images/category/voucher.png?v=06062022'></img>
+                    <p>B5 Shop Voucher</p>
+                    
+                    <div>
+                        Chon hoặc nhập mã
+                    </div>
+                </div>
+                <div classNAme={styles.middlePay}>
+                    <input type="checkbox" name="" id="" className={styles.checkbox}/>
+                    <div></div>
+
+                </div>
+                <div classNAme={styles.bottomPay}>
+                </div>
+            </div> */}
+            </>
             )
         })
     }
