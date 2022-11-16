@@ -78,6 +78,7 @@ function RenderProduct() {
 
     { data.map((value,index)=> {
         return(<>
+        
             <div className={ styles.childProductContainer} key={index}>
                 <div className={styles.childProductContainerDeal}>
                     <div className={styles.ProductDeal}>
@@ -120,7 +121,7 @@ function RenderProduct() {
                 </div>
             </div>
 
-            {/* <div classNAme={styles.payContainer}>
+            <div classNAme={styles.payContainer}>
                 <div classNAme={styles.topPay}>
              
                     <img  width='30px' src='https://asset.chiaki.vn/images/category/voucher.png?v=06062022'></img>
@@ -137,7 +138,7 @@ function RenderProduct() {
                 </div>
                 <div classNAme={styles.bottomPay}>
                 </div>
-            </div> */}
+            </div>
             </>
             )
         })
