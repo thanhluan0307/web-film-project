@@ -1,12 +1,17 @@
-import React from 'react'
+import styles from './myStore.module.scss'
 import RenderProduct from './renderProduct'
 import RenderNoneProduct from './renderNoneProduct'
+import {useSelector } from 'react-redux'
 
 function MyStore() {
-  let Storage=localStorage.getItem('myStore')
+  const totalProduct=useSelector(state=>state.counterProduct)
+console.log(totalProduct);
   return (
     <>  
-    { (Storage)?<RenderProduct/>:<RenderNoneProduct/>
+    <div className={styles.container}>
+        <h1>Giỏ hàng của bạn</h1>
+    </div>
+    { (totalProduct>0)?<RenderProduct/>:<RenderNoneProduct/>
     }
     </>
   )

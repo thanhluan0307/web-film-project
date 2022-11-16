@@ -49,6 +49,7 @@ function Person() {
             setCount(sum)
         }
     }
+  
     function changeImg(index) {
         var cloneListDtail = [...listDtail]
         var a = cloneListDtail.splice(index,1)
@@ -59,13 +60,13 @@ function Person() {
         let Storage = localStorage.getItem('myStore')
         if (Storage) {
             Storage = JSON.parse(Storage)
-            let infoProduct = {
-                name: ' ốp Ihone 14-PRO-Max ',
-                img: 'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size: '',
-                color: '',
-                price: 9000,
-                amount: count
+            let infoProduct={
+                name:product.productName,
+                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
+                size:product.listDtail[0].ram,
+                color:product.listDtail[0].color,
+                price:9000,
+                amount:count
             }
             let kt = false
             for (let item of Storage) {
@@ -83,13 +84,13 @@ function Person() {
             }
         }
         else {
-            let infoProduct = {
-                name: ' ốp Ihone 14-PRO-Max ',
-                img: 'https://bucket.nhanh.vn/store2/70105/ps/20221108/img_5832_1170x1170.jpg',
-                size: '',
-                color: '',
-                price: 9000,
-                amount: count
+            let infoProduct={
+                name:product.productName,
+                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
+                size:product.listDtail[0].ram,
+                color:product.listDtail[0].color,
+                price:9000,
+                amount:count
             }
             Storage = []
             Storage.push(infoProduct)
@@ -99,7 +100,15 @@ function Person() {
         }
         setCheck(true)
     }
+    useEffect(()=>{
+        const clearAlert=setTimeout(()=>{
+            setCheck(false)
+        },3500)
+    return ()=>clearTimeout(clearAlert)
+    },[check])
+
     useEffect(() => {
+        window.scroll(0,0)
         axios.get(`/product/get-one-product/${productID}`)
             .then(res => {
                 console.log(res.data)
@@ -128,7 +137,7 @@ function Person() {
                 <div className={cx("side_img")}>
                     {listDtail.map((value, index) => {
                         return (
-                            <button onClick={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                            <button onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
                         )
                     })}
                 </div>
@@ -172,7 +181,7 @@ function Person() {
                         <button onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
                         <button>Mua Ngay</button>
                     </div>
-                    <div className={cx("shareFB")}>
+<div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
                         <a href="https://www.facebook.com/profile.php?id=100009786037668"><FontAwesomeIcon icon={faFacebook} /></a>
                     </div>
@@ -225,7 +234,7 @@ function Person() {
                     <div className={cx("delivery")}>
                         <span><FontAwesomeIcon icon={faPhone} /></span>
                         <div>
-                            <p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
+<p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
                             <p>(Từ 8h30 - 21:30 mỗi ngày)</p>
                         </div>
                     </div>
@@ -238,6 +247,7 @@ function Person() {
             <HomeStore />
         </>
     );
+
 }
 
 export default Person;

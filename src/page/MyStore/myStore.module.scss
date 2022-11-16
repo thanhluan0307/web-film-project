@@ -1,6 +1,6 @@
 
 .container{
-    background-color: rgb(246, 246, 246);
+    background-color: rgb(255, 255, 255);
 }
 
 .title{
@@ -80,14 +80,14 @@
 
 .childProductContainer{
     width:100%;
-    background-color: rgb(255, 255, 255);
-    height:300px;
+    border: 0.5px solid rgb(234, 234, 234);
+    height:max-content;
     margin:2% 0;
     padding: 2%;;
 }
 
 .childProductContainerDeal{
-    width:98%;
+    width:100%;
     margin: 0 auto;
     border: 0.5px solid rgb(234, 234, 234);
 }
@@ -166,3 +166,44 @@
     color:rgb(0, 0, 0);
 }
 
+.voucher{
+    width: 100%;
+    display:flex;
+    font-size: 120%;
+    align-items: center;
+    border: 0.5px solid rgb(221, 221, 221);
+   
+}
+
+.voucher img{
+    margin:0 2%;
+}
+
+.voucher p:last-child{
+    display: block;
+    margin-left: 2%;
+    padding:1.5% 0;
+    color: #05a;
+    cursor: pointer;
+}
+
+.payContainer{
+    width:100%;
+    border: 1px solid black;
+}
+
+.topPay{
+    display: flex;
+    width:100%;
+    border: 1px solid black;
+}
+
+// .topPay div:first-of-type{
+//     width:70%;
+//     text-align: end;
+// }
+
+// .topPay div:last-of-type{
+//     width:30%;
+//     text-align: end;
+// }
