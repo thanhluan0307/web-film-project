@@ -114,6 +114,15 @@
 		opacity: 0.7;
 	}
 }
+.err-msg:invalid{
+	animation : shake 0.3s;
+}
+@keyframes shake{
+	25% {transform : translateX(4px)}
+	50% {transform : translateX(-4px)}
+	75% {transform : translateX(4px)}
+}
+
 .bnt-signup{
 	width: 75%;
     height: 50px;

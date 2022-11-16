@@ -35,16 +35,20 @@ function Login() {
         setCount(count+1)
     }
     const checkInpUser = () =>{
-        if (!Username.test(inpUserName)) {
-            setBooleanUser(true)
-        }else{
-            setBooleanUser(false)
-        }
+        console.log(38,inpUserName);
+            console.log(38,inpUserName);
+            if (!Username.test(inpUserName) && inpUserName !=="" ){
+                setBooleanUser(true)
+            }else{
+                setBooleanUser(false)
+            }
+
     }
 
 
     function checkInpEmail(){
-        if (!Email.test(inpEmail)) {
+        console.log(48,inpEmail);
+        if (!Email.test(inpEmail) && inpEmail !=="") {
             setBooleanEmail(true)
         } else {
             setBooleanEmail(false)
@@ -53,7 +57,8 @@ function Login() {
 
 
     function checkInpPass(){
-        if (!Password.test(inpPass)) {
+        console.log(58,inpPass);
+        if (!Password.test(inpPass) && inpPass !=="") {
             setBooleanPass(true)
         }else{
             setBooleanPass(false)
@@ -63,19 +68,13 @@ function Login() {
 
 
     function checkInpComfirmPass(){
-        setTimeout(() => {
-            console.log(11,inpConfirmPass);
-            console.log(12,inpPass);
-          
-        if ( inpPass === inpConfirmPass) {
-            setBooleanConfirmPass(false)
-            console.log(13,booleanConfirmPass);
+        console.log(inpConfirmPass);
+            if ( inpPass === inpConfirmPass) {
+                setBooleanConfirmPass(false)
 
-        }else{
-            setBooleanConfirmPass(true)
-            console.log(booleanConfirmPass);
-        }
-        },500);
+            }else{
+                setBooleanConfirmPass(true)
+            }
     }
 
     const forLogin = (e)=>{
@@ -92,8 +91,7 @@ function Login() {
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
-            console.log(err);
-            alert('')
+            alert('SAI TÀI KHOẢN HOẶC MẬT KHẨU')
         })
 
     }
@@ -101,7 +99,7 @@ function Login() {
     const forSignUp =(e) =>{
 
         e.preventDefault()
-        if (inpConfirmPass === inpPass) {
+        if (inpConfirmPass === inpPass && inpUserName !== "" && inpEmail !== "" && inpPass !== "") {
             axios.post(`/auth/sign-up` , {
                 'username' : inpUserName,
                 'email' : inpEmail,
@@ -110,7 +108,7 @@ function Login() {
             .then(res =>{
                 setCount(count+1)
                 localStorage.setItem("name",inpUserName)
-                alert('ĐĂNG KÍ THÀNH KÔNG');
+                alert('ĐĂNG KÍ THÀNH CÔNG');
             })
             .catch(er =>{
                 console.log(er);
@@ -134,7 +132,7 @@ function Login() {
                     className={cx('inp-login')} 
                     value={inpEmail} 
                     onChange={(e)=>setInpEmail(e.target.value)} 
-                    onInput={checkInpEmail} type="text" 
+                    onBlur={checkInpEmail} type="text" 
                     placeholder='Email'
                 />    
                 <br />
@@ -145,7 +143,7 @@ function Login() {
                     className={cx('inp-login')}     
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
-                    onInput={checkInpPass} 
+                    onBlur={checkInpPass} 
                     type="password" 
                     placeholder='Password'/> <br /> 
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
@@ -174,7 +172,7 @@ function Login() {
                     className={cx('inp-SignUp')} 
                     value={inpUserName} 
                     onChange={(e)=>setInpUserName(e.target.value)} 
-                    onInput={checkInpUser} 
+                    onBlur={checkInpUser} 
                     type="text" 
                     placeholder='Username'
                 /> 
@@ -186,7 +184,7 @@ function Login() {
                     className={cx('inp-SignUp')} 
                     value={inpEmail} 
                     onChange={(e)=>setInpEmail(e.target.value)} 
-                    onInput={checkInpEmail} 
+                    onBlur={checkInpEmail} 
                     type="email" 
                     placeholder='Email'
                 /> 
@@ -198,7 +196,7 @@ function Login() {
                     className={cx('inp-SignUp')} 
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
-                    onInput={checkInpPass} 
+                    onBlur={checkInpPass} 
                     type="password" 
                     placeholder='Password'/> <br />
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
@@ -208,7 +206,7 @@ function Login() {
                     className={cx('inp-SignUp')} 
                     value={inpConfirmPass}  
                     onChange={(e)=>setInpConfirmPass(e.target.value)} 
-                    onInput={checkInpComfirmPass()} 
+                    onBlur={checkInpComfirmPass} 
                     type="password" 
                     placeholder='Confirm password'
                 /> 
