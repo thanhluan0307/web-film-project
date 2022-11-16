@@ -5,13 +5,14 @@ import { faCartShopping, faPhone,faRightFromBracket,faUser } from '@fortawesome/
 import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
-import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
+import styles from './header.module.scss'
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import axios from '~/axios';
 import {addProduct} from '~/reducer/dataSearchSlice'
 import { counterTotalProduct } from '~/reducer/totalProductSlice';
 import useDebounce from '~/customHook/useDebounce';
-
+import logo from '~/assets/images/b5.png'
+import iconSearch from '~/assets/images/icon-search.svg'
 
 const cx = classNames.bind(styles)
 
@@ -50,25 +51,23 @@ function Header() {
     /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
   },[])
-  useEffect (()=> {
-   
-    axios.get(`/product/find-products-by-name?productName=${debounceSearch}`)
+  const removeToken = () => {
+    localStorage.removeItem('Token')
+    localStorage.removeItem('email')
+  }
+  const getProductByValue = ()=> {
+    axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
     .then (res => {
         let data = res.data.products
         if (data.length !== 0) {
           const action = addProduct(data)
           dispatch(action)
-          nav(`/search?q=${debounceSearch}`)
+          nav(`/search?q=${searchProduct}`)
         }else {
             nav('/404')
         }
     })
-  },[debounceSearch])
-  const removeToken = () => {
-    localStorage.removeItem('Token')
-    localStorage.removeItem('email')
   }
-  
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -102,7 +101,7 @@ function Header() {
       </div>
       <div className={cx('nav-box')}>
          <div className={cx('logo')}>
-            <Link to="/"><img src="https://bucket.nhanh.vn/store2/70105/store_1607654364_601.png" alt="" /></Link>
+            <Link to="/"><img src={logo} alt="" /></Link>
          </div>
          <ul className={cx('nav')}>
             {data.map(category => {
@@ -120,8 +119,11 @@ function Header() {
               onChange={e => setSearchProduct(e.target.value)}
               placeholder='Tìm kiếm...'/>
             <button 
-            // onClick={getProductByValue} 
+            onClick={getProductByValue} 
             className={cx('btnSearch')}></button>
+         </div>
+         <div className={cx('search-mobile')}>
+              <img src={iconSearch} alt="" />
          </div>
       </div>
       <BackToTopButton view={backToTop}/>

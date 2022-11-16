@@ -5,12 +5,18 @@ import classNames from "classnames/bind";
 import SlideShow from "~/components/SlideShow/slideauto"
 
 import styles from "./search.module.scss"
+
 const cx = classNames.bind(styles)
 function Search() {
-    const data = useSelector(state => state.dateSearch) || []
+   
+    const data = useSelector(state => state.dateSearch) 
     return ( 
         <>
             <SlideShow/>
+            <div className={cx('res')}>
+                <h1>Tìm Kiếm</h1>
+                <p>Có {data.length} sản phẩm tìm kiếm</p>
+            </div>
             <div  className={cx('wrapper')}>
                 {data.map(item => {
                     return (
