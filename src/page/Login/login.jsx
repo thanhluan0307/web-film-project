@@ -64,18 +64,13 @@ function Login() {
 
     function checkInpComfirmPass(){
         setTimeout(() => {
-            console.log(11,inpConfirmPass);
-            console.log(12,inpPass);
-          
         if ( inpPass === inpConfirmPass) {
             setBooleanConfirmPass(false)
-            console.log(13,booleanConfirmPass);
 
         }else{
             setBooleanConfirmPass(true)
-            console.log(booleanConfirmPass);
         }
-        }, 1000);
+        },500);
     }
 
     const forLogin = (e)=>{
@@ -87,12 +82,13 @@ function Login() {
         })
         .then(res =>{     
             localStorage.setItem("Token",res.data.token)
-            localStorage.setItem("email",res.email)
+            localStorage.setItem("email",inpEmail.slice(0 ,inpEmail.indexOf("@")))
             next("/")
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
             console.log(err);
+            alert('')
         })
 
     }
@@ -107,8 +103,8 @@ function Login() {
                 'password' : inpPass
             })
             .then(res =>{
-                next("/")
-                // console.log(res);
+                setCount(count+1)
+                localStorage.setItem("name",inpUserName)
                 alert('ĐĂNG KÍ THÀNH KÔNG');
             })
             .catch(er =>{
@@ -121,7 +117,7 @@ function Login() {
     }
 
     return ( 
-        <>        
+        <>
         <div className={cx('login')}>
             <form 
                 onSubmit={forLogin}
@@ -129,7 +125,6 @@ function Login() {
                 className={cx('form-login')}
             >
                 <h1>Login</h1>
-                
                 <input
                     className={cx('inp-login')} 
                     value={inpEmail} 
@@ -154,6 +149,7 @@ function Login() {
                 <div style={{textAlign:'right' , marginRight:"50px"}}>
                     <input type="checkbox"/> Renember me
                     <p>For got your password?</p>
+
                 </div>
                 <button className={cx('bnt-login')} >Login</button>
                 <h2>

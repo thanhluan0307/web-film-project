@@ -15,7 +15,7 @@ function ContaierProduct() {
     useEffect (()=> {
         axios.get('/product/get-all-products')
         .then(res =>{   
-            let data =(res.data.products)    
+            let data =(res.data.products)
             setProductAll(data)
         })
         .catch(error =>{

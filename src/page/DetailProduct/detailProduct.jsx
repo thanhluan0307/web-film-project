@@ -2,48 +2,64 @@
 import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-    faHouse, 
-    faLocationDot, 
-    faMagnifyingGlass, 
+import {
+    faHouse,
+    faLocationDot,
+    faMagnifyingGlass,
     faMinus, faNoteSticky,
-    faPhone, faPlus, 
-    faTruckFast } from "@fortawesome/free-solid-svg-icons";
+    faPhone, faPlus,
+    faTruckFast
+} from "@fortawesome/free-solid-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import {useEffect, useState} from "react";
-import { useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { message } from 'antd'
 import HomeStore from "~/components/HomeStore/homeStore";
-import {counterTotalProduct,} from '~/reducer/totalProductSlice'
+import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert'
 
-const cx = classNames.bind(styles)
 
+
+const cx = classNames.bind(styles)
+var clone = [{price: "",
+            ram: "",
+            rom:"",
+            status: ""}]
 function Person() {
-    const disPatch=useDispatch()
+    const disPatch = useDispatch()
     const { productID } = useParams()
     const [product, setProduct] = useState({})
-    const [count,setCount] = useState(1)
-    const [check,setCheck] = useState(false)
-    var sum = count 
-    function Minus (){
-        if (sum >= 2 && sum <=20) {
-            sum-=1
+    const [count, setCount] = useState(1)
+    const [check, setCheck] = useState(false)
+    const [listDtail, setListDtail] = useState([])
+    const [secondListDtail, setSecondListDtail] = useState(clone)
+    const [src, setSrc] = useState()
+    var sum = count
+    function Minus() {
+        if (sum >= 2 && sum <= 20) {
+            sum -= 1
             setCount(sum)
         }
     }
-    function Add (){
-      if (sum >= 1 && sum <=19) {
-        sum+=1
-        setCount(sum)
-      }
+    function Add() {
+        if (sum >= 1 && sum <= 19) {
+            sum += 1
+            setCount(sum)
+        }
     }
-    const HandleAddProduct=()=>{   
-        let Storage=localStorage.getItem('myStore')
-        if (Storage){
-            Storage=JSON.parse(Storage)
+  
+    function changeImg(index) {
+        var cloneListDtail = [...listDtail]
+        var a = cloneListDtail.splice(index,1)
+        setSecondListDtail(a)
+        setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
+    }
+    const HandleAddProduct = () => {
+        let Storage = localStorage.getItem('myStore')
+        if (Storage) {
+            Storage = JSON.parse(Storage)
             let infoProduct={
                 name:product.productName,
                 img:"https://shope-b3.thaihm.site/" + product.thumbnail,
@@ -52,17 +68,18 @@ function Person() {
                 price:9000,
                 amount:count
             }
-            let kt=false
-            for (let item of Storage){
-                if (item.name===infoProduct.name) {
-                    kt=true
-                    item.amount+=count
-                    localStorage.setItem('myStore',JSON.stringify(Storage))
+            let kt = false
+            for (let item of Storage) {
+                if (item.name === infoProduct.name) {
+                    kt = true
+                    item.amount += count
+                    localStorage.setItem('myStore', JSON.stringify(Storage))
                     break
-                }}
-            if (kt===false) {
+                }
+            }
+            if (kt === false) {
                 Storage.push(infoProduct)
-                localStorage.setItem('myStore',JSON.stringify(Storage))
+                localStorage.setItem('myStore', JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }
@@ -75,11 +92,11 @@ function Person() {
                 price:9000,
                 amount:count
             }
-                Storage=[]
-                Storage.push(infoProduct)
-                localStorage.setItem('myStore',JSON.stringify(Storage))
-                disPatch(counterTotalProduct())
-            
+            Storage = []
+            Storage.push(infoProduct)
+            localStorage.setItem('myStore', JSON.stringify(Storage))
+            disPatch(counterTotalProduct())
+
         }
         setCheck(true)
     }
@@ -94,15 +111,20 @@ function Person() {
         window.scroll(0,0)
         axios.get(`/product/get-one-product/${productID}`)
             .then(res => {
-                console.log(res.data.product)
+                console.log(res.data)
                 setProduct(res.data.product)
+                setListDtail(res.data.product.listDtail)
             })
             .catch(err => message.err("Lỗi rồi!"))
     }, [])
 
+    useEffect(() => {
+        setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
+    }, [product])
+
     return (
-        <>  
-            {check === true ? <Alert/> : null}
+        <>
+            {check === true ? <Alert /> : null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
@@ -112,10 +134,15 @@ function Person() {
                 <span>{product.productName}</span>
             </div>
             <div className={cx("body")}>
-                <div></div>
-                <div className={cx("image")}>
-                    <div></div>
-                    <img src={"https://shope-b3.thaihm.site/" + product.thumbnail} alt=""></img>
+                <div className={cx("side_img")}>
+                    {listDtail.map((value, index) => {
+                        return (
+                            <button onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                        )
+                    })}
+                </div>
+                <div className={cx("mainImg")}>
+                    <img src={src} alt={src}></img>
                     <div>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <span>Click xem hình ảnh lớn hơn</span>
@@ -123,13 +150,27 @@ function Person() {
                 </div>
                 <div>
                     <div className={cx("infor")}>
-                        <p>{product.productName}</p>
+                        <p>Nhãn hiệu: <span>{product.brand}</span></p>
+                        <p>Tên sản phẩm: <span>{product.productName}</span></p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-                        <p>Còn hàng</p>
-                        <p>Giá: <span>{product.price}</span></p>
-                        <p>MÀU SẮC</p>
-                        <p>LOẠI MÁY</p>
-                        <u>Chọn màu và loại máy khi đặt hàng</u>
+                        {secondListDtail.map((value, index) => {
+                            return (
+                                <>
+                                    <p>Giá: <span>{value.price}</span></p>
+                                    <p>Ram: <span>{value.ram}</span></p>
+                                    <p>Rom: <span>{value.rom}</span></p>
+                                    <p>Trạng thái: <span>{value.status}</span></p>
+                                </>
+                            )
+                        })}
+                        Màu Sắc: {listDtail.map((value, index) => {
+                            return (
+                                <>
+                                    <button onClick={function () { changeImg(index) }}>{value.color}</button>
+                                </>
+                            )
+                        })}
+                         <p><u>(Kiểm tra khi đặt hàng)</u></p>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
@@ -137,10 +178,10 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button onClick={HandleAddProduct} >Thêm Vào Giỏ Hàng</button>
+                        <button onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
                         <button>Mua Ngay</button>
                     </div>
-                    <div className={cx("shareFB")}>
+<div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
                         <a href="https://www.facebook.com/profile.php?id=100009786037668"><FontAwesomeIcon icon={faFacebook} /></a>
                     </div>
@@ -167,12 +208,14 @@ function Person() {
                         </div>
                     </div>
                     <div className={cx("exchange")}>
-                        <p>THÔNG SỐ SẢN PHẨM
-                            <span><FontAwesomeIcon icon={faPlus} /></span>
-                        </p>
-                        <p>CHÍNH SÁCH ĐỔI TRẢ
-                            <span><FontAwesomeIcon icon={faPlus} /></span>
-                        </p>
+                        <div>
+                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
+                        <div>
+                            <span className={cx("text")}>CHÍNH SÁCH ĐỔI TRẢ</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
                     </div>
                     <div className={cx("delivery")}>
                         <span><FontAwesomeIcon icon={faTruckFast} /></span>
@@ -191,7 +234,7 @@ function Person() {
                     <div className={cx("delivery")}>
                         <span><FontAwesomeIcon icon={faPhone} /></span>
                         <div>
-                            <p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
+<p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
                             <p>(Từ 8h30 - 21:30 mỗi ngày)</p>
                         </div>
                     </div>
@@ -201,9 +244,10 @@ function Person() {
                 <button>CÓ THỂ BẠN THÍCH</button>
                 <button>SẢN PHẨM BÁN CHẠY</button>
             </div>
-            <HomeStore/>
+            <HomeStore />
         </>
     );
+
 }
 
 export default Person;

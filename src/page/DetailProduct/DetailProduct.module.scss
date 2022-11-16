@@ -4,7 +4,11 @@
     a {
         padding: 10px;
     }
+    span {
+        padding: 10px;
+    }
     font-size: 13px;
+    margin-bottom: 10px;
 }
 
 .body {
@@ -22,7 +26,24 @@
     justify-content: center;
 }
 
-.image {
+.side_img {
+    display: flex;
+    flex-direction: column;
+    img {
+        width: 50px;
+        height: 60px;
+        border-color: black;
+        margin: 2px;
+    }
+    button {
+        margin: 5px 0px;
+        padding: 1px;
+        cursor: pointer;
+        border-style: groove;
+    }
+}
+
+.mainImg {
     div {
         text-align: center;
 
@@ -35,21 +56,66 @@
         margin-left: 10px;
         color: rgb(133, 126, 126);
     }
+    img {
+        width: 450px;
+        height: 550px;
+    }
 }
 
 .infor {
+    span {
+        color: rgb(201, 99, 26);
+        text-transform: uppercase;
+    }
     p {
-        font-weight: bold;
+        font-weight: bolder;
+        padding: 5px 5px 5px 0px;
     }
 
     u:hover {
         text-decoration: none;
         cursor: pointer
     }
+    u {
+        font-weight: normal;
+        font-size: 14px;
+    }
+    div {
+        margin-left: -20px;
+    }
+    button {
+        position: relative;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 13px;
+        padding: 8px;
+        margin: 8px 5px 0px 0px;
+        background-color: white;
+        border-style: groove;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        &:hover {
+            cursor: pointer;
+        }
+        &:active:before {
+            content: "✓";
+            width: 9px;
+            height: 2px;
+            border-radius: 0 0 10px 0;
+            background-color: #d70018;
+            color: #fff;
+            font-size: 10px;
+            padding-left: 4px;
+            padding-bottom: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
 }
 
 .addMinus {
     margin-bottom: -20px;
+    margin-top: -20px;
 
     button {
         padding: 10px;
@@ -132,16 +198,21 @@
 }
 
 .exchange {
-    p {
+    div {
         padding-bottom: 10px;
         padding-top: 10px;
         border-style: none none solid none;
         border-color: rgba($color: #b5aaaac6, $alpha: 1.0);
     }
 
-    span {
-        margin-left: 250px;
+    .text {
         cursor: pointer;
+        margin-left: -20px;
+        display: inline-block;
+        width: 200px;
+    }
+    .plusicon {
+        margin-left: 250px
     }
 }
 
