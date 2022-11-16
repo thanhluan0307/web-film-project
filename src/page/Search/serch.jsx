@@ -7,7 +7,7 @@ import SlideShow from "~/components/SlideShow/slideauto"
 import styles from "./search.module.scss"
 const cx = classNames.bind(styles)
 function Search() {
-    const data = useSelector(state => state.dateSearch)
+    const data = useSelector(state => state.dateSearch) || []
     return ( 
         <>
             <SlideShow/>

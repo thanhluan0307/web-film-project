@@ -10,6 +10,7 @@ import { Link, NavLink,useNavigate } from 'react-router-dom';
 import axios from '~/axios';
 import {addProduct} from '~/reducer/dataSearchSlice'
 import { counterTotalProduct } from '~/reducer/totalProductSlice';
+import useDebounce from '~/customHook/useDebounce';
 
 
 const cx = classNames.bind(styles)
@@ -21,6 +22,7 @@ function Header() {
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
   const [searchProduct,setSearchProduct] = useState('')
+  const debounceSearch = useDebounce(searchProduct,1000)
   const token = localStorage.getItem('Token')
   const nav = useNavigate()
   const setFixed = useCallback(() => {
@@ -43,28 +45,30 @@ function Header() {
       setData(categories)
     }) 
   },[])
-  const getProductByValue = () => {
-    axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
-      .then (res => {
-          let data = res.data.products
-          if (data.length !== 0) {
-            const action = addProduct(data)
-            console.log(action)
-            dispatch(action)
-            nav(`/search?q=${searchProduct}`)
-          }else {
-              nav('/404')
-          }
-      })
-  }
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
     /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
   },[])
+  useEffect (()=> {
+   
+    axios.get(`/product/find-products-by-name?productName=${debounceSearch}`)
+    .then (res => {
+        let data = res.data.products
+        if (data.length !== 0) {
+          const action = addProduct(data)
+          dispatch(action)
+          nav(`/search?q=${debounceSearch}`)
+        }else {
+            nav('/404')
+        }
+    })
+  },[debounceSearch])
   const removeToken = () => {
     localStorage.removeItem('Token')
+    localStorage.removeItem('email')
   }
+  
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -114,8 +118,10 @@ function Header() {
               className={cx("value-product")} 
               value={searchProduct}
               onChange={e => setSearchProduct(e.target.value)}
-              placeholder='Tìm kiếm...' />
-            <button onClick={getProductByValue} className={cx('btnSearch')}></button>
+              placeholder='Tìm kiếm...'/>
+            <button 
+            // onClick={getProductByValue} 
+            className={cx('btnSearch')}></button>
          </div>
       </div>
       <BackToTopButton view={backToTop}/>

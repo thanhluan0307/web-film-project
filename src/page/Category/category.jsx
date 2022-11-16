@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import classNames from "classnames/bind";
 
 
@@ -18,9 +18,10 @@ function Category() {
     const [branchs,setBranchs] = useState([])
     const [filter,setFilter] = useState(null)
     const [active,setActive] = useState(null)
+    const [searchParam,setSearchParam] = useSearchParams()
     
     useEffect(() => {
-          axios.get('/product/get-all-products')
+          axios.get(`/product/get-all-products`)
                .then (res => {
                     let data = res.data.products
                     let productByCategory = data.filter(item => {
@@ -42,6 +43,7 @@ function Category() {
           })
          setFilter(data)
          setActive(index)
+         setSearchParam({filters:name})
     }
     return ( 
        <> 
