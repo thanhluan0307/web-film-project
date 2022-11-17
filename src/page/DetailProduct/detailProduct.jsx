@@ -43,6 +43,8 @@ function Person() {
     const [disable, setDisable] = useState(true)
     const [active, setActive] = useState(false)
     const [activeColor, setActiveColor] = useState(-1)
+    const [hideExchange,setHideExchange] = useState(true)
+    const [showExchange,setShowExchange] = useState(false)
 
     var sum = count
     function Minus() {
@@ -92,6 +94,16 @@ function Person() {
         setAddressHCM(false)
         setAddressAll(true)
         setActive(true)
+    }
+
+    function displayExchange() {
+        setHideExchange(false)
+        setShowExchange(true)
+    }
+
+    function hiddenExchange() {
+        setHideExchange(true)
+        setShowExchange(false)
     }
 
     const HandleAddProduct = () => {
@@ -210,8 +222,8 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
-                        <button disabled={disable}>Mua Ngay</button>
+                        <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
+                        <button className={cx(disable?"disable":"enable")} disabled={disable}>Mua Ngay</button>
                     </div>
                     <div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
@@ -253,9 +265,23 @@ function Person() {
                         </div>
                     </div>
                     <div className={cx("exchange")}>
-                        <div>
-                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                        <div hidden={showExchange} onClick={displayExchange}>
+                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
                             <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
+                        <div hidden={hideExchange} onClick={hiddenExchange}>
+                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faMinus} /></span>
+                            {secondListDtail.map((value, index) => {
+                                return (
+                                    <>
+                                        <p>Giá: <span key={index} >{value.price}</span></p>
+                                        <p>Ram: <span key={index} >{value.ram}</span></p>
+                                        <p>Rom: <span key={index} >{value.rom}</span></p>
+                                        <p>Trạng thái: <span key={index} >{value.status}</span></p>
+                                    </>
+                                )
+                            })}
                         </div>
                         <div>
                             <span className={cx("text")}>CHÍNH SÁCH ĐỔI TRẢ</span>
