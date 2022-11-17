@@ -116,7 +116,7 @@ function Person() {
                 setListDtail(res.data.product.listDtail)
             })
             .catch(err => message.err("Lỗi rồi!"))
-    }, [])
+    }, [productID])
 
     useEffect(() => {
         setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)

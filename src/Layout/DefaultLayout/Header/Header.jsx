@@ -6,13 +6,13 @@ import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import styles from './header.module.scss'
-import { Link, NavLink,useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import axios from '~/axios';
-import {addProduct} from '~/reducer/dataSearchSlice'
+
 import { counterTotalProduct } from '~/reducer/totalProductSlice';
-import useDebounce from '~/customHook/useDebounce';
 import logo from '~/assets/images/b5.png'
 import iconSearch from '~/assets/images/icon-search.svg'
+import Input from '~/components/Input/Input';
 
 const cx = classNames.bind(styles)
 
@@ -22,10 +22,9 @@ function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [data,setData] = useState([])
-  const [searchProduct,setSearchProduct] = useState('')
-  const debounceSearch = useDebounce(searchProduct,1000)
+  
   const token = localStorage.getItem('Token')
-  const nav = useNavigate()
+ 
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
       setBackToTop(true) 
@@ -55,19 +54,7 @@ function Header() {
     localStorage.removeItem('Token')
     localStorage.removeItem('email')
   }
-  const getProductByValue = ()=> {
-    axios.get(`/product/find-products-by-name?productName=${searchProduct}`)
-    .then (res => {
-        let data = res.data.products
-        if (data.length !== 0) {
-          const action = addProduct(data)
-          dispatch(action)
-          nav(`/search?q=${searchProduct}`)
-        }else {
-            nav('/404')
-        }
-    })
-  }
+  
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -111,17 +98,7 @@ function Header() {
             })}
           
          </ul>
-         <div className={cx('search')}>
-            <input 
-              type="text" 
-              className={cx("value-product")} 
-              value={searchProduct}
-              onChange={e => setSearchProduct(e.target.value)}
-              placeholder='Tìm kiếm...'/>
-            <button 
-            onClick={getProductByValue} 
-            className={cx('btnSearch')}></button>
-         </div>
+         <Input/>
          <div className={cx('search-mobile')}>
               <img src={iconSearch} alt="" />
          </div>

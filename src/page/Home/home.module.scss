@@ -38,7 +38,7 @@
     color: red;
 }
 //media
-@media only screen    and (max-width: 1007px) {
+@media only screen    and (min-width:420px)  and (max-width: 1007px) {
 	.slider {  
         background-size:150%;
     }

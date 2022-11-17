@@ -76,7 +76,7 @@ input,button {
     font-size: 12px;
     opacity: 0.5;
 }
-@media only screen and (max-width: 1007px) {
+@media only screen and (min-width:420px)  and (max-width: 1007px) {
 	h4 {
         font-size: 13.5px;
     }

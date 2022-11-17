@@ -20,7 +20,7 @@
         padding: 0 12px;
     }
 }
-@media only screen    and (max-width: 1007px) {
+@media only screen    and (min-width:420px)  and (max-width: 1007px) {
 	.body {
         padding: 0 20px;
     }

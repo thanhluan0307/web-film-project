@@ -103,34 +103,7 @@
 	width: 150px;
 	height: 44px;
 }
-.search {
-	width: 240px;
-	padding: 8px 15px;
-	position: relative;
-	border-radius: 22px;
-	background-color: #fefefe;
-	border: solid 1px #a7a7a7;
-	.value-product {
-		width: 85%;
-	}
-}
 
-.btnSearch {
-    cursor: pointer;
-    padding: 13px;
-    font-size: 0;
-    border: none;
-    width: 20px;
-    top: 50%;
-    left: 82%;
-    height: 20px;
-    position: absolute;
-    transform: translateY(-50%);
-    background: url('../../../assets/images/icon-search.svg');
-    &:hover {
-        opacity: 0.6; 
-    }
-}
 .active {
     color: #dc3333;
 }
@@ -143,10 +116,7 @@
 		height: 26px;
 	}
 }
-@media only screen and (max-width: 1007px) {
-	.search {
-		display: none;
-	}
+@media only screen and (min-width:420px)  and (max-width: 1007px) {
 	.search-mobile {
 		display: block;
 	}
