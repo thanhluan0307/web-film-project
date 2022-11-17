@@ -1,5 +1,5 @@
 .search,.sreach-result {
-    width: 361px;
+    width: 320px;
 }
 .search {
     height: 46px;
@@ -67,3 +67,29 @@ input:not(:placeholder-shown) ~ .search-btn {
         transform: translateY(-50%) rotate(360deg);
     }
 }
+//mobile
+@media only screen and (max-width: 376px) {
+	.search,.sreach-result {
+        width: 180px;
+        &::after {
+            top: 3px;
+            height: 20px;
+            right: 34px;
+        }
+        input {
+            width: 104px;
+            font-size: 14px;
+            margin-right: 16px
+        }
+    }
+    .search {
+        height: 30px;
+        padding-left: 8px;
+    }.search-btn {
+        width: 40px;
+        font-size: 14px;
+    }
+    .clear,.loading {
+        right: 40px;
+    }
+  }

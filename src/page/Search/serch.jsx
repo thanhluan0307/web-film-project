@@ -3,13 +3,23 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import Product from "~/components/Product/product";
 import classNames from "classnames/bind";
 import SlideShow from "~/components/SlideShow/slideauto"
-
+import {useEffect,useState} from "react"
 import styles from "./search.module.scss"
+import { useSearchParams } from "react-router-dom";
+import axios from "~/axios";
 
 const cx = classNames.bind(styles)
 function Search() {
-   
-    const data = useSelector(state => state.dateSearch) 
+   const [data,setData] = useState([])
+   const [searchPrams,setSearchPrams] = useSearchParams()
+   const value = searchPrams.get('filter')
+   useEffect(()=>{
+        axios.get(`/product/find-products-by-name?productName=${value}`)
+            .then(res =>  {
+                setData(res.data.products)
+            })
+   },[value])
+    
     return ( 
         <>
             <SlideShow/>

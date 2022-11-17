@@ -18,15 +18,18 @@ import { message } from 'antd'
 import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
-import Alert from '~/components/Alert/alert'
+import Alert from '~/components/Alert/alert';
+import { Link } from 'react-router-dom'
 
 
 
 const cx = classNames.bind(styles)
-var clone = [{price: "",
-            ram: "",
-            rom:"",
-            status: ""}]
+var clone = [{
+    price: "",
+    ram: "",
+    rom: "",
+    status: ""
+}]
 function Person() {
     const disPatch = useDispatch()
     const { productID } = useParams()
@@ -36,6 +39,17 @@ function Person() {
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
+    const [addressHn, setAddressHn] = useState(true)
+    const [addressHCM, setAddressHCM] = useState(true)
+    const [addressAll, setAddressAll] = useState(false)
+    const [disable, setDisable] = useState(true)
+    const [active, setActive] = useState(false)
+    const [activeColor, setActiveColor] = useState(-1)
+    const [hideExchange,setHideExchange] = useState(true)
+    const [showExchange,setShowExchange] = useState(false)
+    const [favourite,setFavourite] = useState(true)
+    const [bestSalers,setBestSalers] = useState(false)
+
     var sum = count
     function Minus() {
         if (sum >= 2 && sum <= 20) {
@@ -52,10 +66,61 @@ function Person() {
   
     function changeImg(index) {
         var cloneListDtail = [...listDtail]
-        var a = cloneListDtail.splice(index,1)
+        var a = cloneListDtail.splice(index, 1)
         setSecondListDtail(a)
         setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
+        setActiveColor(index)
     }
+
+    function changeStatus() {
+        if (secondListDtail[0].status === "disable") {
+            setDisable(true)
+        }
+        else (setDisable(false))
+        console.log(secondListDtail[0].status);
+    }
+
+    function changeAddressAll() {
+        setAddressAll(false)
+        setAddressHn(true)
+        setAddressHCM(true)
+        setActive(true)
+    }
+
+    function changeAddressHn() {
+        setAddressHn(false)
+        setAddressHCM(true)
+        setAddressAll(true)
+        setActive(true)
+    }
+
+    function changeAddressHCM() {
+        setAddressHn(true)
+        setAddressHCM(false)
+        setAddressAll(true)
+        setActive(true)
+    }
+
+    function displayExchange() {
+        setHideExchange(false)
+        setShowExchange(true)
+    }
+
+    function hiddenExchange() {
+        setHideExchange(true)
+        setShowExchange(false)
+    }
+
+    function showFavourite() {
+        setFavourite(true)
+        setBestSalers(false)
+    }
+
+    function showBestSalers() {
+        setFavourite(false)
+        setBestSalers(true)
+    }
+
     const HandleAddProduct = () => {
         let Storage = localStorage.getItem('myStore')
         if (Storage) {
@@ -137,18 +202,21 @@ function Person() {
                 <div className={cx("side_img")}>
                     {listDtail.map((value, index) => {
                         return (
-                            <button onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                           
+                            <button key={value._id} onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
                         )
                     })}
                 </div>
-                <div className={cx("mainImg")}>
+                <div className={cx("main_Img")}>
                     <img src={src} alt={src}></img>
-                    <div>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        <span>Click xem hình ảnh lớn hơn</span>
-                    </div>
+                    <Link to="">
+                        <div>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <button>Click xem hình ảnh lớn hơn</button>
+                        </div>
+                    </Link>
                 </div>
-                <div>
+                <div className={cx("all_infor")}>
                     <div className={cx("infor")}>
                         <p>Nhãn hiệu: <span>{product.brand}</span></p>
                         <p>Tên sản phẩm: <span>{product.productName}</span></p>
@@ -156,21 +224,21 @@ function Person() {
                         {secondListDtail.map((value, index) => {
                             return (
                                 <>
-                                    <p>Giá: <span>{value.price}</span></p>
-                                    <p>Ram: <span>{value.ram}</span></p>
-                                    <p>Rom: <span>{value.rom}</span></p>
-                                    <p>Trạng thái: <span>{value.status}</span></p>
+                                    <p>Giá: <span key={index} >{value.price}</span></p>
+                                    <p>Ram: <span key={index} >{value.ram}</span></p>
+                                    <p>Rom: <span key={index} >{value.rom}</span></p>
+                                    <p>Trạng thái: <span key={index} >{value.status}</span></p>
                                 </>
                             )
                         })}
                         Màu Sắc: {listDtail.map((value, index) => {
                             return (
                                 <>
-                                    <button onClick={function () { changeImg(index) }}>{value.color}</button>
+                                    <button key={value._id} className={cx(activeColor === index ? "active_item" : "")} onClick={changeStatus} onClickCapture={function () { changeImg(index) }}>{value.color}</button>
                                 </>
                             )
                         })}
-                         <p><u>(Kiểm tra khi đặt hàng)</u></p>
+                        <p><u>(Kiểm tra khi đặt hàng)</u></p>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
@@ -178,39 +246,66 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
-                        <button>Mua Ngay</button>
+                        <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
+                        <button className={cx(disable?"disable":"enable")} disabled={disable}>Mua Ngay</button>
                     </div>
 <div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
                         <a href="https://www.facebook.com/profile.php?id=100009786037668"><FontAwesomeIcon icon={faFacebook} /></a>
                     </div>
                     <div className={cx("address")}>
-                        <button>Toàn Quốc</button>
-                        <button>Hà Nội</button>
-                        <button>Hồ Chính Minh</button>
-                        <div className={cx("addressDetail")}>
+                        <button className={cx((active === addressAll) ? "address_active" : "")} onClick={changeAddressAll}>Toàn Quốc</button>
+                        <button className={cx((active === addressHn) ? "address_active" : "")} onClick={changeAddressHn}>Hà Nội</button>
+                        <button className={cx((active === addressHCM) ? "address_active" : "")} onClick={changeAddressHCM}>Hồ Chính Minh</button>
+                        <div hidden={addressAll} className={cx("addressDetail")}>
                             <p>
                                 <FontAwesomeIcon icon={faLocationDot} />
-                                <span>265 Trần Đăng Ninh - Phường Dịch Vọng (Hết hàng)</span>
+                                <span>265 Trần Đăng Ninh - Phường Dịch Vọng</span>
                             </p>
                             <p>
                                 <FontAwesomeIcon icon={faLocationDot} />
-                                <span>Số 7 Ngõ 76 Nguyễn Chí Thanh, Láng Thượng (Hết hàng)</span>
+                                <span>Số 7 Ngõ 76 Nguyễn Chí Thanh, Láng Thượng</span>
                             </p>
                             <p>
                                 <FontAwesomeIcon icon={faLocationDot} />
-                                <span>61 Nguyễn Phi Khanh, P Tân Định (Hết hàng)</span>
+                                <span>61 Nguyễn Phi Khanh, P Tân Định</span>
                             </p>
                         </div>
-                        <div className={cx("addressNone")}>
-                            <p>Không còn cửa hàng nào khu vực này còn hàng!!!</p>
+                        <div hidden={addressHn} className={cx("addressNone")}>
+                            <p>
+                                <FontAwesomeIcon icon={faLocationDot} />
+                                <span>265 Trần Đăng Ninh - Phường Dịch Vọng</span>
+                            </p>
+                            <p>
+                                <FontAwesomeIcon icon={faLocationDot} />
+                                <span>Số 7 Ngõ 76 Nguyễn Chí Thanh, Láng Thượng</span>
+                            </p>
+                        </div>
+                        <div hidden={addressHCM} className={cx("addressNone")}>
+                            <p>
+                                <FontAwesomeIcon icon={faLocationDot} />
+                                <span>61 Nguyễn Phi Khanh, P Tân Định</span>
+                            </p>
                         </div>
                     </div>
                     <div className={cx("exchange")}>
-                        <div>
-                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                        <div hidden={showExchange} onClick={displayExchange}>
+                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
                             <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
+                        </div>
+                        <div hidden={hideExchange} onClick={hiddenExchange}>
+                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("plusicon")}><FontAwesomeIcon icon={faMinus} /></span>
+                            {secondListDtail.map((value, index) => {
+                                return (
+                                    <>
+                                        <p>Giá: <span key={index} >{value.price}</span></p>
+                                        <p>Ram: <span key={index} >{value.ram}</span></p>
+                                        <p>Rom: <span key={index} >{value.rom}</span></p>
+                                        <p>Trạng thái: <span key={index} >{value.status}</span></p>
+                                    </>
+                                )
+                            })}
                         </div>
                         <div>
                             <span className={cx("text")}>CHÍNH SÁCH ĐỔI TRẢ</span>
@@ -240,9 +335,9 @@ function Person() {
                     </div>
                 </div>
             </div>
-            <div className={cx("otherInfor")}>
-                <button>CÓ THỂ BẠN THÍCH</button>
-                <button>SẢN PHẨM BÁN CHẠY</button>
+            <div className={cx("other_infor")}>
+                <button className={cx(favourite?"other_infor_btn":"")} onClick={showFavourite}>CÓ THỂ BẠN THÍCH</button>
+                <button className={cx(bestSalers?"other_infor_btn":"")} onClick={showBestSalers}>SẢN PHẨM BÁN CHẠY</button>
             </div>
             <HomeStore />
         </>

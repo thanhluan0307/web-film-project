@@ -24,8 +24,8 @@
         font-size: 20px;
     }
 }
-
-@media only screen  and (min-width:420px)  and (max-width: 1007px) {
+//mobile
+@media only screen and (max-width: 376px) {
 	.contaier {
         width: 100%;
     }

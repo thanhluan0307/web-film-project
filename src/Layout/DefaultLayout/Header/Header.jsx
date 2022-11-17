@@ -1,18 +1,22 @@
 
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPhone,faRightFromBracket,faUser } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faBars,
+  faCartShopping, 
+  faPhone,
+  faRightFromBracket,
+  faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BackToTopButton from '../../BackToTopButton/BackToTopButton';
-import styles from './header.module.scss'
-import { Link, NavLink } from 'react-router-dom';
-import axios from '~/axios';
+import { Link } from 'react-router-dom';
 
+import styles from './header.module.scss'
+import BackToTopButton from '../../BackToTopButton/BackToTopButton';
 import { counterTotalProduct } from '~/reducer/totalProductSlice';
 import logo from '~/assets/images/b5.png'
-import iconSearch from '~/assets/images/icon-search.svg'
-import Input from '~/components/Input/Input';
+import Input from '~/Layout/DefaultLayout/Input/Input';
+import Nav from '../Nav/nav';
 
 const cx = classNames.bind(styles)
 
@@ -21,8 +25,6 @@ function Header() {
   const productInStore = useSelector(state=>state.counterProduct) 
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
-  const [data,setData] = useState([])
-  
   const token = localStorage.getItem('Token')
  
   const setFixed = useCallback(() => {
@@ -33,17 +35,6 @@ function Header() {
       setFix(false)
       setBackToTop(false) 
     }
-  },[])
- 
-  useEffect(() => {
-    axios.get('/category/get-all-categories')
-    .then (res => {
-        const categorieArray = res.data.categories
-        const categories = categorieArray.map(item =>{
-        return item.categoryName
-      })
-      setData(categories)
-    }) 
   },[])
   useEffect(() => {
     window.addEventListener('scroll',setFixed)
@@ -90,17 +81,11 @@ function Header() {
          <div className={cx('logo')}>
             <Link to="/"><img src={logo} alt="" /></Link>
          </div>
-         <ul className={cx('nav')}>
-            {data.map(category => {
-              return (
-                <li key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>
-              )
-            })}
-          
-         </ul>
+         <Nav/>
          <Input/>
-         <div className={cx('search-mobile')}>
-              <img src={iconSearch} alt="" />
+         {/* mobil */}
+         <div className={cx('menu-mobile')}>
+              <FontAwesomeIcon icon={faBars} />
          </div>
       </div>
       <BackToTopButton view={backToTop}/>

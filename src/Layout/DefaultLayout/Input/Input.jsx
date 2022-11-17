@@ -7,9 +7,10 @@ import { faCircleXmark, faSearch, faSpinner } from '@fortawesome/free-solid-svg-
 import Tippy from '@tippyjs/react/headless';
 import { useEffect, useState,useRef } from 'react';
 import Wrapper  from '~/components/Popper/wrapper'; 
-import ProductResult from '../ProductResult/productResult';
+import ProductResult from '../../../components/ProductResult/productResult';
 import axios from '~/axios';
 import useDebounce from "~/customHook/useDebounce"
+import { useNavigate } from 'react-router-dom';
  const cx = classNames.bind(styles)
 function Input() {
   const [searchValue,setSearchValue] = useState('')
@@ -18,6 +19,7 @@ function Input() {
   const [load,setLoad] = useState(false)
   const inputRef = useRef()
   const debounce = useDebounce(searchValue,400)
+  const nav = useNavigate()
   useEffect(() => {
     if(!debounce.trim()) {
       setSearchResult([])
@@ -35,6 +37,13 @@ function Input() {
     if(!searchValue.startsWith(' ')) {
       setSearchValue(searchValue)
     } 
+  }
+  const toSeaech = () => {
+    if(searchResult.length !== 0) {
+        nav(`/search?filter=${searchValue}`)
+    }else {
+      nav('/404')
+    }
   }
     return ( 
        <div>
@@ -81,7 +90,7 @@ function Input() {
 
           }
          { load &&  <FontAwesomeIcon className={cx("loading")} icon={faSpinner}/>}
-          <button className={cx("search-btn")} onMouseDown={(e)=>e.preventDefault()}>
+          <button className={cx("search-btn")} onMouseDown={(e)=>e.preventDefault()} onClick={toSeaech}>
             <FontAwesomeIcon icon={faSearch}/>
           </button>  
          </div>

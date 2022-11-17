@@ -98,8 +98,12 @@
 		color: #dc3333;
 	}
 }
-@media only screen and (min-width:420px)  and (max-width: 1007px) {
-	.time {
-		font-size: 11px;
+//mobile
+@media only screen and (max-width: 376px) {
+	.infos-footer {
+		flex-wrap: wrap;
+	}
+	.footer {
+		flex-wrap: wrap;
 	}
   }

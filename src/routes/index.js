@@ -16,9 +16,9 @@ const pageRoutes = [
     {path:'/product/:productID',component: DetailProduct},
     {path: "/storeInfor",component: StoreInfor},
     {path: "/search",component: Search},
-    {path: "*",component: Error404},
     {path: "/myStore",component: MyStore},
     {path: "/user",component: Profile},
+    {path: "*",component: Error404},
 ]
 
 

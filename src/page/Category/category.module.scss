@@ -25,3 +25,12 @@
 .active {
     color: blue;
 }
+//mobile
+@media only screen and (max-width: 376px) {
+	.wrapper {
+        padding: 0;
+    }
+    .name-filter {
+        flex-wrap: wrap;
+    }
+  }
