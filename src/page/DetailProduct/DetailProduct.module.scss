@@ -4,15 +4,18 @@
     a {
         padding: 10px;
     }
+
     span {
         padding: 10px;
     }
+
     font-size: 13px;
     margin-bottom: 10px;
 }
 
 .body {
     font-size: 15px;
+
     div {
         padding: 20px;
     }
@@ -29,17 +32,20 @@
 .side_img {
     display: flex;
     flex-direction: column;
+
     img {
         width: 50px;
         height: 60px;
         border-color: black;
         margin: 2px;
     }
+
     button {
         margin: 5px 0px;
         padding: 1px;
         cursor: pointer;
         border-style: groove;
+
         &:hover {
             border-color: #e18949;
         }
@@ -61,10 +67,15 @@
         color: rgb(133, 126, 126);
         background-color: white;
     }
+
     img {
         width: 450px;
         height: 550px;
     }
+}
+
+.all_infor {
+    width: 500px;
 }
 
 .infor {
@@ -72,6 +83,7 @@
         color: rgb(201, 99, 26);
         text-transform: uppercase;
     }
+
     p {
         font-weight: bolder;
         padding: 5px 5px 5px 0px;
@@ -81,13 +93,16 @@
         text-decoration: none;
         cursor: pointer
     }
+
     u {
         font-weight: normal;
         font-size: 14px;
     }
+
     div {
         margin-left: -20px;
     }
+
     button {
         position: relative;
         font-weight: bold;
@@ -98,13 +113,16 @@
         background-color: white;
         border-style: groove;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
         &:hover {
             cursor: pointer;
         }
     }
 }
+
 .active_item {
     border-color: #ff0202;
+
     &:before {
         content: "✓";
         width: 9px;
@@ -120,6 +138,7 @@
         left: 0;
     }
 }
+
 .addMinus {
     margin-bottom: -20px;
     margin-top: -20px;
@@ -152,10 +171,12 @@
         font-size: 14px;
     }
 }
+
 .disable {
     cursor: not-allowed;
     opacity: 0.7;
 }
+
 .enable {
     cursor: pointer;
 }
@@ -187,14 +208,16 @@
         font-family: "Lucida Console", Courier, monospace;
         font-weight: bold;
     }
-.address_active {
+
+    .address_active {
         background-color: lightgrey;
         color: grey;
-}
+    }
 
     div {
         border-radius: 5px 5px;
         background-color: rgba($color: #bce4ee, $alpha: 1.0);
+
         span {
             margin-left: 10px;
         }
@@ -216,10 +239,12 @@
         width: 200px;
         font-weight: bold;
     }
+
     .plusicon {
-        margin-left: 250px;
+        margin-left: 180px;
         cursor: pointer;
     }
+
     p {
         margin: 10px;
     }
@@ -242,24 +267,28 @@
     }
 }
 
-.otherInfor {
+.other_infor {
     margin-left: 50px;
 
     button {
-        border: none;
-        border-color: rgb(179, 195, 198);
+        width: 400px;
         background-color: white;
-        width: 250px;
         font-weight: bold;
         text-align: left;
         padding-bottom: 15px;
-        font-size: 15px;
+        font-size: 18px;
         font-family: math;
-
-        &:hover {
-            border-style: none none solid none;
-            border-color: black;
-        }
     }
 }
 
+.other_infor_btn {
+    background-color: white;
+    width: 400px;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 15px;
+    font-size: 18px;
+    font-family: math;
+    border-style: none none solid none;
+    border-color: black;
+}

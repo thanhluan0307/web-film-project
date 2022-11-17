@@ -45,6 +45,8 @@ function Person() {
     const [activeColor, setActiveColor] = useState(-1)
     const [hideExchange,setHideExchange] = useState(true)
     const [showExchange,setShowExchange] = useState(false)
+    const [favourite,setFavourite] = useState(true)
+    const [bestSalers,setBestSalers] = useState(false)
 
     var sum = count
     function Minus() {
@@ -104,6 +106,16 @@ function Person() {
     function hiddenExchange() {
         setHideExchange(true)
         setShowExchange(false)
+    }
+
+    function showFavourite() {
+        setFavourite(true)
+        setBestSalers(false)
+    }
+
+    function showBestSalers() {
+        setFavourite(false)
+        setBestSalers(true)
     }
 
     const HandleAddProduct = () => {
@@ -192,7 +204,7 @@ function Person() {
                         </div>
                     </Link>
                 </div>
-                <div>
+                <div className={cx("all_infor")}>
                     <div className={cx("infor")}>
                         <p>Nhãn hiệu: <span>{product.brand}</span></p>
                         <p>Tên sản phẩm: <span>{product.productName}</span></p>
@@ -311,9 +323,9 @@ function Person() {
                     </div>
                 </div>
             </div>
-            <div className={cx("otherInfor")}>
-                <button>CÓ THỂ BẠN THÍCH</button>
-                <button>SẢN PHẨM BÁN CHẠY</button>
+            <div className={cx("other_infor")}>
+                <button className={cx(favourite?"other_infor_btn":"")} onClick={showFavourite}>CÓ THỂ BẠN THÍCH</button>
+                <button className={cx(bestSalers?"other_infor_btn":"")} onClick={showBestSalers}>SẢN PHẨM BÁN CHẠY</button>
             </div>
             <HomeStore />
         </>
