@@ -101,26 +101,25 @@
         &:hover {
             cursor: pointer;
         }
-        &:active:before {
-            content: "✓";
-            width: 9px;
-            height: 2px;
-            border-radius: 0 0 10px 0;
-            background-color: #d70018;
-            color: #fff;
-            font-size: 10px;
-            padding-left: 4px;
-            padding-bottom: 15px;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        &:active {
-            border-color: #fe6a00;
-        }
     }
 }
-
+.active_item {
+    border-color: #ff0202;
+    &:before {
+        content: "✓";
+        width: 9px;
+        height: 2px;
+        border-radius: 0 0 10px 0;
+        background-color: #d70018;
+        color: #fff;
+        font-size: 10px;
+        padding-left: 4px;
+        padding-bottom: 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
 .addMinus {
     margin-bottom: -20px;
     margin-top: -20px;
@@ -175,23 +174,17 @@
         padding: 10px;
         margin-right: 5px;
         cursor: pointer;
-        background-color: lightgrey;
-        color: grey;
+        background-color: grey;
+        color: white;
         border-style: none;
         border-radius: 0px 10px;
         font-family: "Lucida Console", Courier, monospace;
         font-weight: bold;
-
-        &:hover {
-            color: white;
-            background-color: grey;
-        }
-
-        &:nth-child(1) {
-            background-color: grey;
-            color: white
-        }
     }
+.address_active {
+        background-color: lightgrey;
+        color: grey;
+}
 
     div {
         border-radius: 5px 5px;
