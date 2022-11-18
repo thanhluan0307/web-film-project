@@ -102,8 +102,14 @@
 @media only screen and (max-width: 376px) {
 	.infos-footer {
 		flex-wrap: wrap;
+		margin: 0;
+		padding: 0;
+		justify-content: start;
 	}
 	.footer {
-		flex-wrap: wrap;
+		display: none;
+	}
+	.info {
+		padding: 15px;
 	}
   }

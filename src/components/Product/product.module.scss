@@ -83,3 +83,19 @@
     width: 100%;
     padding-left: 10px;
 }
+//mobile
+@media only screen and (max-width: 376px) {
+	.wrapper {
+        width: 40%;
+        margin-bottom: 0;
+        &:hover {
+            box-shadow: transparent;
+        }
+    }
+    .name,.price {
+        font-size: 14px;
+    }
+    .action {
+        display: none;
+    }
+  }

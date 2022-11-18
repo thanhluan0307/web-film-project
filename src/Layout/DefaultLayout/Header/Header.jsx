@@ -17,6 +17,7 @@ import { counterTotalProduct } from '~/reducer/totalProductSlice';
 import logo from '~/assets/images/b5.png'
 import Input from '~/Layout/DefaultLayout/Input/Input';
 import Nav from '../Nav/nav';
+import Modal from '~/components/Modal/modal';
 
 const cx = classNames.bind(styles)
 
@@ -25,6 +26,7 @@ function Header() {
   const productInStore = useSelector(state=>state.counterProduct) 
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
+  const [openModal,setOpenModal] = useState(false)
   const token = localStorage.getItem('Token')
  
   const setFixed = useCallback(() => {
@@ -61,13 +63,17 @@ function Header() {
                 <Link to="/user" className={cx('text')}>{localStorage.getItem('email')}</Link>
               </li>
               <li>
-                <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
-                <Link to="/" onClick={removeToken} className={cx('text')}>Đăng xuất</Link>
+                <Link to="/">
+                  <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
+                  <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
+                </Link>
               </li>
             </>) 
             : (<li>
-              <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-              <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
+             <Link to="/login">
+                <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
+                <span className={cx('text')}>Đăng Nhập</span>
+             </Link>
           </li>)}
           <li >
               <Link to="/myStore" >
@@ -84,10 +90,13 @@ function Header() {
          <Nav/>
          <Input/>
          {/* mobil */}
-         <div className={cx('menu-mobile')}>
-              <FontAwesomeIcon icon={faBars} />
+
+          <div className={cx('menu-mobile')} >
+              <FontAwesomeIcon icon={faBars} onClick={() => setOpenModal(pre => !pre)}/>
+              <Modal open={openModal}/>
+           </div> 
          </div>
-      </div>
+     
       <BackToTopButton view={backToTop}/>
     </header>
 

@@ -33,3 +33,16 @@
 .price {
     color: red;
 }
+//mobile
+@media only screen and (max-width: 376px) {
+	.wrapper {
+        padding: 0 8px 8px 8px;
+    }
+    .sub-nav {
+        align-items: center;
+        column-gap: 10px;
+    }
+    .name {
+        font-size: 14px;
+    }
+  }

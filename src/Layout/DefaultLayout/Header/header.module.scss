@@ -74,9 +74,15 @@
 	height: 44px;
 }
 //mobile
+.menu-mobile {
+	display: none;
+}
 @media only screen and (max-width: 376px) {
+	.subnav{
+		padding: 5px 10px;
+	}
 	.nav-box {
-		padding: 10px 41px;
+		padding: 10px 24px;
 	}
 	.text {
 		display: none;
@@ -90,5 +96,11 @@
             height: 30px;
             object-fit: scale-down;
 		}
+	}
+	.menu-mobile {
+		display: block;
+	}
+	.icon {
+		font-size: 16px;
 	}
   }
