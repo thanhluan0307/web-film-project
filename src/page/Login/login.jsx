@@ -11,7 +11,7 @@ const cx=classnames.bind(styles)
 
 function Login() {
 
-    const [booleanUser , setBooleanUser] = useState(false)
+    const [booleanUser ] = useState(false)
     const [booleanPass , setBooleanPass] = useState(false)
     const [booleanEmail , setBooleanEmail] = useState(false)
     const [booleanConfirmPass , setBooleanConfirmPass] = useState(false)
