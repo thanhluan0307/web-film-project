@@ -6,6 +6,7 @@ import styles from './login.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const cx=classnames.bind(styles)
 
 function Login() {
@@ -22,6 +23,13 @@ function Login() {
     const [inpConfirmPass , setInpConfirmPass] = useState('')
     const next = useNavigate()
 
+
+
+    const isUserName = document.getElementById("userName")
+    const isPassWord = document.getElementById("passWord")
+    const isEmail = document.getElementById("email")
+    const isConfirmPass = document.getElementById("confirmPass")
+
     
     const Username= /^[a-zA-Z]{2,}$/;
     const Email= /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -35,8 +43,6 @@ function Login() {
         setCount(count+1)
     }
     const checkInpUser = () =>{
-        console.log(38,inpUserName);
-            console.log(38,inpUserName);
             if (!Username.test(inpUserName) && inpUserName !=="" ){
                 setBooleanUser(true)
             }else{
@@ -47,7 +53,6 @@ function Login() {
 
 
     function checkInpEmail(){
-        console.log(48,inpEmail);
         if (!Email.test(inpEmail) && inpEmail !=="") {
             setBooleanEmail(true)
         } else {
@@ -57,7 +62,6 @@ function Login() {
 
 
     function checkInpPass(){
-        console.log(58,inpPass);
         if (!Password.test(inpPass) && inpPass !=="") {
             setBooleanPass(true)
         }else{
@@ -68,7 +72,6 @@ function Login() {
 
 
     function checkInpComfirmPass(){
-        console.log(inpConfirmPass);
             if ( inpPass === inpConfirmPass) {
                 setBooleanConfirmPass(false)
 
@@ -79,7 +82,6 @@ function Login() {
 
     const forLogin = (e)=>{
         e.preventDefault()
-        console.log(inpEmail , inpPass);
         axios.post(`/auth/sign-in` , {
             'email' : inpEmail,
             'password' : inpPass
@@ -91,15 +93,17 @@ function Login() {
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
-            alert('SAI TÀI KHOẢN HOẶC MẬT KHẨU')
+            alert('TÀI KHOẢN HOẶC MẬT KHẨU KHÔNG CHÍNH XÁC')
         })
 
     }
 
+
+
     const forSignUp =(e) =>{
 
         e.preventDefault()
-        if (inpConfirmPass === inpPass && inpUserName !== "" && inpEmail !== "" && inpPass !== "") {
+        if (inpConfirmPass === inpPass && Username.test(inpUserName)  && Email.test(inpEmail) && Password.test(inpPass)) {
             axios.post(`/auth/sign-up` , {
                 'username' : inpUserName,
                 'email' : inpEmail,
@@ -111,11 +115,54 @@ function Login() {
                 alert('ĐĂNG KÍ THÀNH CÔNG');
             })
             .catch(er =>{
-                console.log(er);
+                alert("ĐĂNG KÍ THẤT BẠI")
             })
         }else{
-            alert('ĐĂNG KÍ THẤT BẠI')
+            alert("ĐĂNG KÍ KHÔNG THÀNH CÔNG")
         }
+
+        setTimeout(() => {
+            if (inpConfirmPass ==="" || inpConfirmPass !== inpPass){
+                isConfirmPass.focus()
+                isConfirmPass.setAttribute("style" , "border-bottom : 3px solid red")
+            }else{
+                isConfirmPass.removeAttribute("style" , "border-bottom : 1px solid #333")
+            }
+        }, 500);
+
+        setTimeout(() => {
+            if(inpPass === "" || !Password.test(inpPass)){
+                isPassWord.focus()
+                isPassWord.setAttribute("style" , "border-bottom : 3px solid red")
+            } else{
+                isPassWord.removeAttribute("style" , "border-bottom : 1px solid #333")
+            }
+        }, 500);
+        
+        setTimeout(() => {
+             if(inpEmail === "" || !Email.test(inpEmail)){
+                isEmail.focus()
+                isEmail.setAttribute("style" , "border-bottom : 3px solid red")
+            } else{
+                isEmail.removeAttribute("style" , "border-bottom : 1px solid #333")
+            }
+        }, 500);
+       
+        setTimeout(() => {
+             if( inpUserName === "" || !Username.test(inpUserName)){
+                isUserName.focus()
+                isUserName.setAttribute("style" , "border-bottom : 3px solid red")
+            }else{
+                isUserName.removeAttribute("style" , "border-bottom : 1px solid #333")
+            }
+        }, 500);
+       
+
+        
+
+
+
+   
         
     }
 
@@ -140,7 +187,7 @@ function Login() {
                     *sai định dạng !!
                 </p>
                 <input 
-                    className={cx('inp-login')}     
+                    className={cx('inp-login')}    
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
                     onBlur={checkInpPass} 
@@ -154,6 +201,7 @@ function Login() {
                     <p>For got your password?</p>
 
                 </div>
+
                 <button className={cx('bnt-login')} >Login</button>
                 <h2>
                     or <span className={cx('change')} onClick={toSignUp}>
@@ -170,6 +218,7 @@ function Login() {
                 <h1>SignUp</h1>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="userName"
                     value={inpUserName} 
                     onChange={(e)=>setInpUserName(e.target.value)} 
                     onBlur={checkInpUser} 
@@ -182,6 +231,7 @@ function Login() {
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="email"
                     value={inpEmail} 
                     onChange={(e)=>setInpEmail(e.target.value)} 
                     onBlur={checkInpEmail} 
@@ -194,6 +244,7 @@ function Login() {
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="passWord"
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
                     onBlur={checkInpPass} 
@@ -203,7 +254,8 @@ function Login() {
                     *sai định dạng !!
                 </p>
                 <input 
-                    className={cx('inp-SignUp')} 
+                    className={cx('inp-SignUp')}
+                    id="confirmPass" 
                     value={inpConfirmPass}  
                     onChange={(e)=>setInpConfirmPass(e.target.value)} 
                     onBlur={checkInpComfirmPass} 
