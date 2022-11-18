@@ -18,6 +18,7 @@ import { counterTotalProduct } from '~/reducer/totalProductSlice';
 import logo from '~/assets/images/b5.png'
 import Input from '~/Layout/DefaultLayout/Input/Input';
 import Nav from '../Nav/nav';
+import { getAPI } from '~/config/api';
 
 const cx = classNames.bind(styles)
 
@@ -27,6 +28,7 @@ function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const token = localStorage.getItem('Token')
+  const [data, setData] = useState({})
 
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
@@ -37,7 +39,16 @@ function Header() {
       setBackToTop(false)
     }
   },[])
+  const getData = async () =>{
+      try{
+    let res = await getAPI('/auth/get-loged-in-user')
+    setData(res.data.user)
+      }catch(err){
+        console.log(err);
+      }
+  }
   useEffect(() => {
+    getData()
     window.addEventListener('scroll',setFixed)
     /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
@@ -59,7 +70,7 @@ function Header() {
             <>
               <li>
                 <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-                <Link to="/profile" className={cx('text')}>{localStorage.getItem('email')}</Link>
+                <Link to="/profile" className={cx('text')}>{data.fullname}</Link>
               </li>
               <li>
                 <Link to="/">

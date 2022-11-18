@@ -21,7 +21,7 @@ export const UpdateInfo = () => {
         let res = await getAPI('/auth/get-loged-in-user')
         // console.log(res.data);
         setData(res.data.user)
-        setDateOfBitth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
+        setDateOfBitth((res.data.user.dateOfBirth.split(''))[0].split('-').join('-'))
         setSex(res.data.user.sex)
     } catch (error) {
         console.log(error);
