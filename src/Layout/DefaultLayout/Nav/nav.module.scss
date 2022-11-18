@@ -46,4 +46,7 @@
 			font-weight: 400;
 		}
 	}
+	.nav li a::after {
+		bottom: -6px;
+	}
   }

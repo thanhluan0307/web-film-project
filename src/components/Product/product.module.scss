@@ -87,10 +87,14 @@
 @media only screen and (max-width: 376px) {
 	.wrapper {
         width: 40%;
-        margin-bottom: 0;
+        margin-bottom: 20px;
         &:hover {
-            box-shadow: transparent;
+            box-shadow: none;
         }
+        .info {
+            padding: 0;
+        }
+     
     }
     .name,.price {
         font-size: 14px;
@@ -98,4 +102,5 @@
     .action {
         display: none;
     }
+    
   }
