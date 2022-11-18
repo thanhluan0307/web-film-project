@@ -10,6 +10,7 @@ import {
 import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Tippy from '@tippyjs/react';
 
 import styles from './header.module.scss'
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
@@ -61,13 +62,17 @@ function Header() {
                 <Link to="/user" className={cx('text')}>{localStorage.getItem('email')}</Link>
               </li>
               <li>
-                <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
-                <Link to="/" onClick={removeToken} className={cx('text')}>Đăng xuất</Link>
+                <Link to="/">
+                  <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
+                  <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
+                </Link>
               </li>
             </>) 
             : (<li>
-              <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-              <Link to="/login" className={cx('text')}>Đăng Nhập</Link>
+             <Link to="/login">
+                <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
+                <span className={cx('text')}>Đăng Nhập</span>
+             </Link>
           </li>)}
           <li >
               <Link to="/myStore" >
@@ -84,9 +89,11 @@ function Header() {
          <Nav/>
          <Input/>
          {/* mobil */}
-         <div className={cx('menu-mobile')}>
-              <FontAwesomeIcon icon={faBars} />
-         </div>
+         <Tippy trigger='click' content={<Nav/>}>
+           <div className={cx('menu-mobile')}>
+                <FontAwesomeIcon icon={faBars} />
+           </div>
+         </Tippy>
       </div>
       <BackToTopButton view={backToTop}/>
     </header>
