@@ -19,7 +19,7 @@ function Nav() {
         }) 
       },[])
     return ( 
-        <ul className={cx('nav','show')}>
+        <ul className={cx('nav')}>
             {data.map(category => {
               return (
                 <li key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>

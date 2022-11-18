@@ -18,7 +18,8 @@ function Modal({open}) {
           })
           setData(categories)
         }) 
-      },[])
+    },[])
+    if(!open) return null
     return ( 
         <div className={cx('overlay')}>
            <div className={cx('modal-contaier')}>
