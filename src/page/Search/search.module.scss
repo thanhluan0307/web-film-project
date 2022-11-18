@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 5%;
+    padding: 0 40px;
+}
+.res {
+    text-align: center;
+    color: #252a2b;
+    margin: 70px 0px;
+    h1 {
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    p {
+        font-size: 16px;
+        position: relative;
+        &::after {
+            content: "";
+            background: #252a2b;
+            display: block;
+            width: 60px;
+            height: 4px;
+            margin: 25px auto 0;
+        }
+    }
+}

@@ -1,10 +1,11 @@
-import { faCartShopping, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-
+import {addProduct,deleteProduct} from "~/reducer/favourite"
+import {useDispatch} from "react-redux"
 import styles from "./product.module.scss"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -18,13 +19,14 @@ function Product({data}) {
     useEffect(() => {
         const timeID = setTimeout(() => {
             setLoad(false)
-        },1000)
+        },500)
         return () => {
             clearTimeout(timeID)
         }
     },[])
     return (
         <div className={cx("wrapper")}>
+
             <div>
                 {load ? <Skeleton className={cx('loadImage')}/> :(<Link
                     to={`/product/${data._id}`}><img className={cx("image")}
@@ -39,14 +41,22 @@ function Product({data}) {
                 </p>
             </div>
             <div className={cx('action')}>
-                <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm Vào Giỏ</p>
+                <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
                 <p>
-                    <Link className={cx("link-product")} to={`/product/${data._id}`}>
-                        <FontAwesomeIcon className={cx("icon-action")} icon={faEye}/>Xem chi tiết
-                    </Link>
+                    { check ?
+                        <span onClick={addFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
+                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Thích
+                        </span>
+                        :
+                        <span onClick={removeFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
+                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Bỏ Thích
+                        </span>
+                    }
                 </p>
             </div>
+
         </div>
+
      );
 }
 

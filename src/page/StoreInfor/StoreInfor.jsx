@@ -3,10 +3,17 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
+import HomeStore from "~/components/HomeStore/homeStore";
+import { useEffect } from "react";
+
 
 
 const cx = classNames.bind(styles)
 function Store() {
+
+    useEffect(() => {
+        window.scroll(0,0)
+    },[])
     return (
         <div className={cx("body")}>
             <div className={cx("labelAddress")}>
@@ -54,6 +61,7 @@ function Store() {
                 <button>Thích</button>
                 <button>Chia sẻ</button>
             </div>
+            <HomeStore/>
         </div>
     );
 }

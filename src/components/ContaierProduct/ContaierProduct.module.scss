@@ -11,3 +11,12 @@
     margin-bottom: 30px;
     display:inline-block;
 }
+//tippy
+.wrapper-tippy {
+    display: flex;
+    font-size: 15px;
+    background-color: #ccc;
+    p {
+        padding: 0 12px;
+    }
+}

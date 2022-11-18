@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-no-target-blank */
-import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
+import styles from './footer.module.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import b5 from '~/assets/images/b5.png'
+
 
 const cx = classNames.bind(styles)
 
@@ -61,7 +63,7 @@ function Footer () {
                      </a>
                   </li>
                   <li>
-                     <a href="https://www.youtube.com/" 
+                     <a href="https://www.youtube.com/channel/UCHhsdqtCTJ42NHPPcyGGNYQ" 
                         target="_blank"><FontAwesomeIcon icon={faYoutube}/>
                      </a>
                   </li>
@@ -81,7 +83,7 @@ function Footer () {
             </div>
             <div className={cx("item")}>
                <h4>VỀ CHÚNG TÔI</h4>
-               <img alt="thong bao bo cong thuong" className={cx('us')} src="https://bucket.nhanh.vn/website/template/483/contentKey/2548/20150827110756_dathongbao.png"/>
+               <img alt="" className={cx('us')} src={b5}/>
             </div>
             <div className={cx("item")}>
                <h4>HỆ THỐNG CỬA HÀNG</h4>
@@ -91,9 +93,6 @@ function Footer () {
                <h4>FANPAGE CHÚNG TÔI</h4>
                
             </div>
-          </footer>
-          <footer className={cx('bottom-footer')}>
-            <p>Thiết kế website bởi <span><img className={cx()} src="https://onionphukien.vn/images/favicon.ico" alt="logo" /> NHANH.VN</span></p>
           </footer>
        </>
     );
