@@ -21,7 +21,7 @@ function ContaierProduct() {
         .catch(error =>{
             console.log(error)
         })
-    },[filter])
+    },[])
     return  (
         <div className={cx("wrapper")}>
            <div className={cx("body")}>
