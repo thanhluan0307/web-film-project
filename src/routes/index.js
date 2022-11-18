@@ -9,6 +9,7 @@ import MyStore from '~/page/MyStore/myStore'
 import Profile from '~/page/Profile/profile';
 import { UpdateInfo } from '~/page/Profile/updateInfo';
 import { ChangePassword } from '~/page/Profile/changePassword';
+import { Favourite_Product } from '../page/Profile/favourite_product';
 
 
 const pageRoutes = [
@@ -21,7 +22,8 @@ const pageRoutes = [
     {path: "/myStore",component: MyStore},
     {path: "/profile",component: Profile},
     {path: "/profile/update-info",component: UpdateInfo},
-    {path: "/profile/update-info",component: ChangePassword},
+    {path: "/profile/change-pass",component: ChangePassword},
+    {path: "/profile/wishlist",component: Favourite_Product},
     {path: "*",component: Error404},
 ]
 

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Profile() {
     const cx = classNames.bind(styles)
+
     return (
         <>
         <div className={cx('info')}>
@@ -21,9 +22,9 @@ function Profile() {
                         </div>
                     </div>
                     <div className={cx('favorite_product')}>
-                        <Link to={'/favorite'}><p className={cx('title')}>Sản phẩm yêu thích</p></Link>
-                        <div className={cx('info')}>
-                            <p>Sản phẩm yêu thích</p>
+                        <p className={cx('title')}>Sản phẩm yêu thích</p>
+                        <div className={cx('ino')}>
+                        <Link to={'wishlist'}><p >Sản phẩm yêu thích</p></Link>
                             <p>Lịch sử đặt hàng</p>
                         </div>
                     </div>
