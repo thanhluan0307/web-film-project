@@ -4,3 +4,33 @@
     column-gap: 5%;
     padding: 0 40px;
 }
+.name-filter {
+    display: flex;
+    justify-content: center;
+    p{
+        font-style: italic;
+        cursor: pointer;
+        font-size: 20px;
+        margin: 50px 20px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #ccc;
+    }
+   
+} 
+.title {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.active {
+    color: blue;
+}
+//mobile
+@media only screen and (max-width: 376px) {
+	.wrapper {
+        padding: 0;
+    }
+    .name-filter {
+        flex-wrap: wrap;
+    }
+  }

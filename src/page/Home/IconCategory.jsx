@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./home.module.scss"
 import classNames from "classnames/bind";
 
@@ -8,9 +8,9 @@ function IconCategory({data}) {
     
     return ( 
         <li className={cx("body")}>
-            <Link to={`/category/${data.categoryName}`}>
+            <NavLink className={({ isActive }) => isActive ? cx("active"): ''}  to={`/category/${data.categoryName}`}>
                 <img src={"https://shope-b3.thaihm.site/" + data.thumbnail} alt="" />
-            </Link>
+            </NavLink>
             <p>{data.categoryName}</p>
         </li>
      );

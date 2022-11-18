@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
+import styles from './footer.module.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';

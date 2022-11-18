@@ -3,9 +3,11 @@ import classnames from 'classnames/bind';
 import styles from './Error404.module.scss';
 import { useNavigate } from "react-router-dom";
 import SlideShow from '~/components/SlideShow/slideauto'
-import { Divider } from "antd";
+
 
 const cx =classnames.bind(styles)
+
+
 
 function Error404() {
     const next =useNavigate()
@@ -15,12 +17,10 @@ function Error404() {
     return ( 
         <>
         <SlideShow />
-   
-         <div className ={cx("slide_404Err")}>
-             <h1 className={cx("Error-notification")}>Không Tìm Thấy Sản phẩm</h1>
+        <div className ={cx("slide_404Err")}>
+            <h1 className={cx("Error-notification")}>Không Tìm Thấy Sản phẩm</h1>
             <button onClick={isBack}>Come back home</button>
         </div>
-        
         <HomeStore/>
         </>
      );

@@ -1,6 +1,6 @@
 .slider {
     height: 90vh;  
-    background:no-repeat center/100% url("../../assets/images/backroundWebOfB5.png");
+    background:no-repeat center/110% url("../../assets/images/backroundWebOfB5.png");
 }
 .icons {
     display: flex;
@@ -33,4 +33,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+}
+.active {
+    color: red;
 }
