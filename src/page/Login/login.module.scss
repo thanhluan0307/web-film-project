@@ -108,7 +108,6 @@
 	background: rgba(255, 255, 255, 0.5);
 	height: 30px;
 	color: black;
-
 	&::-webkit-input-placeholder {
 		font-size: 15px;
 		opacity: 0.7;
@@ -140,8 +139,20 @@
 }
 
 
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 376px ){
 	.login{
-		width: 100%;
+		background-image: none;
 	}
+	.form-signup{
+		width: 100%;
+		margin-right: 0px;
+		background-image: linear-gradient( 135deg, pink, violet);
+	}
+	.form-login{
+		width: 100%;
+		margin:0px;
+	}
+	// .inp-SignUp{
+		
+	// }
 }
