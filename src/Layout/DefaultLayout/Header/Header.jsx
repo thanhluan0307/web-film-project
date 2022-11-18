@@ -10,7 +10,6 @@ import {
 import { useState,useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Tippy from '@tippyjs/react';
 
 import styles from './header.module.scss'
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
@@ -18,6 +17,7 @@ import { counterTotalProduct } from '~/reducer/totalProductSlice';
 import logo from '~/assets/images/b5.png'
 import Input from '~/Layout/DefaultLayout/Input/Input';
 import Nav from '../Nav/nav';
+import Modal from '~/components/Modal/modal';
 
 const cx = classNames.bind(styles)
 
@@ -26,6 +26,7 @@ function Header() {
   const productInStore = useSelector(state=>state.counterProduct) 
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
+  const [openModal,setOpenModal] = useState(false)
   const token = localStorage.getItem('Token')
  
   const setFixed = useCallback(() => {
@@ -89,12 +90,13 @@ function Header() {
          <Nav/>
          <Input/>
          {/* mobil */}
-         <Tippy trigger='click' content={<Nav/>}>
-           <div className={cx('menu-mobile')}>
-                <FontAwesomeIcon icon={faBars} />
-           </div>
-         </Tippy>
-      </div>
+
+          <div className={cx('menu-mobile')} >
+              <FontAwesomeIcon icon={faBars} onClick={() => setOpenModal(pre => !pre)}/>
+              <Modal open={openModal}/>
+           </div> 
+         </div>
+     
       <BackToTopButton view={backToTop}/>
     </header>
 
