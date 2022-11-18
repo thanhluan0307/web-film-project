@@ -15,7 +15,18 @@ const cx = classNames.bind(styles)
 
 function Product({data}) {
     const [load,setLoad] = useState(true)
-
+    const [check, setCheck] = useState(true)
+    const dispatch = useDispatch()
+    const addFavorite = () => {
+        const action = addProduct(data)
+        setCheck(false)
+        dispatch(action)
+    }
+    const removeFavorite = () => {
+        const action = deleteProduct(data)
+        setCheck(true)
+        dispatch(action)
+    }
     useEffect(() => {
         const timeID = setTimeout(() => {
             setLoad(false)
