@@ -10,20 +10,13 @@ import styles from "./product.module.scss"
 import { useState } from "react";
 import { useEffect } from "react";
 
-const cx = classNames.bind(styles) 
-function Product({data,isload}) {
-    const [load,setLoad] = useState(isload)
-    const [check,setCheck] = useState(true)
-    
+
+const cx = classNames.bind(styles)
+
+function Product({data}) {
+    const [load,setLoad] = useState(true)
+    const [check, setCheck] = useState(true)
     const dispatch = useDispatch()
-    useEffect(() => {
-        const timeID = setTimeout(() => {
-            setLoad(false)
-        },500)
-        return () => {
-            clearTimeout(timeID)
-        }
-    },[])
     const addFavorite = () => {
         const action = addProduct(data)
         setCheck(false)
@@ -34,7 +27,15 @@ function Product({data,isload}) {
         setCheck(true)
         dispatch(action)
     }
-    return ( 
+    useEffect(() => {
+        const timeID = setTimeout(() => {
+            setLoad(false)
+        },500)
+        return () => {
+            clearTimeout(timeID)
+        }
+    },[])
+    return (
         <div className={cx("wrapper")}>
 
             <div>
@@ -53,20 +54,20 @@ function Product({data,isload}) {
             <div className={cx('action')}>
                 <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
                 <p>
-                    { check ? 
+                    { check ?
                         <span onClick={addFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
                             <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Thích
-                        </span> 
+                        </span>
                         :
                         <span onClick={removeFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
                             <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Bỏ Thích
-                        </span> 
+                        </span>
                     }
                 </p>
             </div>
-           
+
         </div>
-        
+
      );
 }
 

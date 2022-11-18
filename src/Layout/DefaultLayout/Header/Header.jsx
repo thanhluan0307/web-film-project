@@ -1,9 +1,9 @@
 
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
+import {
   faBars,
-  faCartShopping, 
+  faCartShopping,
   faPhone,
   faRightFromBracket,
   faUser } from '@fortawesome/free-solid-svg-icons';
@@ -23,22 +23,25 @@ const cx = classNames.bind(styles)
 
 function Header() {
   const dispatch = useDispatch()
-  const productInStore = useSelector(state=>state.counterProduct) 
+  const productInStore = useSelector(state=>state.counterProduct)
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [openModal,setOpenModal] = useState(false)
   const token = localStorage.getItem('Token')
- 
+  
+
   const setFixed = useCallback(() => {
     if(window.scrollY > 100) {
-      setBackToTop(true) 
+      setBackToTop(true)
       setFix(true)
     }else {
       setFix(false)
-      setBackToTop(false) 
+      setBackToTop(false)
     }
   },[])
+
   useEffect(() => {
+   
     window.addEventListener('scroll',setFixed)
     /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
@@ -46,8 +49,9 @@ function Header() {
   const removeToken = () => {
     localStorage.removeItem('Token')
     localStorage.removeItem('email')
-  }
   
+  }
+
   return (
     <header className={fix ? cx('header','fixed') : cx('header')}>
       <div className={cx('subnav')}>
@@ -60,7 +64,7 @@ function Header() {
             <>
               <li>
                 <FontAwesomeIcon className={cx('icon')} icon={faUser}/>
-                <Link to="/user" className={cx('text')}>{localStorage.getItem('email')}</Link>
+                <Link to="/profile" className={cx('text')}>{localStorage.getItem('email') || "name"}</Link>
               </li>
               <li>
                 <Link to="/">
@@ -68,7 +72,7 @@ function Header() {
                   <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
                 </Link>
               </li>
-            </>) 
+            </>)
             : (<li>
              <Link to="/login">
                 <FontAwesomeIcon className={cx('icon')} icon={faUser}/>

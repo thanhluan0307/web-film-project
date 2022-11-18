@@ -8,22 +8,21 @@ import styles from "./ContaierProduct.module.scss"
 import {memo} from "react"
 
 
-const cx = classNames.bind(styles) 
+const cx = classNames.bind(styles)
 
 function ContaierProduct() {
     const [productAll,setProductAll] = useState([])
     useEffect (()=> {
         axios.get('/product/get-all-products')
-        .then(res =>{   
+        .then(res =>{
             let data =(res.data.products)
             setProductAll(data)
         })
         .catch(error =>{
             console.log(error)
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    return  ( 
+    return  (
         <div className={cx("wrapper")}>
            <div className={cx("body")}>
                {productAll.map(item => {
