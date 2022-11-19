@@ -99,7 +99,7 @@
 	}
 }
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.infos-footer {
 		flex-wrap: wrap;
 		margin: 0;
@@ -113,3 +113,10 @@
 		padding: 15px;
 	}
   }
+  @media only screen and (min-width:600px) and (max-width:886px) {
+	.infos-footer {
+		flex-wrap: wrap;
+		justify-content: space-between;
+		row-gap: 20px;
+	}
+}

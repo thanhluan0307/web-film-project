@@ -33,7 +33,7 @@
     color: #dc3333;
 }
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.nav {
 		flex-direction: column;
 		padding-left: 0px;
@@ -50,3 +50,17 @@
 		bottom: -6px;
 	}
   }
+  @media only screen and (min-width: 600px) and (max-width: 1101px) {
+		.nav{
+			padding: 0;
+			justify-content: space-around;
+		}
+  }
+  @media only screen and (min-width:600px) and (max-width:1101px) {
+	.nav {
+		padding: 0;
+		a {
+			font-size: 16px;
+		}
+	}
+}

@@ -77,7 +77,7 @@
 .icon-menu {
 	display: none;
 }
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.header {
 		position: fixed;
 		top: -110px;
@@ -108,10 +108,7 @@
             object-fit: scale-down;
 		}
 	}
-	.menu-mobile {
-		display: block;
-		position: relative;
-	}
+	
 	.icon {
 		font-size: 16px;
 	}
@@ -122,3 +119,30 @@
 		display: block;
 	}
   }
+    @media only screen and (min-width:600px) and (max-width:1101px) {
+		.logo {
+			img {
+				width: 108px;
+    			height: 34px;
+			}
+		}
+	}
+	@media only screen and (min-width:601px) and (max-width:886px) {
+		.pc-none {
+			display: none;
+		}
+		.icon-menu {
+			display: block;
+		}
+		.nav-box {
+			padding: 10px 41px;
+		}
+	}
+	@media only screen and (min-width:887px) and (max-width:1101px) {
+		.nav-box {
+			padding: 3px 20px;
+		}
+		.subnav {
+			padding: 5px 20px;
+		}
+	}

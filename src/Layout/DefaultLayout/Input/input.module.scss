@@ -1,5 +1,5 @@
 .search,.sreach-result {
-    width: 320px;
+    width: 100%;
 }
 .search {
     height: 46px;
@@ -10,7 +10,7 @@
     position: relative;
     border: 2px solid transparent;
     input {
-        flex: 1;
+       
         height: 100%;
         color: #000;
         font-size: 16px;
@@ -20,10 +20,11 @@
     &::after {
         content: "";
         position: absolute;
-        top: 9px;
+        top: 50%;
         right: 52px;
         width: 1px;
         height: 28px;
+        transform: translateY(-50%);
         background-color: rgba(22,24,35,0.12);
     }
     &:focus-within {
@@ -68,16 +69,15 @@ input:not(:placeholder-shown) ~ .search-btn {
     }
 }
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.search,.sreach-result {
         width: 180px;
         &::after {
-            top: 3px;
             height: 20px;
             right: 34px;
         }
         input {
-            width: 104px;
+            width: 114px;
             font-size: 14px;
             margin-right: 16px
         }
@@ -93,3 +93,16 @@ input:not(:placeholder-shown) ~ .search-btn {
         right: 40px;
     }
   }
+  @media only screen and (min-width:601px) and (max-width:886px) {
+    .search {
+        height: 40px;
+    }
+}
+  @media only screen and (min-width:887px) and (max-width:1101px) {
+    .search {
+        height: 38px;
+        input {
+            width: 130px;
+        }
+    }	
+}

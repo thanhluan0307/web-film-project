@@ -98,7 +98,9 @@ function Header() {
           <div className={cx('icon-menu')} onClick={() => setOpenModal(true)}>
               <FontAwesomeIcon icon={faBars} />
            </div> 
-          <Modal open={openModal} onClose={() => setOpenModal(false)}/>
+          <Modal open={openModal} onClose={() => setOpenModal(false)} mess='MENU'>
+            <Nav onClose={() => setOpenModal(false)}/>
+          </Modal>
          </div>
      
       <BackToTopButton view={backToTop}/>

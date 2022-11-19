@@ -18,7 +18,7 @@ function Input() {
   const [check,setCheck] = useState(true)
   const [load,setLoad] = useState(false)
   const inputRef = useRef()
-  const debounce = useDebounce(searchValue,400)
+  const debounce = useDebounce(searchValue,300)
   const nav = useNavigate()
   useEffect(() => {
     if(!debounce.trim()) {
@@ -31,7 +31,16 @@ function Input() {
         setSearchResult(res.data.products)
         setLoad(false)
       })
+    
   },[debounce])
+  useEffect(()=>{
+    window.addEventListener('keypress',(e) => {
+      if (e.code === "Enter") {
+        toSeaech()
+        setCheck(false)
+      }
+    })
+  },[searchResult])
   const handleChange =(e) => {
    const searchValue = e.target.value
     if(!searchValue.startsWith(' ')) {
@@ -39,7 +48,7 @@ function Input() {
     } 
   }
   const toSeaech = () => {
-    if(searchResult.length !== 0) {
+    if(searchResult.length > 0) {
         nav(`/search?filter=${searchValue}`)
     }else {
       nav('/404')
@@ -48,6 +57,7 @@ function Input() {
     return ( 
        <div>
         <Tippy
+          offset={[-30,10]}
           interactive
           visible={check && searchResult.length > 0}
           placement='bottom'
@@ -64,7 +74,7 @@ function Input() {
           )} 
           onClickOutside={() => setCheck(false)} 
        >
-           <div className={cx('search')}>
+        <div className={cx('search')}>
           <input 
             ref={inputRef}
             placeholder='Tìm Kiếm' 
@@ -75,7 +85,7 @@ function Input() {
               setCheck(true)
               setSearchResult([])
             }}
-            />
+          />
           {!!searchValue && !load && (
               <button className={cx('clear')} onClick={
                 ()=>{
@@ -86,9 +96,7 @@ function Input() {
               }>
               <FontAwesomeIcon icon={faCircleXmark}/>
             </button>
-          )
-
-          }
+          )}
          { load &&  <FontAwesomeIcon className={cx("loading")} icon={faSpinner}/>}
           <button className={cx("search-btn")} onMouseDown={(e)=>e.preventDefault()} onClick={toSeaech}>
             <FontAwesomeIcon icon={faSearch}/>
