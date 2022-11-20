@@ -3,7 +3,6 @@ import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faHeart,
     faHouse,
     faLocationDot,
     faMagnifyingGlass,
@@ -187,7 +186,6 @@ function Person() {
     useEffect(() => {
         setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
     }, [product])
-
     return (
         <>
             {check === true ? <Alert /> : null}
@@ -213,12 +211,7 @@ function Person() {
                     })}
                 </div>
                 <div className={cx("main_Img")}>
-                    <div className={cx('box-img')}>
-                        <img src={src} alt={src}/>
-                        <div className={cx('lick-btn')}>
-                        <FontAwesomeIcon icon={faHeart} />
-                    </div>
-                    </div> 
+                  <img src={src} alt={src}/>
                     <Link to="">
                         <div>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
