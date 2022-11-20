@@ -71,7 +71,10 @@
         transform: translate(-50%,-50%);
     }
     .link-product {
-        color: #fff;
+        a {
+            color: #fff;
+            display: block;
+        }
     }
 }
 //load
@@ -82,6 +85,9 @@
 .loadText {
     width: 100%;
     padding-left: 10px;
+}
+.active {
+    color: blue;
 }
 //mobile
 @media only screen and (max-width: 600px) {
