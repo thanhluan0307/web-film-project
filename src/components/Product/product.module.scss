@@ -33,7 +33,7 @@
     display: block;
     width: 100%;
     object-fit: cover;
-    transition: all 0.2s linear;
+    transition: all 0.2s linear !important;
     &:hover {
         transform: scale(0.9);
     }
@@ -71,7 +71,10 @@
         transform: translate(-50%,-50%);
     }
     .link-product {
-        color: #fff;
+        a {
+            color: #fff;
+            display: block;
+        }
     }
 }
 //load
@@ -83,8 +86,11 @@
     width: 100%;
     padding-left: 10px;
 }
+.active {
+    color: blue;
+}
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.wrapper {
         width: 40%;
         margin-bottom: 20px;
@@ -104,3 +110,13 @@
     }
     
   }
+  @media only screen and (min-width:601px) and (max-width:1101px) {
+    .wrapper {
+        width: 30%;
+    }
+}
+@media only screen and (min-width:601px) and (max-width:886px) {
+    .wrapper {
+        width: 40.5%;
+    }
+}

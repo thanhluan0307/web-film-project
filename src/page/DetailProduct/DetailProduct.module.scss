@@ -16,6 +16,7 @@
 .body {
     width: 1500px;
     font-size: 15px;
+   
 
     div {
         padding: 20px;
@@ -29,6 +30,10 @@
     display: flex;
     justify-content: center;
 }
+.lick-btn {
+    position: absolute;
+}
+
 
 .side_img {
     display: flex;
@@ -54,6 +59,7 @@
 }
 
 .main_Img {
+   
     div {
         text-align: center;
         background-color: white;
@@ -293,6 +299,6 @@
     border-color: black;
 }
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	
   }
