@@ -11,6 +11,7 @@
 		position: relative;
 		font-weight: 600;
 		font-size: 18px;
+		display: block;
 	}
 }
 .nav li a::after {
@@ -32,8 +33,34 @@
     color: #dc3333;
 }
 //mobile
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 600px) {
 	.nav {
-		display: none;
+		flex-direction: column;
+		padding-left: 0px;
+		li {
+			padding: 4px 0;
+    		margin: 0px 0px;
+   			border-bottom: 1px solid #ccc;
+		}
+		a {
+			font-weight: 400;
+		}
+	}
+	.nav li a::after {
+		bottom: -6px;
 	}
   }
+  @media only screen and (min-width: 600px) and (max-width: 1101px) {
+		.nav{
+			padding: 0;
+			justify-content: space-around;
+		}
+  }
+  @media only screen and (min-width:600px) and (max-width:1101px) {
+	.nav {
+		padding: 0;
+		a {
+			font-size: 16px;
+		}
+	}
+}

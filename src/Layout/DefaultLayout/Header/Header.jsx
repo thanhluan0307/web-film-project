@@ -27,23 +27,23 @@ function Header() {
   const [fix,setFix] = useState(false)
   const [backToTop,setBackToTop] = useState(false)
   const [openModal,setOpenModal] = useState(false)
+
   const token = localStorage.getItem('Token')
   
 
   const setFixed = useCallback(() => {
-    if(window.scrollY > 100) {
-      setBackToTop(true)
-      setFix(true)
-    }else {
-      setFix(false)
-      setBackToTop(false)
-    }
+      if(window.scrollY > 100) {
+        setBackToTop(true)
+        setFix(true)
+      }else {
+        setFix(false)
+        setBackToTop(false)
+      }
   },[])
 
   useEffect(() => {
-   
-    window.addEventListener('scroll',setFixed)
-    /* eslint-disable react-hooks/exhaustive-deps */
+        window.addEventListener('scroll',setFixed)
+      /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
   },[])
   const removeToken = () => {
@@ -67,7 +67,7 @@ function Header() {
                 <Link to="/profile" className={cx('text')}>{localStorage.getItem('email') || "name"}</Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/login">
                   <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
                   <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
                 </Link>
@@ -91,14 +91,16 @@ function Header() {
          <div className={cx('logo')}>
             <Link to="/"><img src={logo} alt="" /></Link>
          </div>
-         <Nav/>
+         <div className={cx('pc-none')}><Nav/></div>
          <Input/>
          {/* mobil */}
 
-          <div className={cx('menu-mobile')} >
-              <FontAwesomeIcon icon={faBars} onClick={() => setOpenModal(pre => !pre)}/>
-              <Modal open={openModal}/>
+          <div className={cx('icon-menu')} onClick={() => setOpenModal(true)}>
+              <FontAwesomeIcon icon={faBars} />
            </div> 
+          <Modal open={openModal} onClose={() => setOpenModal(false)} mess='MENU'>
+            <Nav onClose={() => setOpenModal(false)}/>
+          </Modal>
          </div>
      
       <BackToTopButton view={backToTop}/>

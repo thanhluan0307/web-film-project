@@ -192,7 +192,7 @@ function Person() {
             {check === true ? <Alert /> : null}
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
-                <a href="https://onionphukien.vn/">Trang Chủ</a>
+                <Link to="/">Trang Chủ</Link>
                 <FontAwesomeIcon icon={faMinus} />
                 <span>{product.brand}</span>
                 <FontAwesomeIcon icon={faMinus} />
@@ -202,8 +202,12 @@ function Person() {
                 <div className={cx("side_img")}>
                     {listDtail.map((value, index) => {
                         return (
-                           
-                            <button key={value._id} onMouseOver={function () { changeImg(index) }}><img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img></button>
+                            <button 
+                                key={value._id} 
+                                onMouseOver={function () { changeImg(index) }}
+                            >
+                                <img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img>
+                            </button>
                         )
                     })}
                 </div>
@@ -221,6 +225,7 @@ function Person() {
                         <p>Nhãn hiệu: <span>{product.brand}</span></p>
                         <p>Tên sản phẩm: <span>{product.productName}</span></p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
+                        
                         {secondListDtail.map((value, index) => {
                             return (
                                 <>
@@ -231,10 +236,16 @@ function Person() {
                                 </>
                             )
                         })}
+                        {console.log(listDtail)}
                         Màu Sắc: {listDtail.map((value, index) => {
                             return (
                                 <>
-                                    <button key={value._id} className={cx(activeColor === index ? "active_item" : "")} onClick={changeStatus} onClickCapture={function () { changeImg(index) }}>{value.color}</button>
+                                    <button 
+                                        key={value._id} 
+                                        className={cx(activeColor === index ? "active_item" : "")} 
+                                        onClick={changeStatus} 
+                                        onClickCapture={function () { changeImg(index) }}>{value.color}
+                                    </button>
                                 </>
                             )
                         })}
@@ -249,7 +260,7 @@ function Person() {
                         <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
                         <button className={cx(disable?"disable":"enable")} disabled={disable}>Mua Ngay</button>
                     </div>
-<div className={cx("shareFB")}>
+                    <div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
                         <a href="https://www.facebook.com/profile.php?id=100009786037668"><FontAwesomeIcon icon={faFacebook} /></a>
                     </div>

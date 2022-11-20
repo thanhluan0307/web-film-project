@@ -6,7 +6,7 @@ import styles from "./nav.module.scss"
 import axios from "~/axios"
 
 const cx = classNames.bind(styles)
-function Nav() {
+function Nav({onClose}) {
     const [data,setData] = useState([])
     useEffect(() => {
         axios.get('/category/get-all-categories')
@@ -22,7 +22,7 @@ function Nav() {
         <ul className={cx('nav')}>
             {data.map(category => {
               return (
-                <li key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>
+                <li onClick={onClose} key={category}><NavLink className={({ isActive }) => isActive ? cx("active"): ''} to={`/category/${category}`}>{category}</NavLink></li>
               )
             })}
          </ul>
