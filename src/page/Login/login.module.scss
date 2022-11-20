@@ -89,6 +89,8 @@
 	height: 495px;
 	margin-top: 50px;
 	margin-right: 70px;
+	background: rgba(255, 255, 255, 0.5);
+
 }
 .form-signup h1{
 	font-size: 55px;
@@ -141,18 +143,22 @@
 
 @media only screen and (max-width: 376px ){
 	.login{
-		background-image: none;
+		background-image:linear-gradient( 135deg, pink, violet );;
 	}
 	.form-signup{
-		width: 100%;
-		margin-right: 0px;
-		background-image: linear-gradient( 135deg, pink, violet);
+		width: 90%;
+		margin-right: 18px;
 	}
 	.form-login{
-		width: 100%;
-		margin:0px;
+		width: 90%;
+		margin-right:18px;
+
 	}
-	// .inp-SignUp{
-		
-	// }
+	.inp-login{
+		background-color: rgba(255, 255, 255, 0);
+	}
+	.inp-SignUp{
+		height: 30px;
+		background-color: rgba(255, 255, 255, 0);
+	}
 }
