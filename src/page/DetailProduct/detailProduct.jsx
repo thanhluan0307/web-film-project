@@ -19,9 +19,8 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert';
-import { Link } from 'react-router-dom'
-
-
+import { Link } from 'react-router-dom';
+import Modal from "~/components/Modal/modal";
 
 const cx = classNames.bind(styles)
 var clone = [{
@@ -49,6 +48,7 @@ function Person() {
     const [showExchange,setShowExchange] = useState(false)
     const [favourite,setFavourite] = useState(true)
     const [bestSalers,setBestSalers] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     var sum = count
     function Minus() {
@@ -120,6 +120,16 @@ function Person() {
         setFavourite(false)
         setBestSalers(true)
     }
+
+    const showModal = () => {
+        setIsModalOpen(true);
+      };
+      const handleOk = () => {
+        setIsModalOpen(false);
+      };
+      const handleCancel = () => {
+        setIsModalOpen(false);
+      };
 
     const HandleAddProduct = () => {
         let Storage = localStorage.getItem('myStore')
@@ -247,7 +257,19 @@ function Person() {
                     </div>
                     <div className={cx("function")}>
                         <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
-                        <button className={cx(disable?"disable":"enable")} disabled={disable}>Mua Ngay</button>
+                        <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={showModal}>Mua Ngay</button>
+                        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        {secondListDtail.map((value, index) => {
+                            return (
+                                <>
+                                    <p>Giá: <span key={index} >{value.price}</span></p>
+                                    <p>Ram: <span key={index} >{value.ram}</span></p>
+                                    <p>Rom: <span key={index} >{value.rom}</span></p>
+                                    <p>Trạng thái: <span key={index} >{value.status}</span></p>
+                                </>
+                            )
+                        })}
+                        </Modal>
                     </div>
 <div className={cx("shareFB")}>
                         <span>CHIA SẺ</span>
