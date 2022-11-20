@@ -175,6 +175,28 @@
         background-color: black;
         font-family: cursive;
         font-size: 14px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    p {
+        background-color: white !important;
+        border-style: none !important;
+        color: rgb(53, 53, 44) !important;
+        text-align: left !important;
+    }
+    input {
+        font-size: 15px;
+        padding: 10px;
+        border-style: groove;
+        width: 350px;
+    }
+    label {
+        font-size: 20px !important;
+        padding: 10px;
+        color: rgba(0, 0, 0, 0.708);
+        text-transform: uppercase;
+        margin-bottom: 10px;
     }
 }
 

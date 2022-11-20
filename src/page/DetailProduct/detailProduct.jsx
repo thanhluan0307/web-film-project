@@ -123,17 +123,30 @@ function Person() {
 
     const showModal = () => {
         setIsModalOpen(true);
-      };
-      const handleOk = () => {
+      }
+    
+    const handleBuy = () => {
+        if (document.querySelector(".name").value === "" || 
+        document.querySelector(".phone").value === "" || 
+        document.querySelector(".address").value === "" ) {
+            alert("Quý khách vui lòng điền đầy đủ thông tin")
+        }
+        else {
+            alert("Mua thành công. Cảm ơn quý khách ^_^")
+            setIsModalOpen(false)
+        }
+      }
+
+    const handleCancel = () => {
         setIsModalOpen(false);
-      };
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
+      }
 
     const HandleAddProduct = () => {
         let Storage = localStorage.getItem('myStore')
-        if (Storage) {
+        let nameUser = localStorage.getItem('email')
+        if (nameUser.value!=="")
+        {
+        if (Storage && nameUser !=="") {
             Storage = JSON.parse(Storage)
             let infoProduct={
                 name:product.productName,
@@ -171,7 +184,7 @@ function Person() {
             Storage.push(infoProduct)
             localStorage.setItem('myStore', JSON.stringify(Storage))
             disPatch(counterTotalProduct())
-
+        }
         }
         setCheck(true)
     }
@@ -269,10 +282,22 @@ function Person() {
                     <div className={cx("function")}>
                         <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
                         <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={showModal}>Mua Ngay</button>
-                        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        <Modal open={isModalOpen}>
+                            <form>
+                            <label>Điền đầy đủ thông tin dưới đây</label>
+                            <p>Họ Tên:</p>
+                            <input className={cx("name")} type="text" placeholder="họ và tên"></input>
+                            <p>Số điện thoại:</p>
+                            <input className={cx("phone")} type="text" placeholder="Số điện thoại"></input>
+                            <p>Địa chỉ:</p>
+                            <input className={cx("address")} type="text" placeholder="Địa chỉ"></input>
+                            </form>
+                            <p></p>
+                            <label> Kiểm tra thông Số Sản Phẩm đã chọn:</label>
                         {secondListDtail.map((value, index) => {
                             return (
-                                <>
+                                <>  
+                                    <p>Mã sản phẩm: <span key={index} >{value._id}</span></p>
                                     <p>Giá: <span key={index} >{value.price}</span></p>
                                     <p>Ram: <span key={index} >{value.ram}</span></p>
                                     <p>Rom: <span key={index} >{value.rom}</span></p>
@@ -280,6 +305,8 @@ function Person() {
                                 </>
                             )
                         })}
+                        <button onClick={handleBuy}>Mua</button>
+                        <button onClick={handleCancel}>Cancle</button>
                         </Modal>
                     </div>
                     <div className={cx("shareFB")}>
