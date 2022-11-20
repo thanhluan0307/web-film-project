@@ -3,6 +3,7 @@ import styles from "./DetailProduct.module.scss"
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    faHeart,
     faHouse,
     faLocationDot,
     faMagnifyingGlass,
@@ -212,13 +213,19 @@ function Person() {
                     })}
                 </div>
                 <div className={cx("main_Img")}>
-                    <img src={src} alt={src}></img>
+                    <div className={cx('box-img')}>
+                        <img src={src} alt={src}/>
+                        <div className={cx('lick-btn')}>
+                        <FontAwesomeIcon icon={faHeart} />
+                    </div>
+                    </div> 
                     <Link to="">
                         <div>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                             <button>Click xem hình ảnh lớn hơn</button>
                         </div>
                     </Link>
+                  
                 </div>
                 <div className={cx("all_infor")}>
                     <div className={cx("infor")}>

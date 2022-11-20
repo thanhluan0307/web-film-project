@@ -16,6 +16,7 @@
 .body {
     width: 1500px;
     font-size: 15px;
+   
 
     div {
         padding: 20px;
@@ -29,6 +30,10 @@
     display: flex;
     justify-content: center;
 }
+.lick-btn {
+    position: absolute;
+}
+
 
 .side_img {
     display: flex;
@@ -52,8 +57,19 @@
         }
     }
 }
-
+.box-img {
+    position: relative;
+    .lick-btn {
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 50px;
+        color: #d70018;
+    }
+}
 .main_Img {
+   
     div {
         text-align: center;
         background-color: white;
