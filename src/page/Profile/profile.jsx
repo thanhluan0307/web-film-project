@@ -7,7 +7,6 @@ function Profile() {
     const cx = classNames.bind(styles)
 
     return (
-        <>
         <div className={cx('info')}>
             <h3 className={cx('text-user')}>Tài khoản của {localStorage.getItem('email')}</h3>
             <div className={cx('container')}>
@@ -29,10 +28,9 @@ function Profile() {
                         </div>
                     </div>
                </div>
+               <HomeStore/>
             </div>
         </div>
-            <HomeStore/>
-        </>
      );
 }
 

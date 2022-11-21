@@ -4,26 +4,29 @@ import { Link } from 'react-router-dom';
 import isEmpty from 'validator/lib/isEmpty'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from '~/axios';
+import { getAPI, patchAPI } from '~/config/api';
+
 export const UpdateInfo = () => {
   const [data, setData] = useState({})
   const [count, setCount] = useState()
   const [dateOfBitth, setDateOfBitth] = useState('2000/04/23')
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('0123456789')
   const [sex, setSex] = useState('')
   const inputName = document.querySelector("#name");
   const dateOfBirth = document.querySelector("#dateOfBirth");
 
-  const getData =   () => {
-
-       axios.get('/auth/get-loged-in-user')
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-        // console.log(res.data);
-        // setData(res.data.user)
-        // setDateOfBitth((res.data.user.dateOfBirth.split(''))[0].split('-').join('-'))
-        // setSex(res.data.user.sex)
-
+  const getData = async () => {
+    try{
+      let res = await getAPI('/auth/get-loged-in-user')
+      console.log(res.data);
+      setData(res.data.user)
+      setDateOfBitth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
+      setSex(res.data.user.sex)
+      setPhoneNumber(res.data.user.phone)
+    }catch(err){
+      console.log(err);
+      toast.error('Lỗi load data ^^')
+    }
 }
 
   useEffect(() => {
@@ -39,7 +42,7 @@ export const UpdateInfo = () => {
       }
       else
       {
-        let res = await axios.patch('/user/update-info',
+        let res = await patchAPI('/user/update-info',
         {
           fullname: inputName.value,
           dateOfBirth: dateOfBirth.value
