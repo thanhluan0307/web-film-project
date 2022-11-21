@@ -23,7 +23,7 @@ function Home() {
           <div>
             <div className={cx("slider")}></div>
             <ul className={cx('icons')}>
-              {catgoryObj.map(item => {
+              {catgoryObj.map(item=> {
                 return (
                   <IconCategory key={item._id} data={item}/>
                 )

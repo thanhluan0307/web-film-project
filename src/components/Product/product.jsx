@@ -9,6 +9,8 @@ import {useDispatch} from "react-redux"
 import styles from "./product.module.scss"
 import { useState } from "react";
 import { useEffect } from "react";
+import {counterTotalProduct}  from '~/reducer/totalProductSlice'
+import Alert from '~/components/Alert/alert'
 
 const cx = classNames.bind(styles) 
 function Product({data,isload}) {
@@ -34,9 +36,55 @@ function Product({data,isload}) {
         setCheck(true)
         dispatch(action)
     }
-    return ( 
-        <div className={cx("wrapper")}>
 
+    const HandleAddProduct = () => {
+        toggle()
+        let Storage = localStorage.getItem('myStore')
+        if (Storage) {
+            Storage = JSON.parse(Storage)
+            let infoProduct=data
+            infoProduct.amount=1
+            let kt = false
+            for (let item of Storage) {
+                if (item.productName === data.productName) {
+                    kt = true
+                    item.amount += 1
+                    localStorage.setItem('myStore', JSON.stringify(Storage))
+                    break
+                }
+            }
+            if (kt === false) {
+                Storage.push(data)
+                localStorage.setItem('myStore', JSON.stringify(Storage))
+                dispatch(counterTotalProduct())
+            }
+        }
+        else {
+            let infoProduct=data
+            infoProduct.amount=1
+            Storage = []
+            Storage.push(infoProduct)
+            localStorage.setItem('myStore', JSON.stringify(Storage))
+            dispatch(counterTotalProduct())
+        }
+    }
+    
+
+    const  [isOpen,setIsOpen] = useState(false);
+    const toggle=()=>{
+        setIsOpen(!isOpen)
+    }
+    return ( 
+        <>
+        <Alert 
+            style={{top:0}}
+            title={'Thêm sản phẩm thành công - '}
+            url={'/myStore'}
+            title2={'Tới cửa hàng ngay'}
+            isOpen={isOpen}
+            hide={toggle} 
+        />
+        <div className={cx("wrapper")}>
             <div>
                 {load ? <Skeleton className={cx('loadImage')}/> :(<Link
                     to={`/product/${data._id}`}><img className={cx("image")}
@@ -51,7 +99,7 @@ function Product({data,isload}) {
                 </p>
             </div>
             <div className={cx('action')}>
-                <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
+                <p onClick={HandleAddProduct}><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
                 <p>
                     { check ? 
                         <span onClick={addFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
@@ -66,7 +114,7 @@ function Product({data,isload}) {
             </div>
            
         </div>
-        
+        </>
      );
 }
 

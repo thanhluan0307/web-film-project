@@ -28,11 +28,17 @@ var clone = [{price: "",
             rom:"",
             status: ""}]
 function Person() {
+
+    const  [isOpen,setIsOpen] = useState(false);
+    const toggle=()=>{
+        setIsOpen(!isOpen)
+    }
+
     const disPatch = useDispatch()
     const { productID } = useParams()
     const [product, setProduct] = useState({})
     const [count, setCount] = useState(1)
-    const [check, setCheck] = useState(false)
+ 
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
@@ -57,20 +63,15 @@ function Person() {
         setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
     }
     const HandleAddProduct = () => {
+        toggle()
         let Storage = localStorage.getItem('myStore')
         if (Storage) {
             Storage = JSON.parse(Storage)
-            let infoProduct={
-                name:product.productName,
-                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
-                size:product.listDtail[0].ram,
-                color:product.listDtail[0].color,
-                price:9000,
-                amount:count
-            }
+            let infoProduct=product
+            infoProduct.amount=count
             let kt = false
             for (let item of Storage) {
-                if (item.name === infoProduct.name) {
+                if (item.productName === product.productName) {
                     kt = true
                     item.amount += count
                     localStorage.setItem('myStore', JSON.stringify(Storage))
@@ -78,40 +79,26 @@ function Person() {
                 }
             }
             if (kt === false) {
-                Storage.push(infoProduct)
+                Storage.push(product)
                 localStorage.setItem('myStore', JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }
         else {
-            let infoProduct={
-                name:product.productName,
-                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
-                size:product.listDtail[0].ram,
-                color:product.listDtail[0].color,
-                price:9000,
-                amount:count
-            }
+            let infoProduct=product
+            infoProduct.amount=count
             Storage = []
             Storage.push(infoProduct)
             localStorage.setItem('myStore', JSON.stringify(Storage))
             disPatch(counterTotalProduct())
-
         }
-        setCheck(true)
     }
-    useEffect(()=>{
-        const clearAlert=setTimeout(()=>{
-            setCheck(false)
-        },3500)
-    return ()=>clearTimeout(clearAlert)
-    },[check])
-
+    
     useEffect(() => {
         window.scroll(0,0)
         axios.get(`/product/get-one-product/${productID}`)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data)   
                 setProduct(res.data.product)
                 setListDtail(res.data.product.listDtail)
             })
@@ -124,7 +111,13 @@ function Person() {
 
     return (
         <>
-            {check === true ? <Alert /> : null}
+            <Alert 
+                title={'Thêm sản phẩm thành công - '}
+                url={'/myStore'}
+                title2={'Tới cửa hàng ngay'}
+                isOpen={isOpen}
+                hide={toggle} 
+            />
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <a href="https://onionphukien.vn/">Trang Chủ</a>
