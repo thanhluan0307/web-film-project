@@ -1,15 +1,49 @@
-import { faCartShopping, faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import styles from "./product.module.scss"
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch } from "react-redux";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { addProduct, deleteProduct } from "~/reducer/favourite";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
+
+
+import styles from "./product.module.scss"
+import { useState } from "react";
 const cx = classNames.bind(styles)
 
-function Product({data}) {
-  
-  
+function Product({data,index}) {
+    
+  const [check,setCheck] = useState(()=>{
+    return JSON.parse(localStorage.getItem('check')) ??  []
+  })
+
+  const dispatch = useDispatch()
+  const likeProduct = () => {
+    const action = addProduct(data)
+    dispatch(action)
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore,index]
+        localStorage.setItem('check',JSON.stringify(arr))
+        return arr
+    })
+  }
+  const removePro = () => {
+    const action = deleteProduct(data)
+    dispatch(action)
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore]
+        const i = arr.indexOf(index)
+        arr.splice(i,1)
+        localStorage.setItem('check',JSON.stringify(arr))
+        return arr
+    })
+   
+
+  }
+
     return (
         <div className={cx("wrapper")}>
             <div>
@@ -31,11 +65,19 @@ function Product({data}) {
             </div>
             <div className={cx('action')}>
                 <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
-                <p className={cx("link-product")}>
-                    <Link to={`/product/${data._id}`} >
-                        <FontAwesomeIcon className={cx("icon-action")} icon={faEye}/>Xem
-                    </Link>
-                </p>      
+                { !(JSON.parse(localStorage.getItem('check')) ?? []).includes(index ) ?
+                    <p className={cx("link-product")} onClick={likeProduct}>
+                        {/* <Link to={`/product/${data._id}`} > */}
+                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>like
+                        {/* </Link> */}
+                    </p>   
+                    :
+                    <p className={cx("link-product")} onClick={removePro}>
+                    {/* <Link to={`/product/${data._id}`} > */}
+                        <FontAwesomeIcon className={cx("icon-action")} icon={faHeartCrack}/>unlike
+                    {/* </Link> */}
+                </p>         
+                }  
             </div>
 
         </div>

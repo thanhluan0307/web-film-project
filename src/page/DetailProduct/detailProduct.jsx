@@ -186,7 +186,6 @@ function Person() {
     useEffect(() => {
         setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
     }, [product])
-
     return (
         <>
             {check === true ? <Alert /> : null}
@@ -212,13 +211,14 @@ function Person() {
                     })}
                 </div>
                 <div className={cx("main_Img")}>
-                    <img src={src} alt={src}></img>
+                  <img src={src} alt={src}/>
                     <Link to="">
                         <div>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                             <button>Click xem hình ảnh lớn hơn</button>
                         </div>
                     </Link>
+                  
                 </div>
                 <div className={cx("all_infor")}>
                     <div className={cx("infor")}>

@@ -27,7 +27,7 @@ function ContaierProduct() {
            <div className={cx("body")}>
                {productAll.map((item,index) => {
                     return (
-                        <Product key={item._id} data={item}/>
+                        <Product key={item._id} data={item} index={index}/>
                     )
                })}
            </div>
