@@ -12,8 +12,10 @@ export const UpdateInfo = () => {
   const [dateOfBitth, setDateOfBitth] = useState('2000/04/23')
   const [phoneNumber, setPhoneNumber] = useState('0123456789')
   const [sex, setSex] = useState('')
-  const inputName = document.querySelector("#name");
-  const dateOfBirth = document.querySelector("#dateOfBirth");
+  let inputName = document.querySelector("#name");
+  let dateOfBirth = document.querySelector("#dateOfBirth");
+  let gender = document.querySelector('#gender')
+
 
   const getData = async () => {
     try{
@@ -36,7 +38,6 @@ export const UpdateInfo = () => {
 
   const handleUpdate = async () =>{
     try{
-
       if(isEmpty(inputName.value)){
         toast.error('Tên không được để trống')
       }
@@ -101,6 +102,7 @@ export const UpdateInfo = () => {
               <input
                 type='text'
                 placeholder='Điện thoại'
+                defaultValue={data.phone}
               />
             </div>
             <div className={styles.formcontrol}>
