@@ -12,6 +12,7 @@ export const UpdateInfo = () => {
   const [dateOfBitth, setDateOfBitth] = useState('2000/04/23')
   const [phoneNumber, setPhoneNumber] = useState('0123456789')
   const [sex, setSex] = useState('')
+  let link
   let inputName = document.querySelector("#name");
   let dateOfBirth = document.querySelector("#dateOfBirth");
   let gender = document.querySelector('#gender')
