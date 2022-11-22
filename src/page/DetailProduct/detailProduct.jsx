@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert';
 import { Link } from 'react-router-dom';
 import Modal from "~/components/Modal/modal";
+import logo from "~/assets/images/b5.png"
 
 const cx = classNames.bind(styles)
 var clone = [{
