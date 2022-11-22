@@ -44,11 +44,16 @@ function Person() {
     const [disable, setDisable] = useState(true)
     const [active, setActive] = useState(false)
     const [activeColor, setActiveColor] = useState(-1)
-    const [hideExchange,setHideExchange] = useState(true)
-    const [showExchange,setShowExchange] = useState(false)
-    const [favourite,setFavourite] = useState(true)
-    const [bestSalers,setBestSalers] = useState(false)
+    const [hideExchange, setHideExchange] = useState(true)
+    const [showExchange, setShowExchange] = useState(false)
+    const [favourite, setFavourite] = useState(true)
+    const [bestSalers, setBestSalers] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalImgOpen, setIsModalImgOpen] = useState(false);
+    const [valueName, setValueName] = useState('')
+    const [valuePhone, setValuePhone] = useState('')
+    const [valueAddress, setValueAddress] = useState('')
+
 
     var sum = count
     function Minus() {
@@ -63,7 +68,7 @@ function Person() {
             setCount(sum)
         }
     }
-  
+
     function changeImg(index) {
         var cloneListDtail = [...listDtail]
         var a = cloneListDtail.splice(index, 1)
@@ -123,80 +128,81 @@ function Person() {
 
     const showModal = () => {
         setIsModalOpen(true);
-      }
-    
+    }
+
     const handleBuy = () => {
-        if (document.querySelector(".name").value === "" || 
-        document.querySelector(".phone").value === "" || 
-        document.querySelector(".address").value === "" ) {
-            alert("Quý khách vui lòng điền đầy đủ thông tin")
-        }
-        else {
-            alert("Mua thành công. Cảm ơn quý khách ^_^")
-            setIsModalOpen(false)
-        }
-      }
+        alert("Mua thành công. Cảm ơn quý khách ^_^");
+        setIsModalOpen(false)
+    }
 
     const handleCancel = () => {
         setIsModalOpen(false);
-      }
+    }
+
+    const showModalImg = () => {
+        setIsModalImgOpen(true);
+    }
+
+    const handleOut = () => {
+        setIsModalImgOpen(false);
+    }
 
     const HandleAddProduct = () => {
         let Storage = localStorage.getItem('myStore')
-        let nameUser = localStorage.getItem('email')
-        if (nameUser.value!=="")
-        {
-        if (Storage && nameUser !=="") {
-            Storage = JSON.parse(Storage)
-            let infoProduct={
-                name:product.productName,
-                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
-                size:product.listDtail[0].ram,
-                color:product.listDtail[0].color,
-                price:9000,
-                amount:count
-            }
-            let kt = false
-            for (let item of Storage) {
-                if (item.name === infoProduct.name) {
-                    kt = true
-                    item.amount += count
+        let nameUser = localStorage.getItem('email').value
+        if (nameUser !== "") {
+            if (Storage) {
+                Storage = JSON.parse(Storage)
+                let infoProduct = {
+                    name: product.productName,
+                    img: "https://shope-b3.thaihm.site/" + product.thumbnail,
+                    size: product.listDtail[0].ram,
+                    color: product.listDtail[0].color,
+                    price: 9000,
+                    amount: count
+                }
+                let kt = false
+                for (let item of Storage) {
+                    if (item.name === infoProduct.name) {
+                        kt = true
+                        item.amount += count
+                        localStorage.setItem('myStore', JSON.stringify(Storage))
+                        break
+                    }
+                }
+                if (kt === false) {
+                    Storage.push(infoProduct)
                     localStorage.setItem('myStore', JSON.stringify(Storage))
-                    break
+                    disPatch(counterTotalProduct())
                 }
             }
-            if (kt === false) {
+            else {
+                let infoProduct = {
+                    name: product.productName,
+                    img: "https://shope-b3.thaihm.site/" + product.thumbnail,
+                    size: product.listDtail[0].ram,
+                    color: product.listDtail[0].color,
+                    price: 9000,
+                    amount: count
+                }
+                Storage = []
                 Storage.push(infoProduct)
                 localStorage.setItem('myStore', JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }
-        else {
-            let infoProduct={
-                name:product.productName,
-                img:"https://shope-b3.thaihm.site/" + product.thumbnail,
-                size:product.listDtail[0].ram,
-                color:product.listDtail[0].color,
-                price:9000,
-                amount:count
-            }
-            Storage = []
-            Storage.push(infoProduct)
-            localStorage.setItem('myStore', JSON.stringify(Storage))
-            disPatch(counterTotalProduct())
-        }
-        }
+        else alert("Vui lòng đăng nhập!")
         setCheck(true)
     }
-    useEffect(()=>{
-        const clearAlert=setTimeout(()=>{
+    useEffect(() => {
+        const clearAlert = setTimeout(() => {
             setCheck(false)
-        },3500)
-    return ()=>clearTimeout(clearAlert)
-    },[check])
+        }, 3500)
+        return () => clearTimeout(clearAlert)
+    }, [check])
 
     useEffect(() => {
-        window.scroll(0,0)
+        window.scroll(0, 0)
         axios.get(`/product/get-one-product/${productID}`)
             .then(res => {
                 console.log(res.data)
@@ -224,8 +230,8 @@ function Person() {
                 <div className={cx("side_img")}>
                     {listDtail.map((value, index) => {
                         return (
-                            <button 
-                                key={value._id} 
+                            <button
+                                key={value._id}
                                 onMouseOver={function () { changeImg(index) }}
                             >
                                 <img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img>
@@ -234,21 +240,22 @@ function Person() {
                     })}
                 </div>
                 <div className={cx("main_Img")}>
-                  <img src={src} alt={src}/>
-                    <Link to="">
-                        <div>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <button>Click xem hình ảnh lớn hơn</button>
-                        </div>
-                    </Link>
-                  
+                    <img className={cx("outside_Img")} src={src} alt={src} />
+                    <div onClick={showModalImg}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        <button>Click xem hình ảnh lớn hơn</button>
+                    </div>
+                    <Modal className={cx("inside_Img")} open ={isModalImgOpen}>
+                        <img className={cx("inside_Img")} src={src} alt={src} />
+                        <button className={cx("btn_out")} onClick={handleOut}>Thoát</button>
+                    </Modal>
                 </div>
                 <div className={cx("all_infor")}>
                     <div className={cx("infor")}>
                         <p>Nhãn hiệu: <span>{product.brand}</span></p>
                         <p>Tên sản phẩm: <span>{product.productName}</span></p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-                        
+
                         {secondListDtail.map((value, index) => {
                             return (
                                 <>
@@ -263,10 +270,10 @@ function Person() {
                         Màu Sắc: {listDtail.map((value, index) => {
                             return (
                                 <>
-                                    <button 
-                                        key={value._id} 
-                                        className={cx(activeColor === index ? "active_item" : "")} 
-                                        onClick={changeStatus} 
+                                    <button
+                                        key={value._id}
+                                        className={cx(activeColor === index ? "active_item" : "")}
+                                        onClick={changeStatus}
                                         onClickCapture={function () { changeImg(index) }}>{value.color}
                                     </button>
                                 </>
@@ -280,33 +287,33 @@ function Person() {
                         <button onClick={Add}>+</button>
                     </div>
                     <div className={cx("function")}>
-                        <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
-                        <button className={cx(disable?"disable":"enable")} disabled={disable} onClick={showModal}>Mua Ngay</button>
+                        <button className={cx(disable ? "disable" : "enable")} disabled={disable} onClick={HandleAddProduct}>Thêm Vào Giỏ Hàng</button>
+                        <button className={cx(disable ? "disable" : "enable")} disabled={disable} onClick={showModal}>Mua Ngay</button>
                         <Modal open={isModalOpen}>
                             <form>
-                            <label>Điền đầy đủ thông tin dưới đây</label>
-                            <p>Họ Tên:</p>
-                            <input className={cx("name")} type="text" placeholder="họ và tên"></input>
-                            <p>Số điện thoại:</p>
-                            <input className={cx("phone")} type="text" placeholder="Số điện thoại"></input>
-                            <p>Địa chỉ:</p>
-                            <input className={cx("address")} type="text" placeholder="Địa chỉ"></input>
+                                <label>Điền đầy đủ thông tin dưới đây</label>
+                                <p>Họ Tên:</p>
+                                <input value={valueName} onChange={function (e) { setValueName(e.target.value) }} className={cx("name")} type="text" placeholder="họ và tên"></input>
+                                <p>Số điện thoại:</p>
+                                <input value={valuePhone} onChange={function (e) { setValuePhone(e.target.value) }} className={cx("phone")} type="text" placeholder="Số điện thoại"></input>
+                                <p>Địa chỉ:</p>
+                                <input value={valueAddress} onChange={function (e) { setValueAddress(e.target.value) }} className={cx("address")} type="text" placeholder="Địa chỉ"></input>
                             </form>
-                            <p></p>
+                            <br></br>
                             <label> Kiểm tra thông Số Sản Phẩm đã chọn:</label>
-                        {secondListDtail.map((value, index) => {
-                            return (
-                                <>  
-                                    <p>Mã sản phẩm: <span key={index} >{value._id}</span></p>
-                                    <p>Giá: <span key={index} >{value.price}</span></p>
-                                    <p>Ram: <span key={index} >{value.ram}</span></p>
-                                    <p>Rom: <span key={index} >{value.rom}</span></p>
-                                    <p>Trạng thái: <span key={index} >{value.status}</span></p>
-                                </>
-                            )
-                        })}
-                        <button onClick={handleBuy}>Mua</button>
-                        <button onClick={handleCancel}>Cancle</button>
+                            {secondListDtail.map((value, index) => {
+                                return (
+                                    <>
+                                        <p>Mã sản phẩm: <span key={index} >{value._id}</span></p>
+                                        <p>Giá: <span key={index} >{value.price}</span></p>
+                                        <p>Ram: <span key={index} >{value.ram}</span></p>
+                                        <p>Rom: <span key={index} >{value.rom}</span></p>
+                                        <p>Trạng thái: <span key={index} >{value.status}</span></p>
+                                    </>
+                                )
+                            })}
+                            <button onClick={handleBuy}>Mua</button>
+                            <button onClick={handleCancel}>Cancle</button>
                         </Modal>
                     </div>
                     <div className={cx("shareFB")}>
@@ -389,15 +396,15 @@ function Person() {
                     <div className={cx("delivery")}>
                         <span><FontAwesomeIcon icon={faPhone} /></span>
                         <div>
-<p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
+                            <p>TỔNG ĐÀI BÁN HÀNG 0964.26.36.36</p>
                             <p>(Từ 8h30 - 21:30 mỗi ngày)</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div className={cx("other_infor")}>
-                <button className={cx(favourite?"other_infor_btn":"")} onClick={showFavourite}>CÓ THỂ BẠN THÍCH</button>
-                <button className={cx(bestSalers?"other_infor_btn":"")} onClick={showBestSalers}>SẢN PHẨM BÁN CHẠY</button>
+                <button className={cx(favourite ? "other_infor_btn" : "")} onClick={showFavourite}>CÓ THỂ BẠN THÍCH</button>
+                <button className={cx(bestSalers ? "other_infor_btn" : "")} onClick={showBestSalers}>SẢN PHẨM BÁN CHẠY</button>
             </div>
             <HomeStore />
         </>

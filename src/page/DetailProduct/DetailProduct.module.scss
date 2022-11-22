@@ -75,9 +75,29 @@
         background-color: white;
     }
 
-    img {
+    .outside_Img {
         width: 450px;
         height: 550px;
+        object-fit: contain;
+    }
+
+    .inside_Img {
+        width: 500px;
+        height: 600px;
+    }
+
+    .btn_out {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border-style: groove;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    p {
+        background-color: white !important;
     }
 }
 
@@ -175,9 +195,6 @@
         background-color: black;
         font-family: cursive;
         font-size: 14px;
-        &:hover {
-            cursor: pointer;
-        }
     }
     p {
         background-color: white !important;
