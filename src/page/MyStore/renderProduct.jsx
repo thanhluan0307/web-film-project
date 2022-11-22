@@ -34,6 +34,7 @@ function RenderProduct() {
         let newData=[...data]
         newData[index].amount+=1
         newData[index].totalPrice=newData[index].amount*newData[index].price
+        document.getElementById('inp').value=data[index].amount
         setData(newData)
     }
     const handleDecrease=(index)=>{
@@ -44,6 +45,7 @@ function RenderProduct() {
             newData[index].amount=0
         }
         newData[index].totalPrice=newData[index].amount*newData[index].price
+        document.getElementById('inp').value=data[index].amount
         setData(newData)
     }
     const handleDelete=(index)=>{
@@ -124,6 +126,15 @@ function RenderProduct() {
         })
     }
 
+    const handleIn=(e,index)=>{
+        let newData=[...data]
+        newData[index].amount=+e.target.value
+        newData[index].totalPrice=newData[index].amount*newData[index].price
+        
+        setData(newData)
+    }
+
+    
   return (
     <div className={styles.container}>
         <div className={styles.title}>
@@ -178,7 +189,7 @@ function RenderProduct() {
                             <div className={styles.navTitle}>{value.price?.toLocaleString('en-US', {style : 'currency', currency : 'VND'})}</div>
                             <div className={`${styles.navTitle} ${styles.buttonContainer}`}>
                                 <Button variant="outlined" className={styles.button} onClick={()=>handleDecrease(index)}>-</Button>
-                                <p className={styles.amount}>{value.amount} </p>
+                                <input id='inp' className={styles.amount} defaultValue={value.amount}  onBlur={(e)=>handleIn(e,index)}/>
                                 <Button variant="outlined" className={styles.button} onClick={()=>handleIncrease(index)}>+</Button>
                             </div>
                             <div className={styles.navTitle}>{(value.totalPrice)?.toLocaleString('en-US', {style : 'currency', currency : 'VND'})}</div>
