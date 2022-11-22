@@ -37,7 +37,6 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
-            document.getElementById('input').value=info.amount
             return data
         })
     }
@@ -47,7 +46,6 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
-            document.getElementById('input').value=info.amount
             return data
         })
     }
@@ -328,7 +326,7 @@ function SelectProduct({info,dataThen,index,set}) {
                         <div className={cx('price-total')}>
                             <span>Số lượng</span>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleDecrease(index)}>-</Button>
-                                <input  className={cx('amount')} defaultValue={info.amount}></input>
+                                <input type='text' className={cx('amount')} value={info.amount} onChange={()=>{}}></input>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleIncrease(index)}>+</Button>
                             <p>99 Sản phẩm có sẵn</p>
                         </div>

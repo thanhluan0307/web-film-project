@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert';
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import logo from "~/assets/images/b5.png"
+import Modal from '~/components/Modal/modal'
 
 const cx = classNames.bind(styles)
 var clone = [{
@@ -138,6 +138,27 @@ function Person() {
     function showBestSalers() {
         setFavourite(false)
         setBestSalers(true)
+    }
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const handleBuy = () => {
+        alert("Mua thành công. Cảm ơn quý khách ^_^");
+        setIsModalOpen(false)
+    }
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    }
+
+    const showModalImg = () => {
+        setIsModalImgOpen(true);
+    }
+
+    const handleOut = () => {
+        setIsModalImgOpen(false);
     }
  
     const HandleAddProduct = () => {

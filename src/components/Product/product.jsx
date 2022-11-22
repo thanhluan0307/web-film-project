@@ -5,35 +5,20 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { addProduct, deleteProduct } from "~/reducer/favourite";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
+import {  faEye, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
+
 
 import styles from "./product.module.scss"
-import { useState,useEffect} from "react";
+import { useState } from "react";
 const cx = classNames.bind(styles)
 
 function Product({data,index}) {
-    
-    const dispatch = useDispatch()
 
-    const addFavorite = () => {
-        const action = addProduct(data)
-        setCheck(false)
-        dispatch(action)
-    }
-    const removeFavorite = () => {
-        const action = deleteProduct(data)
-        setCheck(true)
-        dispatch(action)
-    }
-
-    const  [isOpen,setIsOpen] = useState(false);
-    const toggle=()=>{
-        setIsOpen(!isOpen)
-    }
+    const dispatch=useDispatch()
     
-  const [check,setCheck] = useState(()=>{
+  const [,setCheck] = useState(()=>{
     return JSON.parse(localStorage.getItem('check')) ??  []
-  })
+    })
 
    const likeProduct = () => {
     const action = addProduct(data)
@@ -80,19 +65,19 @@ function Product({data,index}) {
                 </p>
             </div>
             <div className={cx('action')}>
-                <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
+                <p>
+                    <Link to ={`/product/${data._id}`}>
+                        <FontAwesomeIcon className={cx("icon-action")} icon={faEye}/>Xem
+                    </Link>
+                </p>
                 { !(JSON.parse(localStorage.getItem('check')) ?? []).includes(index ) ?
                     <p className={cx("link-product")} onClick={likeProduct}>
-                        {/* <Link to={`/product/${data._id}`} > */}
-                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>like
-                        {/* </Link> */}
+                        <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>like
                     </p>   
                     :
                     <p className={cx("link-product")} onClick={removePro}>
-                    {/* <Link to={`/product/${data._id}`} > */}
                         <FontAwesomeIcon className={cx("icon-action")} icon={faHeartCrack}/>unlike
-                    {/* </Link> */}
-                </p>         
+                    </p>         
                 }  
             </div>
         </div>
