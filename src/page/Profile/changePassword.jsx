@@ -29,13 +29,10 @@ export const ChangePassword = () => {
         oldPass: oldPass,
         newPass: newPass
       })
-      .then(res => {
         toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
         window.localStorage.removeItem('Token')
         window.localStorage.removeItem('email')
         nav('/login')
-      })
-      .catch(err => console.log(err))
     }catch(err){
       console.log(err);
       toast.error('Đổi mật khẩu thất bại !')
@@ -44,9 +41,7 @@ export const ChangePassword = () => {
   return (
     <div className={styles.wrapper}>
 			<div className={styles.container}>
-				<h1 className='password-center'>Thay đổi mật khẩu</h1>
-        <input type="file"/>
-        <img className={styles.avatar} src="https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg" alt="avatar" />
+				<h1 className='text-center'>Thay đổi mật khẩu</h1>
 				<form id={styles.formAcc}>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Mật khẩu cũ:</label>
@@ -73,7 +68,10 @@ export const ChangePassword = () => {
                 placeholder='Vui lòng nhập lại mật khẩu mới'
               />
             </div>
-            <button type='button' className={styles.btn} onClick={handleUpdate}>Cập nhập mật khẩu</button>
+            <div className={styles.formcontrol}>
+              <button type='button' className={styles.btn} onClick={handleUpdate}>Cập nhập mật khẩu</button>
+              <Link to={'/profile'}> <button type='button' className={styles.btn}>Back</button></Link>
+            </div>
             <Link to={'/profile'}></Link>
               <ToastContainer
                 position="top-right"

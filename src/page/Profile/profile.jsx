@@ -14,8 +14,8 @@ function Profile() {
                 <div className={cx('detail')}>
                         <p className={cx('title')}>Thông tin tài khoản</p>
                         <div className={cx('info')}>
-                            <p>Điểm tích luỹ của bạn:</p>
-                            <p>Cấp độ khách hàng</p>
+                            <p>Điểm tích luỹ của bạn: 1000 <sub>đ</sub> </p>
+                            <p>Cấp độ khách hàng: 1</p>
                             <Link to={'update-info'}><p>Thay đổi thông tin cá nhân</p></Link>
                             <Link to={'change-pass'}><p>Thay đổi mật khẩu</p></Link>
                         </div>

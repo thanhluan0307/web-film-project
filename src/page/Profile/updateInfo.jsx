@@ -8,24 +8,28 @@ import { getAPI, patchAPI } from '~/config/api';
 
 export const UpdateInfo = () => {
   const [data, setData] = useState({})
-  const [count, setCount] = useState()
-  const [dateOfBitth, setDateOfBitth] = useState('2000/04/23')
-  const [phoneNumber, setPhoneNumber] = useState('0123456789')
+  const [count, setCount] = useState(0)
+  const [dateOfBirth, setdateOfBirth] = useState('1999-04-23')
   const [sex, setSex] = useState('')
-  let link
-  let inputName = document.querySelector("#name");
-  let dateOfBirth = document.querySelector("#dateOfBirth");
-  let gender = document.querySelector('#gender')
-
+  let avatarPath
+  const domain = 'https://shope-b3.thaihm.site/'
+  let inputName = document.querySelector("#name")
 
   const getData = async () => {
     try{
       let res = await getAPI('/auth/get-loged-in-user')
-      console.log(res.data);
+      avatarPath = res.data.user.avatar
+      if(!avatarPath){
+        avatarPath = 'https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg'
+      }
+      else if(!avatarPath.startsWith('https')){
+        avatarPath = domain + avatarPath
+      }
+
+      console.log(avatarPath);
       setData(res.data.user)
-      setDateOfBitth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
       setSex(res.data.user.sex)
-      setPhoneNumber(res.data.user.phone)
+      setdateOfBirth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
     }catch(err){
       console.log(err);
       toast.error('Lỗi load data ^^')
@@ -34,8 +38,7 @@ export const UpdateInfo = () => {
 
   useEffect(() => {
     getData()
-  }, [count])
-
+  },[count])
 
   const handleUpdate = async () =>{
     try{
@@ -47,7 +50,9 @@ export const UpdateInfo = () => {
         let res = await patchAPI('/user/update-info',
         {
           fullname: inputName.value,
-          dateOfBirth: dateOfBirth.value
+          dateOfBirth: dateOfBirth,
+          sex: sex,
+          phone: data.phone
         }
         )
         setCount(count + 1)
@@ -65,9 +70,19 @@ export const UpdateInfo = () => {
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<h1 className='text-center'>Thay đổi thông tin cá nhân</h1>
-        <input type="file"/>
-        <img className={styles.avatar} src="https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg" alt="avatar" />
+        <div className={styles.upload_avatar}>
+          <input type="file"/>
+          <img className={styles.avatar} src="https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg" alt="avatar" />
+        </div>
 				<form id={styles.formAcc}>
+          <div className={styles.formcontrol}>
+                <label htmlFor=''>Username:</label>
+                <input
+                  type='text'
+                  placeholder='Username'
+                  defaultValue={data.username}
+                />
+          </div>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Họ tên:</label>
               <input
@@ -81,11 +96,11 @@ export const UpdateInfo = () => {
             <div className={styles.formcontrol}>
                 <label htmlFor=''>Ngày sinh:</label>
                 <input
-                  type='date'
+                  type={'date'}
                   id='dateOfBirth'
                   placeholder='Ngày sinh'
-                  value={dateOfBitth}
-                  onChange={e => setDateOfBitth(e.target.value)}
+                  value={dateOfBirth}
+                  onChange={e => setdateOfBirth(e.target.value)}
                 />
             </div>
             <div className={styles.formcontrol}>
@@ -99,11 +114,12 @@ export const UpdateInfo = () => {
               />
             </div>
             <div className={styles.formcontrol}>
-              <label htmlFor=''>Điện thoại:</label>
+              <label htmlFor=''>Số điện thoại:</label>
               <input
+                name='phone'
                 type='text'
-                placeholder='Điện thoại'
-                defaultValue={data.phone}
+                placeholder='Phone'
+                defaultValue={data.phone ? data.phone : '0929690xxx'}
               />
             </div>
             <div className={styles.formcontrol}>
@@ -112,26 +128,6 @@ export const UpdateInfo = () => {
                 <option value="0">male</option>
                 <option value="1">female</option>
               </select>
-            </div>
-            <div className={styles.formcontrol}>
-              <label htmlFor=''>Tỉnh/Thành phố:</label>
-              <select name="" id="">
-                <option value="0">Tỉnh/Thành phố</option>
-              </select>
-            </div>
-            <div className={styles.formcontrol}>
-              <label htmlFor=''>Quận/Huyện:</label>
-              <input
-                type='text'
-                placeholder='Quận/huyện'
-              />
-            </div>
-            <div className={styles.formcontrol}>
-              <label htmlFor=''>Địa chỉ chi tiết:</label>
-              <input
-                type='text'
-                placeholder='Địa chỉ chi tiết'
-              />
             </div>
             <div className={styles.formcontrol}>
             <button type='button' className={styles.btn} onClick={handleUpdate}>Cập nhập thông tin</button>
