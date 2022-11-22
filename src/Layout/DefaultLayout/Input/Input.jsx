@@ -19,6 +19,7 @@ function Input() {
   const [load,setLoad] = useState(false)
   const inputRef = useRef()
   const debounce = useDebounce(searchValue,300)
+  const searchRef = useRef(null)
   const nav = useNavigate()
   useEffect(() => {
     if(!debounce.trim()) {
@@ -31,10 +32,11 @@ function Input() {
         setSearchResult(res.data.products)
         setLoad(false)
       })
+      .catch(erro => console.log(erro))
     
   },[debounce])
   useEffect(()=>{
-    window.addEventListener('keypress',(e) => {
+    searchRef.current.addEventListener('keypress',(e) => {
       if (e.code === "Enter") {
         toSeaech()
         setCheck(false)
@@ -74,7 +76,7 @@ function Input() {
           )} 
           onClickOutside={() => setCheck(false)} 
        >
-        <div className={cx('search')}>
+        <div className={cx('search')} ref={searchRef}>
           <input 
             ref={inputRef}
             placeholder='Tìm Kiếm' 

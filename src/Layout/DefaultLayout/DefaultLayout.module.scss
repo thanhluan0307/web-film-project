@@ -26,8 +26,9 @@
 }
 //mobile
 @media only screen and (max-width: 600px) {
-	.contaier {
+    .contaier {
         width: 100%;
+        margin-top: 120px;
     }
     .up-top {
         bottom: 50px;
@@ -38,5 +39,4 @@
             font-size: 10px;
         }
     }
-    
   }

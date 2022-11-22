@@ -14,7 +14,7 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios'
-import { message } from 'antd'
+
 import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
@@ -180,7 +180,7 @@ function Person() {
                 setProduct(res.data.product)
                 setListDtail(res.data.product.listDtail)
             })
-            .catch(err => message.err("Lỗi rồi!"))
+            .catch(err =>alert("Lỗi rồi!"))
     }, [productID])
 
     useEffect(() => {
