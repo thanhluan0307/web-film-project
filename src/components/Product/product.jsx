@@ -1,31 +1,20 @@
-import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import {addProduct,deleteProduct} from "~/reducer/favourite"
-import {useDispatch} from "react-redux"
-import styles from "./product.module.scss"
-import { useState } from "react";
-import { useEffect } from "react";
-import {counterTotalProduct}  from '~/reducer/totalProductSlice'
-import Alert from '~/components/Alert/alert'
+import { useDispatch } from "react-redux";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { addProduct, deleteProduct } from "~/reducer/favourite";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
 
-const cx = classNames.bind(styles) 
-function Product({data,isload}) {
-    const [load,setLoad] = useState(isload)
-    const [check,setCheck] = useState(true)
+import styles from "./product.module.scss"
+import { useState,useEffect} from "react";
+const cx = classNames.bind(styles)
+
+function Product({data,index}) {
     
     const dispatch = useDispatch()
-    useEffect(() => {
-        const timeID = setTimeout(() => {
-            setLoad(false)
-        },500)
-        return () => {
-            clearTimeout(timeID)
-        }
-    },[])
+
     const addFavorite = () => {
         const action = addProduct(data)
         setCheck(false)
@@ -37,85 +26,77 @@ function Product({data,isload}) {
         dispatch(action)
     }
 
-    const HandleAddProduct = () => {
-        toggle()
-        let Storage = localStorage.getItem('myStore')
-        if (Storage) {
-            Storage = JSON.parse(Storage)
-            let infoProduct=data
-            infoProduct.amount=1
-            let kt = false
-            for (let item of Storage) {
-                if (item.productName === data.productName) {
-                    kt = true
-                    item.amount += 1
-                    localStorage.setItem('myStore', JSON.stringify(Storage))
-                    break
-                }
-            }
-            if (kt === false) {
-                Storage.push(data)
-                localStorage.setItem('myStore', JSON.stringify(Storage))
-                dispatch(counterTotalProduct())
-            }
-        }
-        else {
-            let infoProduct=data
-            infoProduct.amount=1
-            Storage = []
-            Storage.push(infoProduct)
-            localStorage.setItem('myStore', JSON.stringify(Storage))
-            dispatch(counterTotalProduct())
-        }
-    }
-    
-
     const  [isOpen,setIsOpen] = useState(false);
     const toggle=()=>{
         setIsOpen(!isOpen)
     }
-    return ( 
-        <>
-        <Alert 
-            style={{top:0}}
-            title={'Thêm sản phẩm thành công - '}
-            url={'/myStore'}
-            title2={'Tới cửa hàng ngay'}
-            isOpen={isOpen}
-            hide={toggle} 
-        />
+    
+  const [check,setCheck] = useState(()=>{
+    return JSON.parse(localStorage.getItem('check')) ??  []
+  })
+
+   const likeProduct = () => {
+    const action = addProduct(data)
+    dispatch(action)
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore,index]
+        localStorage.setItem('check',JSON.stringify(arr))
+        return arr
+    })
+  }
+  const removePro = () => {
+    const action = deleteProduct(data)
+    dispatch(action)
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore]
+        const i = arr.indexOf(index)
+        arr.splice(i,1)
+        localStorage.setItem('check',JSON.stringify(arr))
+        return arr
+    })
+   
+
+  }
+
+    return (
         <div className={cx("wrapper")}>
             <div>
-                {load ? <Skeleton className={cx('loadImage')}/> :(<Link
-                    to={`/product/${data._id}`}><img className={cx("image")}
-                    src={"https://shope-b3.thaihm.site/" + data.thumbnail}
-                    alt="" />
-                </Link>)}
+                <Link to={`/product/${data._id}`}>
+                    <LazyLoadImage
+                        effect="blur"
+                        className={cx("image")}
+                        src={"https://shope-b3.thaihm.site/" + data.thumbnail}
+                        alt={data._id}
+                    />
+                </Link>
             </div>
             <div className={cx("info")}>
-                <p className={cx("name")}>{ load ? <Skeleton className={cx("loadText")}/> : data.productName  }</p>
+                <p className={cx("name")}>{data.productName}</p>
                 <p className={cx("price")}>
-                    {load ? <Skeleton className={cx("loadText")}/> : data.price?.toLocaleString('en-US', {style:'currency',currency:'VND'})}
+                    {data.price ? data.price.toLocaleString('en-US', {style:'currency',currency:'VND'})
+                    :Number(10000000).toLocaleString('en-US', {style:'currency',currency:'VND'})}
                 </p>
             </div>
             <div className={cx('action')}>
-                <p onClick={HandleAddProduct}><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
-                <p>
-                    { check ? 
-                        <span onClick={addFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
-                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Thích
-                        </span> 
-                        :
-                        <span onClick={removeFavorite} className={cx("link-product")} to={`/product/${data._id}`}>
-                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>Bỏ Thích
-                        </span> 
-                    }
-                </p>
+                <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
+                { !(JSON.parse(localStorage.getItem('check')) ?? []).includes(index ) ?
+                    <p className={cx("link-product")} onClick={likeProduct}>
+                        {/* <Link to={`/product/${data._id}`} > */}
+                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>like
+                        {/* </Link> */}
+                    </p>   
+                    :
+                    <p className={cx("link-product")} onClick={removePro}>
+                    {/* <Link to={`/product/${data._id}`} > */}
+                        <FontAwesomeIcon className={cx("icon-action")} icon={faHeartCrack}/>unlike
+                    {/* </Link> */}
+                </p>         
+                }  
             </div>
-           
         </div>
-        </>
-     );
+     )
 }
 
 export default Product;

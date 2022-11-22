@@ -6,11 +6,12 @@ import styles from './login.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const cx=classnames.bind(styles)
 
 function Login() {
 
-    const [booleanUser , setBooleanUser] = useState(false)
+    const [booleanUser ] = useState(false)
     const [booleanPass , setBooleanPass] = useState(false)
     const [booleanEmail , setBooleanEmail] = useState(false)
     const [booleanConfirmPass , setBooleanConfirmPass] = useState(false)
@@ -22,10 +23,15 @@ function Login() {
     const [inpConfirmPass , setInpConfirmPass] = useState('')
     const next = useNavigate()
 
+
+
+    const isPassWord = document.getElementById("passWord")
+    const isEmail = document.getElementById("email")
+    const isConfirmPass = document.getElementById("confirmPass")
+
     
-    const Username= /^[a-zA-Z]{2,}$/;
     const Email= /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    const Password= /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/
+    const Password= /^[a-zA-Z0-9\(+=._-]{6,}$/
 
 
     function toSignUp(){
@@ -34,48 +40,38 @@ function Login() {
     function toLogIn(){
         setCount(count+1)
     }
-    const checkInpUser = () =>{
-        if (!Username.test(inpUserName)) {
-            setBooleanUser(true)
-        }else{
-            setBooleanUser(false)
-        }
-    }
-
 
     function checkInpEmail(){
-        if (!Email.test(inpEmail)) {
+        if (!Email.test(inpEmail) && inpEmail !=="") {
             setBooleanEmail(true)
         } else {
             setBooleanEmail(false)
+            isEmail.removeAttribute("style" , "border-bottom : 1px solid #333")
         }
     }
 
 
     function checkInpPass(){
-        if (!Password.test(inpPass)) {
+        if (!Password.test(inpPass) && inpPass !=="") {
             setBooleanPass(true)
         }else{
             setBooleanPass(false)
+            isPassWord.removeAttribute("style" , "border-bottom : 1px solid #333")
         }
     }
 
 
 
     function checkInpComfirmPass(){
-        setTimeout(() => {
         if ( inpPass === inpConfirmPass) {
             setBooleanConfirmPass(false)
-
         }else{
             setBooleanConfirmPass(true)
         }
-        },500);
     }
 
     const forLogin = (e)=>{
         e.preventDefault()
-        console.log(inpEmail , inpPass);
         axios.post(`/auth/sign-in` , {
             'email' : inpEmail,
             'password' : inpPass
@@ -87,16 +83,17 @@ function Login() {
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
-            console.log(err);
-            alert('')
+            alert('TÀI KHOẢN HOẶC MẬT KHẨU KHÔNG CHÍNH XÁC')
         })
 
     }
 
+
+
     const forSignUp =(e) =>{
 
         e.preventDefault()
-        if (inpConfirmPass === inpPass) {
+        if (inpConfirmPass === inpPass  && Email.test(inpEmail) && Password.test(inpPass)) {
             axios.post(`/auth/sign-up` , {
                 'username' : inpUserName,
                 'email' : inpEmail,
@@ -105,15 +102,37 @@ function Login() {
             .then(res =>{
                 setCount(count+1)
                 localStorage.setItem("name",inpUserName)
-                alert('ĐĂNG KÍ THÀNH KÔNG');
+                alert('ĐĂNG KÍ THÀNH CÔNG');
             })
             .catch(er =>{
-                console.log(er);
+                alert("ĐĂNG KÍ THẤT BẠI")
             })
         }else{
-            alert('ĐĂNG KÍ THẤT BẠI')
+            alert("ĐĂNG KÍ THẤT BẠI")
         }
+
+        setTimeout(() => {
+            if(inpPass === "" || !Password.test(inpPass)){
+                isPassWord.focus()
+                isPassWord.setAttribute("style" , "border-bottom : 3px solid red")
+                setBooleanPass(true)
+                
+            }else if(inpConfirmPass ==="" || inpConfirmPass !== inpPass){
+                isConfirmPass.focus()
+                isConfirmPass.setAttribute("style" , "border-bottom : 3px solid red")
+                setBooleanConfirmPass(false)
+            }
+        }, 500);
         
+        setTimeout(() => {
+             if(inpEmail === "" || !Email.test(inpEmail)){
+                isEmail.focus()
+                isEmail.setAttribute("style" , "border-bottom : 3px solid red")
+                setBooleanEmail(true)
+            }
+        }, 500);
+
+ 
     }
 
     return ( 
@@ -129,7 +148,7 @@ function Login() {
                     className={cx('inp-login')} 
                     value={inpEmail} 
                     onChange={(e)=>setInpEmail(e.target.value)} 
-                    onInput={checkInpEmail} type="text" 
+                    onBlur={checkInpEmail} type="text" 
                     placeholder='Email'
                 />    
                 <br />
@@ -137,20 +156,21 @@ function Login() {
                     *sai định dạng !!
                 </p>
                 <input 
-                    className={cx('inp-login')}     
+                    className={cx('inp-login')}    
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
-                    onInput={checkInpPass} 
+                    onBlur={checkInpPass} 
                     type="password" 
                     placeholder='Password'/> <br /> 
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
-                    *sai định dạng !!
+                    *Password phải từ 6 kí tự vào không có kí tự đặc biệt !!
                 </p>
                 <div style={{textAlign:'right' , marginRight:"50px"}}>
-                    <input type="checkbox"/> Renember me
+                    <input className={cx("saveUser")} type="checkbox"/> Renember me
                     <p>For got your password?</p>
 
                 </div>
+
                 <button className={cx('bnt-login')} >Login</button>
                 <h2>
                     or <span className={cx('change')} onClick={toSignUp}>
@@ -167,9 +187,10 @@ function Login() {
                 <h1>SignUp</h1>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="userName"
                     value={inpUserName} 
                     onChange={(e)=>setInpUserName(e.target.value)} 
-                    onInput={checkInpUser} 
+                    // onBlur={checkInpUser} 
                     type="text" 
                     placeholder='Username'
                 /> 
@@ -179,9 +200,10 @@ function Login() {
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="email"
                     value={inpEmail} 
                     onChange={(e)=>setInpEmail(e.target.value)} 
-                    onInput={checkInpEmail} 
+                    onBlur={checkInpEmail} 
                     type="email" 
                     placeholder='Email'
                 /> 
@@ -191,19 +213,21 @@ function Login() {
                 </p>
                 <input 
                     className={cx('inp-SignUp')} 
+                    id="passWord"
                     value={inpPass} 
                     onChange={(e)=>setInpPass(e.target.value)} 
-                    onInput={checkInpPass} 
+                    onBlur={checkInpPass} 
                     type="password" 
                     placeholder='Password'/> <br />
                 <p className={cx((booleanPass)?'err-msg' : 'hidden')}>
-                    *sai định dạng !!
+                    *Password từ 6 kí tự
                 </p>
                 <input 
-                    className={cx('inp-SignUp')} 
+                    className={cx('inp-SignUp')}
+                    id="confirmPass" 
                     value={inpConfirmPass}  
                     onChange={(e)=>setInpConfirmPass(e.target.value)} 
-                    onInput={checkInpComfirmPass()} 
+                    onBlur={checkInpComfirmPass} 
                     type="password" 
                     placeholder='Confirm password'
                 /> 

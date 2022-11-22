@@ -22,9 +22,7 @@ import Modal from '@mui/material/Modal';
 const cx = classNames.bind(styles) 
 
 function SelectProduct({info,dataThen,index,set}) {
-
-    const [form,setForm]=useState({color:null,ram:null,rom:null,amount:null})
-
+    const [form,setForm]=useState({color:null,ram:null,rom:null,amount:null,imgP:info.imgP})
     const [amount,setAmount]=useState(info.amount)
     useEffect(()=>{
         setAmount(info.amount)
@@ -39,6 +37,7 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
+            document.getElementById('input').value=info.amount
             return data
         })
     }
@@ -48,20 +47,17 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
+            document.getElementById('input').value=info.amount
             return data
         })
     }
-
     const [data,setData]=useState([])
 
-    const [state, setState] = React.useState({
-    bottom: false,
-    });
+    const [state, setState] = React.useState({bottom: false})
 
     const [src,setSrc]= useState(info.listDtail[0].listImg[0])
-    const handleSrc = (index) =>{
-        setSrc(data[index])
-    }
+
+    const handleSrc = (index) =>{setSrc(data[index])}
     
     const [dataColor,setDataColor]=useState(()=>{
         let prev=info.listDtail.map(value=> {
@@ -77,82 +73,84 @@ function SelectProduct({info,dataThen,index,set}) {
         let data=array.map(v=>{return {id:v,open:false}})
         return data
     })
-
-        const [dataRom,setDataRom]=useState(()=>{
-            let prev=info.listDtail.map(value=> {
+    const [dataRom,setDataRom]=useState(()=>{
+        let prev=info.listDtail.map(value=> {
                 return value.rom
             })
         let array=[...new Set(prev)]
         let data=array.map(v=>{return {id:v,open:false}})
-        return data
+    return data
     })
   
-    const Active=({info,index})=>{
+    const Active=({info1,index})=>{
         const isActive=()=>{
             for (let i of dataColor){
-                if (i.id==info)(i.open)?i.open=false:i.open=true
+                if (i.id==info1)(i.open)?i.open=false:i.open=true
                 else i.open=false
             }   
             setDataColor([...dataColor])
+            info.listDtail.map((value)=>{
+                if (value.color==info1) form.imgP=value.listImg[0]
+            })
             setForm(()=>{
                 let data={...form}
-                data.color=info
+                data.color=info1
                 return data
             })
         }
         return(
              dataColor[index].open?
                 <span id={cx(`active`)}  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
             :   <span  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
         )
     }
-    const Active2=({info,index})=>{
+    const Active2=({info1,index})=>{
         const isActive=()=>{
             for (let i of dataRam){
-                if (i.id==info)(i.open)?i.open=false:i.open=true
+                if (i.id==info1)(i.open)?i.open=false:i.open=true
                 else i.open=false
             }   
             setDataRam([...dataRam])
             setForm(()=>{
                 let data={...form}
-                data.ram=info
+                data.ram=info1
                 return data
             })
         }
         return(
              dataRam[index].open?
                 <span id={cx(`active`)}  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
             :   <span  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
         )
     }
-    const Active3=({info,index})=>{
+    const Active3=({info1,index})=>{
         const isActive=()=>{
             for (let i of dataRom){
-                if (i.id==info)(i.open)?i.open=false:i.open=true
+                if (i.id==info1)(i.open)?i.open=false:i.open=true
                 else i.open=false
             }   
             setDataRom([...dataRom])
             setForm(()=>{
                 let data={...form}
-                data.rom=info
+                data.rom=info1
                 return data
             })
         }
         return(
              dataRom[index].open?
                 <span id={cx(`active`)}  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
             :   <span  onClick={()=>isActive()}>
-                    {info}
+                    {info1}
                 </span>
         )
     }
@@ -174,7 +172,6 @@ function SelectProduct({info,dataThen,index,set}) {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    console.log('run');
     setState({ ...state, [bottom]: open });
   };
 
@@ -186,16 +183,15 @@ function SelectProduct({info,dataThen,index,set}) {
     width: '22%',
     height:'20%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '0.5px solid #000',
     boxShadow: 24,
   } 
-  const handleSubmit=() => {
-    if (!form.color || !form.ram || !form.rom || !form.amount) {
+  const handleSubmit=(index) => {
+    if (!form.color || !form.ram || !form.rom || !form.amount ) {
         setText('Mời chọn phân loại hàng')
         setOpen(true)
-        console.log('run');
     }
-    if (form.color && form.ram && form.rom && form.amount) {
+    if (form.color && form.ram && form.rom && form.amount ) {
         let kt=false
             for(let i of info.listDtail)
                 if(i.color==form.color && i.ram==form.ram && i.rom==form.rom) {
@@ -214,22 +210,25 @@ function SelectProduct({info,dataThen,index,set}) {
                         i.ram=form.ram
                         i.rom=form.rom
                         i.amount=form.amount
+                        i.imgP=form.imgP
+                        newData[index].totalPrice=form.amount*newData[index].price
                         break
                     }
-                    console.log(newData);
-                    setState('bottom',state);
-                    set(newData)
+            setState('bottom',state);
+            set(newData)
     }
   }
 }
+
     const [open, setOpen] = useState(false);
     const [text,setText] = useState('')
-    function BasicModal({handleSubmit,text}) {
 
-    const handleClose = () => setOpen(false);
+    function BasicModal({handleSubmit,text,index}) {
+
+    const handleClose = () => setOpen(false)
     return (
       <div>
-        <Button onClick={handleSubmit} className={cx('submit1')} variant="outlined">Thêm vào giỏ</Button>
+        <Button onClick={()=>handleSubmit(index)}  className={cx('submit1')} variant="outlined">Thêm vào giỏ</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -243,13 +242,12 @@ function SelectProduct({info,dataThen,index,set}) {
           </Box>
         </Modal>
       </div>
-    );
+    )
   }
   const list = (bottom) => (
     <Box
       sx={{ width: bottom === 'top' || bottom === 'bottom' ? 'auto' : 250 }}
       role="presentation"
-      onKeyDown={toggleDrawer(bottom, false)}
     >
     <List>
         <div style={{width:'100%',height:'400px'}}>
@@ -302,7 +300,7 @@ function SelectProduct({info,dataThen,index,set}) {
                             {
                                 dataColor.map((value,index)=>{
                                     return(
-                                        <Active key={index} info={value.id} index={index}/>
+                                        <Active key={index} info1={value.id} index={index}/>
                                     )
                                 })
                             }
@@ -311,7 +309,7 @@ function SelectProduct({info,dataThen,index,set}) {
                             {
                                 dataRam.map((value,index)=>{
                                     return(
-                                        <Active2 key={index} info={value.id} index={index}/>
+                                        <Active2 key={index} info1={value.id} index={index}/>
                                     )
                                 })
                             }
@@ -320,7 +318,7 @@ function SelectProduct({info,dataThen,index,set}) {
                             {
                                 dataRom.map((value,index)=>{
                                     return(
-                                        <Active3 key={index} info={value.id} index={index}/>
+                                        <Active3 key={index} info1={value.id} index={index}/>
                                     )
                                 })
                             }
@@ -330,12 +328,12 @@ function SelectProduct({info,dataThen,index,set}) {
                         <div className={cx('price-total')}>
                             <span>Số lượng</span>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleDecrease(index)}>-</Button>
-                                <p className={cx('amount')}>{info.amount}</p>
+                                <input  className={cx('amount')} defaultValue={info.amount}></input>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleIncrease(index)}>+</Button>
                             <p>99 Sản phẩm có sẵn</p>
                         </div>
                         <div className={cx('btn')}>
-                            <BasicModal handleSubmit={handleSubmit} text={text}/>
+                            <BasicModal handleSubmit={handleSubmit} index={index} text={text}/>
                             <Button className={cx('submit2')} variant="contained">MUA NGAY</Button>
                         </div>
                         <div className={cx('last-select')}>

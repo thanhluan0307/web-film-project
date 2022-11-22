@@ -1,7 +1,7 @@
 import Header from "./Header/Header";
 import Footer from "./Footer/footer";
 import classNames from "classnames/bind";
-import style from './DefaultLayout.scss'
+import style from './DefaultLayout.module.scss'
 import { useEffect, useState } from "react";
 const cx = classNames.bind(style)
 function DefaultLayout({children}) {
@@ -15,7 +15,7 @@ function DefaultLayout({children}) {
             clearTimeout(timeID)
         }
     },[])
-    return ( 
+    return (
         <>
             <Header/>
                 <div className={cx('contaier')}>

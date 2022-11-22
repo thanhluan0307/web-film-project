@@ -135,12 +135,13 @@
 }
 
 .amount{
-    width:max-content;
+    width:5%;
     background-color: white;
     border: 1px solid rgba(25, 118, 210, 0.5);
     border-radius: 5px;
     padding:0.5% 1%;
-    height: 100% !important;
+    text-align: center;
+    height:30px;
 }
 
 .button{
@@ -148,6 +149,7 @@
         min-width: max-content !important;
         background-color: white !important;
         min-height: max-content !important;
+        height:30px!important;
 }
 
 .button:first-of-type{

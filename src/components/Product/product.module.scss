@@ -33,7 +33,7 @@
     display: block;
     width: 100%;
     object-fit: cover;
-    transition: all 0.2s linear;
+    transition: all 0.2s linear !important;
     &:hover {
         transform: scale(0.9);
     }
@@ -53,11 +53,14 @@
     left: -2px;
     right: -2px;
     p {
-        padding: 10px;
         cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
     }
     .icon-action {
-        padding-right: 4px;
+        padding-right: 6px;
+        font-size: 16px;
     }
     &::after {
         
@@ -71,7 +74,10 @@
         transform: translate(-50%,-50%);
     }
     .link-product {
-        color: #fff;
+        a {
+            color: #fff;
+            display: block;
+        }
     }
 }
 //load
@@ -82,4 +88,38 @@
 .loadText {
     width: 100%;
     padding-left: 10px;
+}
+.active {
+    color: blue;
+}
+//mobile
+@media only screen and (max-width: 600px) {
+	.wrapper {
+        width: 40%;
+        margin-bottom: 20px;
+        &:hover {
+            box-shadow: none;
+        }
+        .info {
+            padding: 0;
+        }
+     
+    }
+    .name,.price {
+        font-size: 14px;
+    }
+    .action {
+        display: none;
+    }
+    
+  }
+  @media only screen and (min-width:601px) and (max-width:1101px) {
+    .wrapper {
+        width: 30%;
+    }
+}
+@media only screen and (min-width:601px) and (max-width:886px) {
+    .wrapper {
+        width: 40.5%;
+    }
 }

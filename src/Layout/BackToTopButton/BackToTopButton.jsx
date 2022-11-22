@@ -1,4 +1,4 @@
-import styles from '~/Layout/DefaultLayout/DefaultLayout.scss'
+import styles from '~/Layout/DefaultLayout/DefaultLayout.module.scss'
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';

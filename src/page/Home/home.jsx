@@ -6,9 +6,9 @@ import styles from "./home.module.scss"
 import IconCategory from "./IconCategory";
 import HomeStore from "~/components/HomeStore/homeStore";
 
+
 const cx= classNames.bind(styles)
 function Home() {
-  
   const [catgoryObj,setCategoryObj] = useState([])
 
   useEffect(() => {
