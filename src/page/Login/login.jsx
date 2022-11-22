@@ -166,7 +166,7 @@ function Login() {
                     *Password phải từ 6 kí tự vào không có kí tự đặc biệt !!
                 </p>
                 <div style={{textAlign:'right' , marginRight:"50px"}}>
-                    <input type="checkbox"/> Renember me
+                    <input className={cx("saveUser")} type="checkbox"/> Renember me
                     <p>For got your password?</p>
 
                 </div>

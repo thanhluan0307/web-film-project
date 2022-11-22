@@ -6,10 +6,10 @@ import DetailProduct from '~/page/DetailProduct/detailProduct';
 import Error404 from '~/page/Error404/Error404';
 import Search from '~/page/Search/serch';
 import MyStore from '~/page/MyStore/myStore'
-// import Profile from '~/page/Profile/profile';
-// import  UpdateInfo  from '~/page/Profile/updateInfo';
-// import  ChangePassword  from '~/page/Profile/changePassword';
-// import  Favourite_Product  from '../page/Profile/favourite_product';
+import Profile from '~/page/Profile/profile';
+import  {UpdateInfo}  from '~/page/Profile/updateInfo';
+import  {ChangePassword}  from '~/page/Profile/changePassword';
+import  {Favourite_Product}  from '~/page/Profile/favourite_product';
 
 
 const pageRoutes = [
@@ -20,10 +20,10 @@ const pageRoutes = [
     {path: "/storeInfor",component: StoreInfor},
     {path: "/search",component: Search},
     {path: "/myStore",component: MyStore},
-    // {path: "/profile",component: Profile},
-    // {path: "/profile/update-info",component: UpdateInfo},
-    // {path: "/profile/change-pass",component: ChangePassword},
-    // {path: "/profile/wishlist",component: Favourite_Product},
+    {path: "/profile",component: Profile},
+    {path: "/profile/update-info",component: UpdateInfo},
+    {path: "/profile/change-pass",component: ChangePassword},
+    {path: "/profile/wishlist",component: Favourite_Product},
     {path: "*",component: Error404},
 ]
 

@@ -7,32 +7,43 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
 
-import useLocalStorage from "~/customHook/useLocalStorage";
+
 import styles from "./product.module.scss"
+import { useState } from "react";
 const cx = classNames.bind(styles)
 
 function Product({data,index}) {
-  
-  const [check,setCheck] = useLocalStorage('checkLike',[])
+    
+  const [check,setCheck] = useState(()=>{
+    return JSON.parse(localStorage.getItem('check')) ??  []
+  })
+
   const dispatch = useDispatch()
-  const handleClick = () => {
+  const likeProduct = () => {
     const action = addProduct(data)
     dispatch(action)
-    console.log(index)
-    setCheck(pre => {
-        const arr = [...pre,index] 
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore,index]
+        localStorage.setItem('check',JSON.stringify(arr))
         return arr
     })
   }
   const removePro = () => {
     const action = deleteProduct(data)
     dispatch(action)
-    const arr = [...check]
-    const sd = arr.indexOf(index)
-    console.log(sd)
-    arr.splice(sd,1)
-    setCheck(arr)
+    setCheck(() => {
+        let oldStore = JSON.parse(localStorage.getItem('check')) ?? []
+        const arr = [...oldStore]
+        const i = arr.indexOf(index)
+        arr.splice(i,1)
+        localStorage.setItem('check',JSON.stringify(arr))
+        return arr
+    })
+   
+
   }
+
     return (
         <div className={cx("wrapper")}>
             <div>
@@ -54,17 +65,18 @@ function Product({data,index}) {
             </div>
             <div className={cx('action')}>
                 <p><FontAwesomeIcon className={cx("icon-action")} icon={faCartShopping}/>Thêm </p>
-                { !check.includes(index) ?
-                    <p className={cx("link-product")} onClick={handleClick}>
+                { !(JSON.parse(localStorage.getItem('check')) ?? []).includes(index ) ?
+                    <p className={cx("link-product")} onClick={likeProduct}>
                         {/* <Link to={`/product/${data._id}`} > */}
-                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>thich
+                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeart}/>like
                         {/* </Link> */}
-                    </p>     :
+                    </p>   
+                    :
                     <p className={cx("link-product")} onClick={removePro}>
-                        {/* <Link to={`/product/${data._id}`} > */}
-                            <FontAwesomeIcon className={cx("icon-action")} icon={faHeartCrack}/>X
-                        {/* </Link> */}
-                    </p>      
+                    {/* <Link to={`/product/${data._id}`} > */}
+                        <FontAwesomeIcon className={cx("icon-action")} icon={faHeartCrack}/>unlike
+                    {/* </Link> */}
+                </p>         
                 }  
             </div>
 

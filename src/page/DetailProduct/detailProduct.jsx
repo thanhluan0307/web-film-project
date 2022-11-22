@@ -13,8 +13,10 @@ import {
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from 'axios'
-import { message } from 'antd'
+import axios from 'axios';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
@@ -33,6 +35,7 @@ function Person() {
     const disPatch = useDispatch()
     const { productID } = useParams()
     const [product, setProduct] = useState({})
+    const [listProduct, setListProduct] = useState()
     const [count, setCount] = useState(1)
     const [check, setCheck] = useState(false)
     const [listDtail, setListDtail] = useState([])
@@ -53,7 +56,13 @@ function Person() {
     const [valueName, setValueName] = useState('')
     const [valuePhone, setValuePhone] = useState('')
     const [valueAddress, setValueAddress] = useState('')
-
+    const config = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1
+    };
 
     var sum = count
     function Minus() {
@@ -82,7 +91,6 @@ function Person() {
             setDisable(true)
         }
         else (setDisable(false))
-        console.log(secondListDtail[0].status);
     }
 
     function changeAddressAll() {
@@ -205,12 +213,19 @@ function Person() {
         window.scroll(0, 0)
         axios.get(`/product/get-one-product/${productID}`)
             .then(res => {
-                console.log(res.data)
                 setProduct(res.data.product)
                 setListDtail(res.data.product.listDtail)
             })
-            .catch(err => message.err("Lỗi rồi!"))
+            .catch(err => alert("Lỗi rồi!"))
     }, [productID])
+
+    useEffect(() => {
+        axios.get(`/product/get-all-products`)
+            .then(res => {
+                setListProduct(res.data.products);
+            })
+            .catch(err => alert("Lỗi rồi!"))
+    }, [])
 
     useEffect(() => {
         setSrc("https://shope-b3.thaihm.site/" + product.thumbnail)
@@ -231,7 +246,7 @@ function Person() {
                     {listDtail.map((value, index) => {
                         return (
                             <button
-                                key={value._id}
+                                key={index}
                                 onMouseOver={function () { changeImg(index) }}
                             >
                                 <img src={"https://shope-b3.thaihm.site/" + value.listImg[0]} alt=""></img>
@@ -245,7 +260,7 @@ function Person() {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <button>Click xem hình ảnh lớn hơn</button>
                     </div>
-                    <Modal className={cx("inside_Img")} open ={isModalImgOpen}>
+                    <Modal className={cx("inside_Img")} open={isModalImgOpen}>
                         <img className={cx("inside_Img")} src={src} alt={src} />
                         <button className={cx("btn_out")} onClick={handleOut}>Thoát</button>
                     </Modal>
@@ -259,19 +274,18 @@ function Person() {
                         {secondListDtail.map((value, index) => {
                             return (
                                 <>
-                                    <p>Giá: <span key={index} >{value.price}</span></p>
-                                    <p>Ram: <span key={index} >{value.ram}</span></p>
-                                    <p>Rom: <span key={index} >{value.rom}</span></p>
-                                    <p>Trạng thái: <span key={index} >{value.status}</span></p>
+                                    <p key={index}>Giá: <span>{value.price}</span></p>
+                                    <p key={index}>Ram: <span>{value.ram}</span></p>
+                                    <p key={index}>Rom: <span>{value.rom}</span></p>
+                                    <p key={index}>Trạng thái: <span>{value.status}</span></p>
                                 </>
                             )
                         })}
-                        {console.log(listDtail)}
                         Màu Sắc: {listDtail.map((value, index) => {
                             return (
                                 <>
                                     <button
-                                        key={value._id}
+                                        key={index}
                                         className={cx(activeColor === index ? "active_item" : "")}
                                         onClick={changeStatus}
                                         onClickCapture={function () { changeImg(index) }}>{value.color}
@@ -303,13 +317,13 @@ function Person() {
                             <label> Kiểm tra thông Số Sản Phẩm đã chọn:</label>
                             {secondListDtail.map((value, index) => {
                                 return (
-                                    <>
-                                        <p>Mã sản phẩm: <span key={index} >{value._id}</span></p>
-                                        <p>Giá: <span key={index} >{value.price}</span></p>
-                                        <p>Ram: <span key={index} >{value.ram}</span></p>
-                                        <p>Rom: <span key={index} >{value.rom}</span></p>
-                                        <p>Trạng thái: <span key={index} >{value.status}</span></p>
-                                    </>
+                                    <p key={index}>
+                                        <p>Mã sản phẩm: <span>{value._id}</span></p>
+                                        <p>Giá: <span>{value.price}</span></p>
+                                        <p>Ram: <span>{value.ram}</span></p>
+                                        <p>Rom: <span>{value.rom}</span></p>
+                                        <p>Trạng thái: <span>{value.status}</span></p>
+                                    </p>
                                 )
                             })}
                             <button onClick={handleBuy}>Mua</button>
@@ -357,20 +371,20 @@ function Person() {
                     </div>
                     <div className={cx("exchange")}>
                         <div hidden={showExchange} onClick={displayExchange}>
-                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
                             <span className={cx("plusicon")}><FontAwesomeIcon icon={faPlus} /></span>
                         </div>
                         <div hidden={hideExchange} onClick={hiddenExchange}>
-                            <span onClick className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
+                            <span className={cx("text")}>THÔNG SỐ SẢN PHẨM</span>
                             <span className={cx("plusicon")}><FontAwesomeIcon icon={faMinus} /></span>
                             {secondListDtail.map((value, index) => {
                                 return (
-                                    <>
-                                        <p>Giá: <span key={index} >{value.price}</span></p>
-                                        <p>Ram: <span key={index} >{value.ram}</span></p>
-                                        <p>Rom: <span key={index} >{value.rom}</span></p>
-                                        <p>Trạng thái: <span key={index} >{value.status}</span></p>
-                                    </>
+                                    <p key={index}>
+                                        <p>Giá: <span >{value.price}</span></p>
+                                        <p>Ram: <span >{value.ram}</span></p>
+                                        <p>Rom: <span >{value.rom}</span></p>
+                                        <p>Trạng thái: <span >{value.status}</span></p>
+                                    </p>
                                 )
                             })}
                         </div>

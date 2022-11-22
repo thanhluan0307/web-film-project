@@ -15,7 +15,7 @@ function DefaultLayout({children}) {
             clearTimeout(timeID)
         }
     },[])
-    return ( 
+    return (
         <>
             <Header/>
                 <div className={cx('contaier')}>

@@ -47,8 +47,7 @@ function Header() {
     dispatch(counterTotalProduct())
   },[])
   const removeToken = () => {
-    localStorage.removeItem('Token')
-    localStorage.removeItem('email')
+    localStorage.clear()
   
   }
 
@@ -68,8 +67,10 @@ function Header() {
               </li>
               <li>
                 <Link to="/login">
-                  <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
-                  <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
+                  <div onClick={removeToken}>
+                    <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
+                    <span className={cx('text')}>Đăng xuất</span>
+                  </div>
                 </Link>
               </li>
             </>)
