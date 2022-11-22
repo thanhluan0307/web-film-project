@@ -275,10 +275,10 @@ function Person() {
                         {secondListDtail.map((value, index) => {
                             return (
                                 <>
-                                    <p key={index}>Giá: <span>{value.price}</span></p>
-                                    <p key={index}>Ram: <span>{value.ram}</span></p>
-                                    <p key={index}>Rom: <span>{value.rom}</span></p>
-                                    <p key={index}>Trạng thái: <span>{value.status}</span></p>
+                                        <p key={index}>Giá: <span>{value.price}</span></p>
+                                        <p key={index}>Ram: <span>{value.ram}</span></p>
+                                        <p key={index}>Rom: <span>{value.rom}</span></p>
+                                        <p key={index}>Trạng thái: <span>{value.status}</span></p>
                                 </>
                             )
                         })}
