@@ -25,8 +25,6 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import logo from "~/assets/images/b5.png"
 
-
-
 const cx = classNames.bind(styles)
 var clone = [{
     price: "",
@@ -46,7 +44,6 @@ function Person() {
     const [product, setProduct] = useState({})
     const [listProduct, setListProduct] = useState()
     const [count, setCount] = useState(1)
- 
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
