@@ -13,7 +13,7 @@ export const UpdateInfo = () => {
   const [sex, setSex] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('0929690xxx')
   const [avatar, setAvatar] = useState()
-  const [imgPreview, setImgPreview] = useState()
+  const [uploadAvatar, setUploadAvatar] = useState()
   let avatarPath
   let inputName = document.querySelector("#name")
   let userName = document.querySelector("#username")
@@ -27,9 +27,7 @@ export const UpdateInfo = () => {
       else if(!avatarPath.startsWith('https')){
         avatarPath = process.env.REACT_APP_BASE_URL + avatarPath
       }
-      if(!imgPreview){
-        setAvatar(avatarPath)
-      }
+      setAvatar(avatarPath)
       setData(res.data.user)
       setSex(res.data.user.sex)
       setdateOfBirth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
@@ -42,9 +40,9 @@ export const UpdateInfo = () => {
   useEffect(() => {
     getData()
     return () => {
-      avatar && URL.revokeObjectURL(avatar.preview)
+      uploadAvatar && URL.revokeObjectURL(uploadAvatar.preview)
     }
-  },[count, imgPreview])
+  },[count, uploadAvatar])
 
   const handleUpdate = async () =>{
     try{
@@ -53,8 +51,8 @@ export const UpdateInfo = () => {
       }
       else
       {
-        const uploadAvatar = await patchAPI('/user/change-avatar', imgPreview)
-        console.log(uploadAvatar);
+        const uploadImage = await patchAPI('/user/change-avatar', uploadAvatar)
+        console.log(uploadImage);
         let res = await patchAPI('/user/update-info',
         {
           username: userName.value,
@@ -80,7 +78,7 @@ export const UpdateInfo = () => {
     const file = e.target.files[0]
     file.preview = URL.createObjectURL(file)
     formData.append('avatar', file)
-    setImgPreview(formData)
+    setUploadAvatar(formData)
   }
 
 	return (

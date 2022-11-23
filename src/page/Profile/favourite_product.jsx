@@ -25,7 +25,7 @@ export const FavouriteProduct = () => {
            {
            data.length === 0 ?
               <tr>
-                <td colSpan={3}> <center>Không có sản phẩm yêu thích nào</center> </td>
+                <td colSpan={4}> <center>Không có sản phẩm yêu thích nào</center> </td>
               </tr>
             :
             data.map(item => {
