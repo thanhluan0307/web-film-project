@@ -45,7 +45,7 @@ export const FavouriteProduct = () => {
                       <img className={styles.img_wishlist} src={link + item.thumbnail} alt="" />
                     </td>
                     <td>{item.productName}</td>
-                    <td>{item.price.toLocaleString('vi') + ' VNĐ'}</td>
+                    <td>{item.price?.toLocaleString('vi') + ' VNĐ'}</td>
                     <td onClick={handleDelete}>Xoá</td>
                   </tr>
               )
