@@ -21,9 +21,9 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import { counterTotalProduct, } from '~/reducer/totalProductSlice'
 import { useDispatch } from "react-redux";
 import Alert from '~/components/Alert/alert';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import Modal from "~/components/Modal/modal";
-import logo from "~/assets/images/b5.png"
 
 const cx = classNames.bind(styles)
 var clone = [{
@@ -33,12 +33,17 @@ var clone = [{
     status: ""
 }]
 function Person() {
+    let nav=useNavigate()   
+    const  [isOpen,setIsOpen] = useState(false);
+    const toggle=()=>{
+        setIsOpen(!isOpen)
+    }
+
     const disPatch = useDispatch()
     const { productID } = useParams()
     const [product, setProduct] = useState({})
-    const [listProduct, setListProduct] = useState()
+    const [, setListProduct] = useState()
     const [count, setCount] = useState(1)
-    const [check, setCheck] = useState(false)
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
@@ -134,7 +139,6 @@ function Person() {
         setFavourite(false)
         setBestSalers(true)
     }
-
     const showModal = () => {
         setIsModalOpen(true);
     }
@@ -155,24 +159,23 @@ function Person() {
     const handleOut = () => {
         setIsModalImgOpen(false);
     }
-
+ 
     const HandleAddProduct = () => {
-        let Storage = localStorage.getItem('myStore')
-        let nameUser = localStorage.getItem('email').value
-        if (nameUser !== "") {
+        if (localStorage.getItem('email'))
+        {
+                toggle()
+            let Storage = localStorage.getItem('myStore')
             if (Storage) {
                 Storage = JSON.parse(Storage)
-                let infoProduct = {
-                    name: product.productName,
-                    img: "https://shope-b3.thaihm.site/" + product.thumbnail,
-                    size: product.listDtail[0].ram,
-                    color: product.listDtail[0].color,
-                    price: 9000,
-                    amount: count
-                }
+                let infoProduct=product
+                infoProduct.amount=count
+                infoProduct.color=secondListDtail[0].color
+                infoProduct.ram=secondListDtail[0].ram
+                infoProduct.rom=secondListDtail[0].rom
+                infoProduct.imgP=secondListDtail[0].listImg[0]
                 let kt = false
                 for (let item of Storage) {
-                    if (item.name === infoProduct.name) {
+                    if (item.productName === product.productName) {
                         kt = true
                         item.amount += count
                         localStorage.setItem('myStore', JSON.stringify(Storage))
@@ -180,40 +183,32 @@ function Person() {
                     }
                 }
                 if (kt === false) {
-                    Storage.push(infoProduct)
+                    Storage.push(product)
                     localStorage.setItem('myStore', JSON.stringify(Storage))
+                    disPatch(counterTotalProduct())
                     disPatch(counterTotalProduct())
                 }
             }
             else {
-                let infoProduct = {
-                    name: product.productName,
-                    img: "https://shope-b3.thaihm.site/" + product.thumbnail,
-                    size: product.listDtail[0].ram,
-                    color: product.listDtail[0].color,
-                    price: 9000,
-                    amount: count
-                }
+                let infoProduct=product
+                infoProduct.amount=count
                 Storage = []
                 Storage.push(infoProduct)
                 localStorage.setItem('myStore', JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }
-        else alert("Vui lòng đăng nhập!")
-        setCheck(true)
+        else {
+            let confirm=window.confirm('Vui lòng đăng nhập')
+            if (confirm) nav('/login') 
+                else return
+        }
     }
-    useEffect(() => {
-        const clearAlert = setTimeout(() => {
-            setCheck(false)
-        }, 3500)
-        return () => clearTimeout(clearAlert)
-    }, [check])
-
+    
     useEffect(() => {
         window.scroll(0, 0)
         axios.get(`/product/get-one-product/${productID}`)
-            .then(res => {
+            .then(res => {  
                 setProduct(res.data.product)
                 setListDtail(res.data.product.listDtail)
             })
@@ -233,7 +228,13 @@ function Person() {
     }, [product])
     return (
         <>
-            {check === true ? <Alert /> : null}
+            <Alert 
+                title={'Thêm sản phẩm thành công - '}
+                url={'/myStore'}
+                title2={'Tới cửa hàng ngay'}
+                isOpen={isOpen}
+                hide={toggle} 
+            />
             <div className={cx("header")}>
                 <FontAwesomeIcon icon={faHouse} />
                 <Link to="/">Trang Chủ</Link>

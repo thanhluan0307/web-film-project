@@ -7,19 +7,17 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faEye, faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
 
-
 import styles from "./product.module.scss"
-import { useState } from "react";
+import { useState} from "react";
 const cx = classNames.bind(styles)
 
 function Product({data,index}) {
-    
+    const dispatch = useDispatch()
   const [,setCheck] = useState(()=>{
     return JSON.parse(localStorage.getItem('check')) ??  []
   })
 
-  const dispatch = useDispatch()
-  const likeProduct = () => {
+   const likeProduct = () => {
     const action = addProduct(data)
     dispatch(action)
     setCheck(() => {
@@ -79,10 +77,8 @@ function Product({data,index}) {
                     </p>         
                 }  
             </div>
-
         </div>
-
-     );
+     )
 }
 
 export default Product;
