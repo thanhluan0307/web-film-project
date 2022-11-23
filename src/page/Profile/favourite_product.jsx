@@ -1,13 +1,19 @@
 import styles from '~/page/Profile/profile.module.scss'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { React } from 'react';
+import wishList from '~/reducer/favourite'
 
 export const FavouriteProduct = () => {
   const data = useSelector(state=>state.favourite)
   console.log(data);
   const link = process.env.REACT_APP_BASE_URL
-  const handleDelete = () =>{
-
+  const dispatch = useDispatch()
+  const handleDelete = (index) =>{
+    let newData = [...data]
+    newData.splice(index, 1)
+    localStorage.removeItem('check')
+    localStorage.setItem('wishlist', JSON.stringify(newData))
+    dispatch(wishList)
   }
   return (
     <div className={styles.wrapper}>

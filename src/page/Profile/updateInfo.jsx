@@ -17,9 +17,13 @@ export const UpdateInfo = () => {
   let avatarPath
   let inputName = document.querySelector("#name")
   let userName = document.querySelector("#username")
+  const male = document.querySelector("#male");
+  const female = document.querySelector("#female");
+
   const getData = async () => {
     try{
       let res = await getAPI('/auth/get-loged-in-user')
+      console.log(res.data.user);
       avatarPath = res.data.user.avatar
       if(!avatarPath){
         avatarPath = 'https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg'
@@ -51,14 +55,19 @@ export const UpdateInfo = () => {
       }
       else
       {
-        const uploadImage = await patchAPI('/user/change-avatar', uploadAvatar)
-        console.log(uploadImage);
+          uploadAvatar &&
+          await patchAPI('/user/change-avatar', uploadAvatar)
         let res = await patchAPI('/user/update-info',
         {
           username: userName.value,
           fullname: inputName.value,
           dateOfBirth: dateOfBirth,
-          sex: sex,
+          sex: male.selected === true
+          ? male.value
+          : female.selected === true
+          ? female.value
+          : ''
+          ,
           phone: phoneNumber
         }
         )
@@ -147,9 +156,9 @@ export const UpdateInfo = () => {
             </div>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Giới tính:</label>
-              <select name="gender" id="gender" value={sex} onChange={e => console.log(setSex(e.target.value))}>
-                <option value="0">Nam</option>
-                <option value="1">Nữ</option>
+              <select name="gender" id="gender" value={sex} onChange={(e) => setSex(e.target.value)}>
+                <option id='male' value={'Nam'}>Nam</option>
+                <option id='female' value={'Nữ'}>Nữ</option>
               </select>
             </div>
             <div className={styles.formcontrol}>
