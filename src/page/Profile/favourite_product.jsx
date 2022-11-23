@@ -23,7 +23,7 @@ export const FavouriteProduct = () => {
           </thead>
           <tbody>
            {
-           data.length == 0 ?
+           data.length === 0 ?
               <tr>
                 <td colSpan={3}> <center>Không có sản phẩm yêu thích nào</center> </td>
               </tr>
