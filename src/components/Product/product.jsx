@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { addProduct, deleteProduct } from "~/reducer/favourite";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -13,7 +13,7 @@ const cx = classNames.bind(styles)
 
 function Product({data,index}) {
     const dispatch = useDispatch()
-  const [,setCheck] = useState(()=>{
+    const [,setCheck] = useState(()=>{
     return JSON.parse(localStorage.getItem('check')) ??  []
   })
 

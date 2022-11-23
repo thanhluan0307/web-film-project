@@ -1,20 +1,17 @@
 import styles from '~/page/Profile/profile.module.scss'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { React } from 'react';
-import wishList from '~/reducer/favourite'
+
+
+import { Link } from 'react-router-dom';
 
 export const FavouriteProduct = () => {
   const data = useSelector(state=>state.favourite)
-  console.log(data);
+  console.log(data)
+ 
   const link = process.env.REACT_APP_BASE_URL
-  const dispatch = useDispatch()
-  const handleDelete = (index) =>{
-    let newData = [...data]
-    newData.splice(index, 1)
-    localStorage.removeItem('check')
-    localStorage.setItem('wishlist', JSON.stringify(newData))
-    dispatch(wishList)
-  }
+
+
   return (
     <div className={styles.wrapper}>
     <div className={styles.container}>
@@ -45,11 +42,12 @@ export const FavouriteProduct = () => {
                       <img className={styles.img_wishlist} src={link + item.thumbnail} alt="" />
                     </td>
                     <td>{item.productName}</td>
-                    <td>{item.price?.toLocaleString('vi') + ' VNĐ'}</td>
-                    <td onClick={handleDelete}>Xoá</td>
+                    <td>{item.price? item.price.toLocaleString('vi') + ' VNĐ' : '10.000.000 VNĐ'}  </td>
+                    <td><Link to={`/product/${item._id}`}>Mua</Link></td>
                   </tr>
-              )
-            })
+               )
+              }
+            )
            }
           </tbody>
         </table>

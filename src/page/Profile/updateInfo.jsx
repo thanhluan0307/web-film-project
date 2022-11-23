@@ -5,6 +5,7 @@ import isEmpty from 'validator/lib/isEmpty'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAPI, patchAPI } from '~/config/api';
+import axios from 'axios';
 
 export const UpdateInfo = () => {
   const [data, setData] = useState({})
@@ -36,9 +37,9 @@ export const UpdateInfo = () => {
       setSex(res.data.user.sex)
       setdateOfBirth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
       setPhoneNumber(res.data.user.phone)
-    }catch(err){
-      console.log(err);
-      // toast.error('Lỗi load data ^^')
+    }
+    catch( eroor){
+      console.log(eroor)
     }
 }
   useEffect(() => {
@@ -46,7 +47,7 @@ export const UpdateInfo = () => {
     return () => {
       uploadAvatar && URL.revokeObjectURL(uploadAvatar.preview)
     }
-  },[count, uploadAvatar])
+  },[])
 
   const handleUpdate = async () =>{
     try{
