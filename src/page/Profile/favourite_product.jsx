@@ -1,16 +1,16 @@
 import styles from '~/page/Profile/profile.module.scss'
-import HomeStore from '~/components/HomeStore/homeStore';
 import { useSelector } from "react-redux";
+import { React } from 'react';
 
-export const Favourite_Product = () => {
+export const FavouriteProduct = () => {
   const data = useSelector(state=>state.favourite)
-  console.log(data);
-  let link
-  const domain = 'https://shope-b3.thaihm.site/'
+  const link = process.env.REACT_APP_BASE_URL
+  const handleDelete = () =>{
+
+  }
   return (
     <div className={styles.wrapper}>
     <div className={styles.container}>
-      <h1 className='text-center'>Sản phẩm yêu thích</h1>
       <div>
         <table className={styles.table} width={'100%'}>
           <thead>
@@ -23,23 +23,30 @@ export const Favourite_Product = () => {
           </thead>
           <tbody>
            {
+           data.length == 0 ?
+              <tr>
+                <td colSpan={3}> <center>Không có sản phẩm yêu thích nào</center> </td>
+              </tr>
+            :
             data.map(item => {
               return (
-            <tr>
-              <td>
-                <img className={styles.img_wishlist} src={""} alt="" />
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+                  data.length === 0
+                  ? 'Không có sản phẩm yêu thích nào'
+                  :
+                  <tr key={item._id}>
+                    <td>
+                      <img className={styles.img_wishlist} src={link + item.thumbnail} alt="" />
+                    </td>
+                    <td>{item.productName}</td>
+                    <td>{item.price.toLocaleString('vi') + ' VNĐ'}</td>
+                    <td onClick={handleDelete}>Xoá</td>
+                  </tr>
               )
             })
            }
           </tbody>
         </table>
       </div>
-      <HomeStore></HomeStore>
     </div>
   </div>
   )

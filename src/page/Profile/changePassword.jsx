@@ -25,14 +25,16 @@ export const ChangePassword = () => {
       else if(confirmPass !== newPass){
         toast.error('Mật khẩu không trùng khớp')
       }
-      await patchAPI('/user/change-password', {
-        oldPass: oldPass,
-        newPass: newPass
-      })
-        toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
-        window.localStorage.removeItem('Token')
-        window.localStorage.removeItem('email')
-        nav('/login')
+     else{
+        await patchAPI('/user/change-password', {
+          oldPass: oldPass,
+          newPass: newPass
+        })
+          toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
+          window.localStorage.removeItem('Token')
+          window.localStorage.removeItem('email')
+          nav('/login')
+     }
     }catch(err){
       console.log(err);
       toast.error('Đổi mật khẩu thất bại !')

@@ -2,17 +2,18 @@ import HomeStore from "~/components/HomeStore/homeStore";
 import classNames from "classnames/bind";
 import styles from '~/page/Profile/profile.module.scss'
 import { Link } from 'react-router-dom';
+import  {FavouriteProduct}  from '~/page/Profile/favourite_product';
 
 function Profile() {
     const cx = classNames.bind(styles)
 
     return (
-        <div className={cx('info')}>
+        <div className={cx('wrapper')}>
             <h3 className={cx('text-user')}>Tài khoản của {localStorage.getItem('email')}</h3>
             <div className={cx('container')}>
                <div className={cx('content')}>
                 <div className={cx('detail')}>
-                        <p className={cx('title')}>Thông tin tài khoản</p>
+                        <p className={cx('title', ['text-center'])}>Thông tin tài khoản</p>
                         <div className={cx('info')}>
                             <p>Điểm tích luỹ của bạn: 1000 <sub>đ</sub> </p>
                             <p>Cấp độ khách hàng: 1</p>
@@ -21,14 +22,10 @@ function Profile() {
                         </div>
                     </div>
                     <div className={cx('favorite_product')}>
-                        <p className={cx('title')}>Sản phẩm yêu thích</p>
-                        <div className={cx('ino')}>
-                        <Link to={'wishlist'}><p >Sản phẩm yêu thích</p></Link>
-                            <p>Lịch sử đặt hàng</p>
-                        </div>
+                        <p className={cx('title', ['text-center'])}>Sản phẩm yêu thích</p>
+                            <FavouriteProduct/>
                     </div>
                </div>
-               <HomeStore/>
             </div>
         </div>
      );

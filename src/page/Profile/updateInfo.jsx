@@ -11,10 +11,12 @@ export const UpdateInfo = () => {
   const [count, setCount] = useState(0)
   const [dateOfBirth, setdateOfBirth] = useState('1999-04-23')
   const [sex, setSex] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('0929690xxx')
+  const [avatar, setAvatar] = useState()
+  const [imgPreview, setImgPreview] = useState()
   let avatarPath
-  const domain = 'https://shope-b3.thaihm.site/'
   let inputName = document.querySelector("#name")
-
+  let userName = document.querySelector("#username")
   const getData = async () => {
     try{
       let res = await getAPI('/auth/get-loged-in-user')
@@ -23,22 +25,26 @@ export const UpdateInfo = () => {
         avatarPath = 'https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg'
       }
       else if(!avatarPath.startsWith('https')){
-        avatarPath = domain + avatarPath
+        avatarPath = process.env.REACT_APP_BASE_URL + avatarPath
       }
-
-      console.log(avatarPath);
+      if(!imgPreview){
+        setAvatar(avatarPath)
+      }
       setData(res.data.user)
       setSex(res.data.user.sex)
       setdateOfBirth((res.data.user.dateOfBirth.split('T'))[0].split('-').join('-'))
+      setPhoneNumber(res.data.user.phone)
     }catch(err){
       console.log(err);
-      toast.error('Lỗi load data ^^')
+      // toast.error('Lỗi load data ^^')
     }
 }
-
   useEffect(() => {
     getData()
-  },[count])
+    return () => {
+      avatar && URL.revokeObjectURL(avatar.preview)
+    }
+  },[count, imgPreview])
 
   const handleUpdate = async () =>{
     try{
@@ -47,17 +53,20 @@ export const UpdateInfo = () => {
       }
       else
       {
+        const uploadAvatar = await patchAPI('/user/change-avatar', imgPreview)
+        console.log(uploadAvatar);
         let res = await patchAPI('/user/update-info',
         {
+          username: userName.value,
           fullname: inputName.value,
           dateOfBirth: dateOfBirth,
           sex: sex,
-          phone: data.phone
+          phone: phoneNumber
         }
         )
         setCount(count + 1)
         console.log(res);
-        toast.success('Đổi thông tin thành công')
+        toast.success('Cập nhập thông tin thành công')
       }
 
     }catch(err){
@@ -66,19 +75,33 @@ export const UpdateInfo = () => {
     }
   }
 
+  const handlePreviewAvatar = (e) =>{
+    const formData = new FormData()
+    const file = e.target.files[0]
+    file.preview = URL.createObjectURL(file)
+    formData.append('avatar', file)
+    setImgPreview(formData)
+  }
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<h1 className='text-center'>Thay đổi thông tin cá nhân</h1>
         <div className={styles.upload_avatar}>
-          <input type="file"/>
-          <img className={styles.avatar} src="https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg" alt="avatar" />
+          {/* <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/> */}
+          <input type="file" onChange={handlePreviewAvatar} />
+          <div className={styles.upload_avatar_preview}>
+            <img className={styles.avatar_preview} src={avatar} alt="Avatar" />
+            {/* <span className="response text-center">Please select file</span> */}
+            {/* <span className="size" style={{opacity: '0'}}>#</span> */}
+          </div>
         </div>
 				<form id={styles.formAcc}>
           <div className={styles.formcontrol}>
                 <label htmlFor=''>Username:</label>
                 <input
                   type='text'
+                  id='username'
                   placeholder='Username'
                   defaultValue={data.username}
                 />
@@ -117,16 +140,18 @@ export const UpdateInfo = () => {
               <label htmlFor=''>Số điện thoại:</label>
               <input
                 name='phone'
+                id='phoneNumber'
                 type='text'
                 placeholder='Phone'
-                defaultValue={data.phone ? data.phone : '0929690xxx'}
+                value={phoneNumber}
+                onChange={e=> setPhoneNumber(e.target.value)}
               />
             </div>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Giới tính:</label>
               <select name="gender" id="gender" value={sex} onChange={e => console.log(setSex(e.target.value))}>
-                <option value="0">male</option>
-                <option value="1">female</option>
+                <option value="0">Nam</option>
+                <option value="1">Nữ</option>
               </select>
             </div>
             <div className={styles.formcontrol}>
