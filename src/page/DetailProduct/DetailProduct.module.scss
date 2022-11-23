@@ -80,6 +80,29 @@
         object-fit: contain;
     }
 
+    .box_inside_Img {
+        display: flex;
+        justify-content: center;
+
+        .inside_Img_side {
+    
+            img {
+                border-style: solid;
+                padding: 2px;
+                border-color: #876852 !important;
+                width: 50px;
+                height: 60px;
+                border-color: black;
+                margin: 2px;
+                object-fit: cover;
+                &:hover{
+                    cursor: pointer;
+                    border-color: green !important;
+                }
+            }
+        }
+    }
+
     .inside_Img {
         width: 500px;
         height: 600px;
@@ -128,6 +151,8 @@
 
     div {
         margin-left: -20px;
+        margin-top: -20px;
+        margin-bottom: -20px;
     }
 
     button {
@@ -144,6 +169,11 @@
         &:hover {
             cursor: pointer;
         }
+    }
+
+    .span {
+        border-style: none none solid none;
+        border-color: black;
     }
 }
 

@@ -42,6 +42,7 @@ function Person() {
     const [listDtail, setListDtail] = useState([])
     const [secondListDtail, setSecondListDtail] = useState(clone)
     const [src, setSrc] = useState()
+    const [srcSide, setSrcSide] = useState([])
     const [addressHn, setAddressHn] = useState(true)
     const [addressHCM, setAddressHCM] = useState(true)
     const [addressAll, setAddressAll] = useState(false)
@@ -85,6 +86,7 @@ function Person() {
         setSecondListDtail(a)
         setSrc("https://shope-b3.thaihm.site/" + listDtail[index].listImg[0])
         setActiveColor(index)
+        setSrcSide(listDtail[index].listImg)
     }
 
     function changeStatus() {
@@ -261,8 +263,16 @@ function Person() {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                         <button>Click xem hình ảnh lớn hơn</button>
                     </div>
-                    <Modal className={cx("inside_Img")} open={isModalImgOpen}>
-                        <img className={cx("inside_Img")} src={src} alt={src} />
+                    <Modal open={isModalImgOpen}>
+                        <div className={cx("box_inside_Img")}>
+                            {srcSide.map(function(value,index){
+                                return (
+                                <div key={index} className={cx("inside_Img_side")}>
+                                    <img src={"https://shope-b3.thaihm.site/"+ value} alt="" />
+                                </div>
+                            )})}
+                            <div><img className={cx("inside_Img")} src={src} alt={src}/></div>
+                        </div>
                         <button className={cx("btn_out")} onClick={handleOut}>Thoát</button>
                     </Modal>
                 </div>
@@ -271,15 +281,14 @@ function Person() {
                         <p>Nhãn hiệu: <span>{product.brand}</span></p>
                         <p>Tên sản phẩm: <span>{product.productName}</span></p>
                         <p>Mã sản phẩm: <span>{product._id}</span></p>
-
                         {secondListDtail.map((value, index) => {
                             return (
-                                <>
-                                    <p key={index}>Giá: <span>{value.price}</span></p>
-                                    <p key={index}>Ram: <span>{value.ram}</span></p>
-                                    <p key={index}>Rom: <span>{value.rom}</span></p>
-                                    <p key={index}>Trạng thái: <span>{value.status}</span></p>
-                                </>
+                                <div key={index} hidden={disable}>
+                                    <p>Giá: <span>{value.price}</span></p>
+                                    <p>Ram: <span>{value.ram}</span></p>
+                                    <p>Rom: <span>{value.rom}</span></p>
+                                    <p>Trạng thái: <span>{value.status}</span></p>
+                                </div>
                             )
                         })}
                         Màu Sắc: {listDtail.map((value, index) => {
@@ -294,7 +303,7 @@ function Person() {
                                 </>
                             )
                         })}
-                        <p><u>(Kiểm tra khi đặt hàng)</u></p>
+                        <p><u>(Vui lòng chọn màu khi đặt hàng)</u></p>
                     </div>
                     <div className={cx("addMinus")}>
                         <button onClick={Minus}>-</button>
@@ -318,13 +327,13 @@ function Person() {
                             <label> Kiểm tra thông Số Sản Phẩm đã chọn:</label>
                             {secondListDtail.map((value, index) => {
                                 return (
-                                    <p key={index}>
+                                    <div key={index}>
                                         <p>Mã sản phẩm: <span>{value._id}</span></p>
                                         <p>Giá: <span>{value.price}</span></p>
                                         <p>Ram: <span>{value.ram}</span></p>
                                         <p>Rom: <span>{value.rom}</span></p>
                                         <p>Trạng thái: <span>{value.status}</span></p>
-                                    </p>
+                                    </div>
                                 )
                             })}
                             <button onClick={handleBuy}>Mua</button>
@@ -380,12 +389,12 @@ function Person() {
                             <span className={cx("plusicon")}><FontAwesomeIcon icon={faMinus} /></span>
                             {secondListDtail.map((value, index) => {
                                 return (
-                                    <p key={index}>
+                                    <div key={index}>
                                         <p>Giá: <span >{value.price}</span></p>
                                         <p>Ram: <span >{value.ram}</span></p>
                                         <p>Rom: <span >{value.rom}</span></p>
                                         <p>Trạng thái: <span >{value.status}</span></p>
-                                    </p>
+                                    </div>
                                 )
                             })}
                         </div>
