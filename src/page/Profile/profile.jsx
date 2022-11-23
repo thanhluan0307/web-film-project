@@ -1,4 +1,3 @@
-import HomeStore from "~/components/HomeStore/homeStore";
 import classNames from "classnames/bind";
 import styles from '~/page/Profile/profile.module.scss'
 import { Link } from 'react-router-dom';
@@ -6,7 +5,6 @@ import  {FavouriteProduct}  from '~/page/Profile/favourite_product';
 
 function Profile() {
     const cx = classNames.bind(styles)
-
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('text-user')}>Tài khoản của {localStorage.getItem('email')}</h3>

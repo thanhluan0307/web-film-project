@@ -4,6 +4,7 @@ import { React } from 'react';
 
 export const FavouriteProduct = () => {
   const data = useSelector(state=>state.favourite)
+  console.log(data);
   const link = process.env.REACT_APP_BASE_URL
   const handleDelete = () =>{
 
