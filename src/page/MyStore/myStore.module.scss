@@ -1,12 +1,14 @@
 
 .container{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(244, 244, 244);
 }
 
 .title{
     display: flex;
     width: 100%;
     height: 60px;
+    
+
 }
 
 .title p:first-child{
@@ -28,19 +30,21 @@
 }
 
 .navContent{
-    width:94%;
+    width:100%;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     font-size:150%;
     background-color: rgb(255, 255, 255);
     padding: 1% 0;
-    margin:  0 auto 3% auto;
+    // margin:  0 auto 3% auto;
     align-items: center;
+    border: 0.5px solid rgb(221, 221, 221);
 }
 
 .navTitleProducts{
-    width:50%;
+    width:48%;
     display: flex;
+    margin-left: 2%;
 }
 
 .navTitleProducts span{
@@ -49,10 +53,8 @@
 
 .navTitleProduct{
     width:50%;
-    text-align: center;
     display: flex;
     justify-content: space-between;
-    flex-shrink: 1;
 }
 
 .navTitle:last-of-type{
@@ -66,11 +68,14 @@
 }
 
 .navTitleProduct >div{
+    display:flex;
+    flex-direction: column ;
     width:24%;
     margin-right: 10%;
     text-align: start;
     font-size: 95%;
     font-weight: lighter;
+    margin:auto 0;
 }
 
 .navTitleProduct >img{
@@ -83,7 +88,7 @@
     border: 0.5px solid rgb(234, 234, 234);
     height:max-content;
     margin:2% 0;
-    padding: 2%;;
+    padding: 2%;
 }
 
 .childProductContainerDeal{
@@ -127,6 +132,7 @@
     text-align: center;
     align-items: center;
     height:186px;
+   
 }
 
 .navTitle{
@@ -148,14 +154,30 @@
 }
 
 .buttonContainer p{
-    width:20px;
+    width:max-content;
     background-color: white;
     border: 1px solid rgba(25, 118, 210, 0.5);
     border-radius: 4px;
+    padding:0 10%;
 }
 
 .styleProduct{
     cursor: pointer;
+}
+
+.styleProduct p:first-of-type{
+    color:rgb(196, 0, 17);
+}
+.styleProduct p:nth-of-type(2){
+    color:rgb(199, 32, 149);
+}
+.styleProduct p:last-of-type{
+    color:rgba(0, 156, 44, 0.778);
+}
+.styleProduct span{
+    font-size: 90%;
+    text-align: center;
+    padding:2%;
 }
 
 .navTitle:nth-of-type(4){
@@ -172,7 +194,7 @@
     font-size: 120%;
     align-items: center;
     border: 0.5px solid rgb(221, 221, 221);
-   
+    background-color: white;
 }
 
 .voucher img{
@@ -189,21 +211,87 @@
 
 .payContainer{
     width:100%;
-    border: 1px solid black;
+    border: 0.5px solid rgb(221, 221, 221);
+    box-shadow: rgba(0, 0, 0, 0.45) 0px -10px 20px -20px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom:0;
+    background-color: white;
 }
 
 .topPay{
     display: flex;
     width:100%;
-    border: 1px solid black;
+    border-bottom: 0.5px dashed rgb(221, 221, 221);
+    font-size: 150%;
+    padding: 1%;
 }
 
-// .topPay div:first-of-type{
-//     width:70%;
-//     text-align: end;
-// }
+.topPay div:first-of-type{
+    width:70%;
+    justify-content: end;
+    display: flex;
+    align-items: center;
 
-// .topPay div:last-of-type{
-//     width:30%;
-//     text-align: end;
-// }
+}
+
+.topPay div:last-of-type{
+    width:30%;
+    text-align: end;
+    margin-right: 2%;
+    color: #05a;
+}
+
+.middlePay{
+    width: 35%;
+    display: flex;
+}
+
+.middlePay p{
+    padding: 2%;
+    font-size: 150%;
+}
+
+.middlePay p:last-child{
+    color: red;
+    cursor: pointer;
+}
+
+.middlePay p:nth-last-of-type(2){
+    color: #05a;
+    cursor: pointer;
+}
+
+.bottomPay{
+    display: flex;
+    padding: 1%;
+    font-size: 170%;
+    width: 100%;
+    justify-content: right;
+    align-items: center;
+    border-top: 0.5px dashed rgb(221, 221, 221)  ;
+}
+
+.bottomPay p{
+    margin-right:2%;
+}
+
+.btnPay{
+    background-color: red !important;
+    width:15%;
+    font-size: 110% !important;
+}
+
+.bottomPay span{
+    font-size: 140%;
+    color: red;
+}
+
+.amount{
+    width:40%;
+    padding:0 1%;
+    text-align: center;
+    color: #1976d2;
+    border: 1px solid rgba(25, 118, 210, 0.5);
+    border-radius: 10%;
+}

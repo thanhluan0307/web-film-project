@@ -89,6 +89,8 @@
 	height: 495px;
 	margin-top: 50px;
 	margin-right: 70px;
+	background: rgba(255, 255, 255, 0.5);
+
 }
 .form-signup h1{
 	font-size: 55px;
@@ -141,18 +143,106 @@
 
 @media only screen and (max-width: 600px ){
 	.login{
-		background-image: none;
+		background-image:linear-gradient( 135deg, pink, violet );
+		height: 695px;
 	}
 	.form-signup{
-		width: 100%;
-		margin-right: 0px;
-		background-image: linear-gradient( 135deg, pink, violet);
+		width: 90%;
+		margin-top: 31%;
+		margin-right:5%;
 	}
 	.form-login{
-		width: 100%;
-		margin:0px;
+		width: 90%;
+		margin-top: 120px;
+		margin-right:5%;
 	}
-	// .inp-SignUp{
-		
-	// }
+	.inp-login{
+		background-color: rgba(255, 255, 255, 0);
+	}
+	.inp-SignUp{
+		height: 30px;
+		background-color: rgba(255, 255, 255, 0);
+	}
+}
+
+
+@media only screen and (min-width:600px) and (max-width:1101px) {
+	.form-signup{
+		margin-top: 20%;
+		margin-right: 5%;
+		height: 480px;
+	}
+	.form-login{
+		margin-top: 20%;
+		margin-right: 5%;
+		height: 500px;
+	}
+	.saveUser{
+		margin: 10px 0 15px 13%;
+	}
+	.bnt-login{
+		margin: 35px 1px;
+	}
+}
+@media only screen and (min-width:601px) and (max-width:886px) {
+	.login{
+		background-image:linear-gradient( 135deg, pink, violet );;
+	}
+	.form-signup{
+		width: 90%;
+		margin-top: 10%;
+		margin-right:5%;
+	}
+	.form-login{
+		width: 90%;
+		margin: 10% 5% 0 0;
+	}
+	.inp-login{
+		background-color: rgba(255, 255, 255, 0);
+	}
+	.inp-SignUp{
+		height: 30px;
+		background-color: rgba(255, 255, 255, 0);
+	}
+}
+@media only screen and (min-width:887px) and (max-width:1101px) {
+	.login{
+		background-image: url("../../assets/images/backroundWebOfB5.png");
+		height: 450px;
+	}
+	.form-signup{
+		height: 430px;
+		width: 45%;
+		float: none;
+		margin: auto;
+	}
+	.inp-SignUp{
+		background-color: rgba(255, 255, 255, 0.8);
+		&::-webkit-input-placeholder {
+			font-size: 15px;
+			opacity: 0.8;
+		}
+	}
+	.form-signup h1{
+		font-size: 35px;
+	}
+	.form-login{
+		height: 430px;
+		width: 45%;
+		float: none;
+		margin: auto;
+	}
+	.inp-login{
+		background-color: rgba(255, 255, 255, 0.8);
+		&::-webkit-input-placeholder {
+			font-size: 15px;
+			opacity: 0.8;
+		}
+	}
+	.saveUser{
+		margin:0;
+	}
+	.bnt-login{
+		margin: 30px 0;
+	}
 }

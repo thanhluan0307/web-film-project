@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './header.module.scss'
 import BackToTopButton from '../../BackToTopButton/BackToTopButton';
-import { counterTotalProduct } from '~/reducer/totalProductSlice';
+import { counterTotalProduct,counterTotalProduct2} from '~/reducer/totalProductSlice';
 import logo from '~/assets/images/b5.png'
 import Input from '~/Layout/DefaultLayout/Input/Input';
 import Nav from '../Nav/nav';
@@ -46,10 +46,10 @@ function Header() {
       /* eslint-disable react-hooks/exhaustive-deps */
     dispatch(counterTotalProduct())
   },[])
-  const removeToken = () => {
-    localStorage.removeItem('Token')
-    localStorage.removeItem('email')
   
+  const removeToken = () => {
+    localStorage.clear()
+    dispatch(counterTotalProduct2(0))
   }
 
   return (
@@ -68,8 +68,10 @@ function Header() {
               </li>
               <li>
                 <Link to="/login">
-                  <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
-                  <span onClick={removeToken} className={cx('text')}>Đăng xuất</span>
+                  <div onClick={removeToken}>
+                    <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket}/>
+                    <span className={cx('text')}>Đăng xuất</span>
+                  </div>
                 </Link>
               </li>
             </>)

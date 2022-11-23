@@ -5,7 +5,6 @@ import {useSelector } from 'react-redux'
 
 function MyStore() {
   const totalProduct=useSelector(state=>state.counterProduct)
-console.log(totalProduct);
   return (
     <>  
     <div className={styles.container}>
