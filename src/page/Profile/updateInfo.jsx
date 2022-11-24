@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '~/page/Profile/profile.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import isEmpty from 'validator/lib/isEmpty'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAPI, patchAPI } from '~/config/api';
