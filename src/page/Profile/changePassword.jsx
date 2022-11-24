@@ -34,8 +34,8 @@ export const ChangePassword = () => {
         window.localStorage.removeItem('email')
         toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
         setTimeout(() => {
-          nav('/login')
-        }, 1000)
+        nav('/login')
+        }, 3000)
      }
     }catch(err){
       console.log(err);
