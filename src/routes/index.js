@@ -20,6 +20,9 @@ const pageRoutes = [
     {path: "/storeInfor",component: StoreInfor},
     {path: "/search",component: Search},
     {path: "/myStore",component: MyStore},
+]
+
+const pagePrivate = [
     {path: "/profile",component: Profile},
     {path: "/profile/update-info",component: UpdateInfo},
     {path: "/profile/change-pass",component: ChangePassword},
@@ -28,4 +31,4 @@ const pageRoutes = [
 ]
 
 
-export {pageRoutes}
+export {pageRoutes, pagePrivate}

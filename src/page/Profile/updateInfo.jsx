@@ -17,9 +17,8 @@ export const UpdateInfo = () => {
   const next = useNavigate()
   let avatarPath
   let inputName = useRef()
-  let userName = document.querySelector("#username")
-  const male = document.querySelector("#male");
-  const female = document.querySelector("#female");
+  let userName = useRef()
+  const gender = useRef()
 
   const getData = async () => {
     try{
@@ -59,14 +58,10 @@ export const UpdateInfo = () => {
           await patchAPI('/user/change-avatar', uploadAvatar)
         let res = await patchAPI('/user/update-info',
         {
-          username: userName.value,
+          username: userName.current.value,
           fullname: inputName.current.value,
           dateOfBirth: dateOfBirth,
-          sex: male.selected === true
-          ? male.value
-          : female.selected === true
-          ? female.value
-          : ''
+          sex: gender.current.value
           ,
           phone: phoneNumber
         }
@@ -98,8 +93,6 @@ export const UpdateInfo = () => {
           <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/>
           <div className={styles.upload_avatar_preview}>
             <img className={styles.avatar_preview} src={avatar} alt="Avatar" />
-            {/* <span className="response text-center">Please select file</span> */}
-            {/* <span className="size" style={{opacity: '0'}}>#</span> */}
           </div>
         </div>
 				<form id={styles.formAcc}>
@@ -108,6 +101,7 @@ export const UpdateInfo = () => {
                 <input
                   type='text'
                   id='username'
+                  ref={userName}
                   placeholder='Username'
                   defaultValue={data.username}
                 />
@@ -156,7 +150,7 @@ export const UpdateInfo = () => {
             </div>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Giới tính:</label>
-              <select name="gender" id="gender" value={sex} onChange={(e) => setSex(e.target.value)}>
+              <select name="gender" id="gender" ref={gender} value={sex} onChange={(e) => setSex(e.target.value)}>
                 <option id='male' value={'Nam'}>Nam</option>
                 <option id='female' value={'Nữ'}>Nữ</option>
               </select>
