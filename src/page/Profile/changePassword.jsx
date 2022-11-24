@@ -30,10 +30,12 @@ export const ChangePassword = () => {
           oldPass: oldPass,
           newPass: newPass
         })
-          toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
-          window.localStorage.removeItem('Token')
-          window.localStorage.removeItem('email')
+        window.localStorage.removeItem('Token')
+        window.localStorage.removeItem('email')
+        toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
+        setTimeout(() => {
           nav('/login')
+        }, 1000)
      }
     }catch(err){
       console.log(err);

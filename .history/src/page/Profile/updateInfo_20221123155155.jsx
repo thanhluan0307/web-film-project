@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '~/page/Profile/profile.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import isEmpty from 'validator/lib/isEmpty'
@@ -16,7 +16,7 @@ export const UpdateInfo = () => {
   const [uploadAvatar, setUploadAvatar] = useState()
   const next = useNavigate()
   let avatarPath
-  let inputName = useRef()
+  let inputName = document.querySelector("#name")
   let userName = document.querySelector("#username")
   const male = document.querySelector("#male");
   const female = document.querySelector("#female");
@@ -50,7 +50,7 @@ export const UpdateInfo = () => {
 
   const handleUpdate = async () =>{
     try{
-      if(isEmpty(inputName.current.value)){
+      if(isEmpty(inputName.value)){
         toast.error('Tên không được để trống')
       }
       else
@@ -60,7 +60,7 @@ export const UpdateInfo = () => {
         let res = await patchAPI('/user/update-info',
         {
           username: userName.value,
-          fullname: inputName.current.value,
+          fullname: inputName.value,
           dateOfBirth: dateOfBirth,
           sex: male.selected === true
           ? male.value
@@ -95,7 +95,8 @@ export const UpdateInfo = () => {
 			<div className={styles.container}>
 				<h1 className='text-center'>Thay đổi thông tin cá nhân</h1>
         <div className={styles.upload_avatar}>
-          <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/>
+          {/* <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/> */}
+          <input type="file" onBlur={handlePreviewAvatar} />
           <div className={styles.upload_avatar_preview}>
             <img className={styles.avatar_preview} src={avatar} alt="Avatar" />
             {/* <span className="response text-center">Please select file</span> */}
@@ -116,7 +117,6 @@ export const UpdateInfo = () => {
               <label htmlFor=''>Họ tên:</label>
               <input
                 name='name'
-                ref={inputName}
                 id='name'
                 type='text'
                 placeholder='Họ tên'
