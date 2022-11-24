@@ -7,19 +7,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getAPI, patchAPI } from '~/config/api';
 
 export const UpdateInfo = () => {
+  const rgxPhoneNumber = /^[0-9]{9,10}$/;
   const [data, setData] = useState({})
   const [count, setCount] = useState(0)
   const [dateOfBirth, setdateOfBirth] = useState('1999-04-23')
   const [sex, setSex] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('0929690xxx')
+  const [phoneNumber, setPhoneNumber] = useState('0929690966')
   const [avatar, setAvatar] = useState()
   const [uploadAvatar, setUploadAvatar] = useState()
   const next = useNavigate()
   let avatarPath
-  let inputName = useRef()
-  let userName = useRef()
+  let inputName = useRef(null)
+  let userName = useRef(null)
   const gender = useRef()
-
   const getData = async () => {
     try{
       let res = await getAPI('/auth/get-loged-in-user')
@@ -49,8 +49,20 @@ export const UpdateInfo = () => {
 
   const handleUpdate = async () =>{
     try{
-      if(isEmpty(inputName.current.value)){
+      if(!userName.current.value){
+        toast.error('username không được để trống')
+      }
+      else if(userName.current.value.length < 4){
+        toast.error('username tối thiểu 4 ký tự')
+      }
+      else if(!inputName.current.value){
         toast.error('Tên không được để trống')
+      }
+      else if(!phoneNumber){
+        toast.error('Vui lòng nhập số điện thoại')
+      }
+      else if(!rgxPhoneNumber.test(phoneNumber)){
+        toast.error('Số điện thoại không hợp lệ')
       }
       else
       {
