@@ -3,16 +3,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { patchAPI } from '../../config/api';
+import { useRef } from 'react';
 
 export const ChangePassword = () => {
 
   const nav = useNavigate()
+  const oldPass = useRef()
+  const newPass = useRef()
+  const confirmPass = useRef()
 
   const handleUpdate = async () =>{
     try{
-      const oldPass = document.querySelector('#oldPass').value
-      const newPass = document.querySelector('#newPass').value
-      const confirmPass = document.querySelector('#confirmPass').value
       if(oldPass === ''){
         toast.error('Mật khẩu cũ không được để trống')
       }
