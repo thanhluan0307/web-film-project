@@ -14,7 +14,7 @@ export const ChangePassword = () => {
 
   const handleUpdate = async () =>{
     try{
-      if(oldPass === ''){
+      if(oldPass.current.value === ''){
         toast.error('Mật khẩu cũ không được để trống')
       }
       if(newPass === ''){
