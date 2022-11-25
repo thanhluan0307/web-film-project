@@ -48,7 +48,8 @@ function Header() {
   },[])
   
   const removeToken = () => {
-    localStorage.clear()
+    localStorage.removeItem('Token')
+    localStorage.removeItem('email')
     dispatch(counterTotalProduct2(0))
   }
 

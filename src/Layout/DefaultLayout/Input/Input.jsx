@@ -42,6 +42,7 @@ function Input() {
         setCheck(false)
       }
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchResult])
   const handleChange =(e) => {
    const searchValue = e.target.value

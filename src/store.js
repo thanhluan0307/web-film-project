@@ -4,11 +4,12 @@ import amountProduct from '~/reducer/amountSlice'
 import favourite from '~/reducer/favourite'
 import oneProduct from '~/reducer/data1Product'
 
+
 export const store = configureStore({
     reducer: {
        counterProduct,
        amountProduct,
        favourite,
-       oneProduct
+       oneProduct,
     }
 })

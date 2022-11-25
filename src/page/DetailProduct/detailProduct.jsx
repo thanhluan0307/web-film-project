@@ -14,7 +14,6 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HomeStore from "~/components/HomeStore/homeStore";
@@ -40,6 +39,7 @@ function Person() {
     }
 
     const disPatch = useDispatch()
+    const user=localStorage.getItem('email')
     const { productID } = useParams()
     const [product, setProduct] = useState({})
     const [, setListProduct] = useState()
@@ -63,14 +63,6 @@ function Person() {
     const [valueName, setValueName] = useState('')
     const [valuePhone, setValuePhone] = useState('')
     const [valueAddress, setValueAddress] = useState('')
-    const config = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1
-    };
-
     var sum = count
     function Minus() {
         if (sum >= 2 && sum <= 20) {
@@ -161,12 +153,11 @@ function Person() {
     const handleOut = () => {
         setIsModalImgOpen(false);
     }
- 
     const HandleAddProduct = () => {
         if (localStorage.getItem('email'))
         {
                 toggle()
-            let Storage = localStorage.getItem('myStore')
+            let Storage = localStorage.getItem(user)
             if (Storage) {
                 Storage = JSON.parse(Storage)
                 let infoProduct=product
@@ -180,13 +171,13 @@ function Person() {
                     if (item.productName === product.productName) {
                         kt = true
                         item.amount += count
-                        localStorage.setItem('myStore', JSON.stringify(Storage))
+                        localStorage.setItem(user, JSON.stringify(Storage))
                         break
                     }
                 }
                 if (kt === false) {
                     Storage.push(product)
-                    localStorage.setItem('myStore', JSON.stringify(Storage))
+                    localStorage.setItem(user, JSON.stringify(Storage))
                     disPatch(counterTotalProduct())
                     disPatch(counterTotalProduct())
                 }
@@ -196,7 +187,7 @@ function Person() {
                 infoProduct.amount=count
                 Storage = []
                 Storage.push(infoProduct)
-                localStorage.setItem('myStore', JSON.stringify(Storage))
+                localStorage.setItem(user, JSON.stringify(Storage))
                 disPatch(counterTotalProduct())
             }
         }

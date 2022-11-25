@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAPI, patchAPI } from '~/config/api';
-import axios from 'axios';
+
 
 export const UpdateInfo = () => {
   const rgxPhoneNumber = /^[0-9]{9,10}$/;
@@ -45,6 +45,7 @@ export const UpdateInfo = () => {
     return () => {
       uploadAvatar && URL.revokeObjectURL(uploadAvatar.preview)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleUpdate = async () =>{

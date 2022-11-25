@@ -80,6 +80,7 @@ function Login() {
             localStorage.setItem("Token",res.data.token)
             localStorage.setItem("email",inpEmail.slice(0 ,inpEmail.indexOf("@")))
             next("/")
+            window.location.reload()
             alert('ĐĂNG NHẬP THÀNH CÔNG')
         })
         .catch(err=>{
