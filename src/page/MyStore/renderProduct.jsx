@@ -7,15 +7,17 @@ import {increase,decrease} from '~/reducer/amountSlice'
 import SelectProduct from '~/components/selectProduct/selectProduct';
 
 
+
 function RenderProduct() {
     
+    const dispatch = useDispatch()
+    const user=localStorage.getItem('email')
     const [checkTotal,setCheckTotal]= useState(false)
     const [data,setData]=useState([])
     const totalProduct=useSelector(state=> state.counterProduct)
-    const dispatch = useDispatch();
     const [totalPrice,setTotalPrice]=useState(0)
     const [checked,setChecked]= useState([])
-    
+    console.log(user);
     const handleCheck=(id)=>{
         setChecked(prev=>{
         const isCheck=checked?.includes(id)
@@ -50,8 +52,8 @@ function RenderProduct() {
         let newData=[...data]
         newData.splice(index,1)
         let data2=newData.map(value=>value._id)
-        localStorage.removeItem('myStore')
-        localStorage.setItem('myStore',JSON.stringify(newData))
+        localStorage.removeItem(user)
+        localStorage.setItem(user,JSON.stringify(newData))
         // setChecked(data2)
         setData(newData)
         dispatch(counterTotalProduct())
@@ -76,8 +78,8 @@ function RenderProduct() {
                 if (kt) newData.push(value)
             })
             
-            localStorage.removeItem('myStore')
-            localStorage.setItem('myStore',JSON.stringify(newData))
+            localStorage.removeItem(user)
+            localStorage.setItem(user,JSON.stringify(newData))
             setData(newData)
             setChecked([])
             dispatch(counterTotalProduct())
@@ -85,19 +87,18 @@ function RenderProduct() {
     }
 
     useEffect(()=>{
-        const dataTest=JSON.parse(localStorage.getItem('myStore'))  
+        if (localStorage.getItem(user)){
+        const dataTest=JSON.parse(localStorage.getItem(user))  
         let newData=[...dataTest]
-        // eslint-disable-next-line array-callback-return
         newData.map((value)=>{
             if (value.amount==null) value.amount=amountProduct
             value.totalPrice=value.price*value.amount
-            // if (!value.totalPrice) value.totalPrice='hết hàng'
             value.style='something'
         })
         setData(newData)
         setTotalPrice()
-        dispatch(counterTotalProduct())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(counterTotalProduct())}
+        else console.log('1');
     },[])
    
     useEffect(()=>{
@@ -128,8 +129,7 @@ function RenderProduct() {
 
   return (
     <div className={styles.container}>
-        <div className={styles.title}>
-            <p>Giỏ hàng của bạn </p>
+        <div className={styles.title}>  
             <p>( Có <span>{totalProduct}</span> sản phẩm trong giỏ hàng)</p>
         </div>
         <div className={styles.navContent}>
@@ -183,7 +183,7 @@ function RenderProduct() {
                                 <Button variant="outlined" className={styles.button} onClick={()=>handleIncrease(index)}>+</Button>
                             </div>
                             <div className={styles.navTitle}>{(value.totalPrice)?.toLocaleString('en-US', {style : 'currency', currency : 'VND'})}</div>
-                            <div className={styles.navTitle} onClick={()=>handleDelete(index)}><Button variant='outlined'>Xoá</Button></div>
+                            <div className={styles.navTitle} ><button  className={styles.navBtn} onClick={()=>handleDelete(index)} variant='outlined'>Xoá</button></div>
                         </div>
                     </div>
                     <div className={styles.voucher}>

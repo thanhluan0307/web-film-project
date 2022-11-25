@@ -37,6 +37,7 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
+            document.getElementById('input').value=info.amount
             return data
         })
     }
@@ -46,6 +47,7 @@ function SelectProduct({info,dataThen,index,set}) {
         setForm(()=>{
             let data={...form}
             data.amount=info.amount
+            document.getElementById('input').value=info.amount
             return data
         })
     }
@@ -174,15 +176,16 @@ function SelectProduct({info,dataThen,index,set}) {
   };
 
   const style = {
+    textAlign:'center',
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '22%',
-    height:'20%',
-    bgcolor: 'background.paper',
-    border: '0.5px solid #000',
-    boxShadow: 24,
+    width: '10%',
+    height:'10%',
+    bgcolor: 'white',
+    border: '0.5px solid #05a',
+    padding:'2% 1% 0 1%'
   } 
   const handleSubmit=(index) => {
     if (!form.color || !form.ram || !form.rom || !form.amount ) {
@@ -217,7 +220,9 @@ function SelectProduct({info,dataThen,index,set}) {
     }
   }
 }
+    const handleIn=(e)=>{
 
+    }
     const [open, setOpen] = useState(false);
     const [text,setText] = useState('')
 
@@ -248,9 +253,9 @@ function SelectProduct({info,dataThen,index,set}) {
       role="presentation"
     >
     <List>
-        <div style={{width:'100%',height:'400px'}}>
+        <div className={cx('box')} style={{width:'100%',height:'400px'}}>
             <div className={cx('select-container')}>
-                <div>
+                <div className={cx('left')}>
                     <div className={cx('img-main')}>
                         <img style={{height:'80%',marginTop:'10%'}} src={"https://shope-b3.thaihm.site/" +src} alt="" />
                     </div>
@@ -326,7 +331,7 @@ function SelectProduct({info,dataThen,index,set}) {
                         <div className={cx('price-total')}>
                             <span>Số lượng</span>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleDecrease(index)}>-</Button>
-                                <input type='text' className={cx('amount')} value={info.amount} onChange={()=>{}}></input>
+                                <input  id='input' className={cx('amount')} defaultValue={info.amount} onBlur={(e)=>handleIn(e)}></input>
                             <Button variant="outlined" className={cx('button')} onClick={()=>handleIncrease(index)}>+</Button>
                             <p>99 Sản phẩm có sẵn</p>
                         </div>
