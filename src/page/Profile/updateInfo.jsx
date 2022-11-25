@@ -1,30 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '~/page/Profile/profile.module.scss';
-import { Link } from 'react-router-dom';
-import isEmpty from 'validator/lib/isEmpty'
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAPI, patchAPI } from '~/config/api';
 import axios from 'axios';
 
 export const UpdateInfo = () => {
+  const rgxPhoneNumber = /^[0-9]{9,10}$/;
   const [data, setData] = useState({})
   const [count, setCount] = useState(0)
   const [dateOfBirth, setdateOfBirth] = useState('1999-04-23')
   const [sex, setSex] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('0929690xxx')
+  const [phoneNumber, setPhoneNumber] = useState('0929690966')
   const [avatar, setAvatar] = useState()
   const [uploadAvatar, setUploadAvatar] = useState()
+  const next = useNavigate()
   let avatarPath
-  let inputName = document.querySelector("#name")
-  let userName = document.querySelector("#username")
-  const male = document.querySelector("#male");
-  const female = document.querySelector("#female");
-
+  let inputName = useRef(null)
+  let userName = useRef(null)
+  const gender = useRef()
   const getData = async () => {
     try{
       let res = await getAPI('/auth/get-loged-in-user')
-      console.log(res.data.user);
       avatarPath = res.data.user.avatar
       if(!avatarPath){
         avatarPath = 'https://64.media.tumblr.com/970f8c9047f214078b5b023089059228/4860ecfa29757f0c-62/s640x960/9578d9dcf4eac298d85cf624bcf8b672a17e558c.jpg'
@@ -43,7 +41,7 @@ export const UpdateInfo = () => {
     }
 }
   useEffect(() => {
-    getData()
+      getData()
     return () => {
       uploadAvatar && URL.revokeObjectURL(uploadAvatar.preview)
     }
@@ -51,8 +49,20 @@ export const UpdateInfo = () => {
 
   const handleUpdate = async () =>{
     try{
-      if(isEmpty(inputName.value)){
+      if(!userName.current.value){
+        toast.error('username không được để trống')
+      }
+      else if(userName.current.value.length < 4){
+        toast.error('username tối thiểu 4 ký tự')
+      }
+      else if(!inputName.current.value){
         toast.error('Tên không được để trống')
+      }
+      else if(!phoneNumber){
+        toast.error('Vui lòng nhập số điện thoại')
+      }
+      else if(!rgxPhoneNumber.test(phoneNumber)){
+        toast.error('Số điện thoại không hợp lệ')
       }
       else
       {
@@ -60,14 +70,10 @@ export const UpdateInfo = () => {
           await patchAPI('/user/change-avatar', uploadAvatar)
         let res = await patchAPI('/user/update-info',
         {
-          username: userName.value,
-          fullname: inputName.value,
+          username: userName.current.value,
+          fullname: inputName.current.value,
           dateOfBirth: dateOfBirth,
-          sex: male.selected === true
-          ? male.value
-          : female.selected === true
-          ? female.value
-          : ''
+          sex: gender.current.value
           ,
           phone: phoneNumber
         }
@@ -75,6 +81,7 @@ export const UpdateInfo = () => {
         setCount(count + 1)
         console.log(res);
         toast.success('Cập nhập thông tin thành công')
+        next("/profile/update-info")
       }
 
     }catch(err){
@@ -90,18 +97,14 @@ export const UpdateInfo = () => {
     formData.append('avatar', file)
     setUploadAvatar(formData)
   }
-
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<h1 className='text-center'>Thay đổi thông tin cá nhân</h1>
         <div className={styles.upload_avatar}>
-          {/* <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/> */}
-          <input type="file" onChange={handlePreviewAvatar} />
+          <input type="file" name='input-file' id='input-file' accept="image/png, image/jpg, image/jpeg" onChange={handlePreviewAvatar}/>
           <div className={styles.upload_avatar_preview}>
             <img className={styles.avatar_preview} src={avatar} alt="Avatar" />
-            {/* <span className="response text-center">Please select file</span> */}
-            {/* <span className="size" style={{opacity: '0'}}>#</span> */}
           </div>
         </div>
 				<form id={styles.formAcc}>
@@ -110,6 +113,7 @@ export const UpdateInfo = () => {
                 <input
                   type='text'
                   id='username'
+                  ref={userName}
                   placeholder='Username'
                   defaultValue={data.username}
                 />
@@ -118,6 +122,7 @@ export const UpdateInfo = () => {
               <label htmlFor=''>Họ tên:</label>
               <input
                 name='name'
+                ref={inputName}
                 id='name'
                 type='text'
                 placeholder='Họ tên'
@@ -157,7 +162,7 @@ export const UpdateInfo = () => {
             </div>
             <div className={styles.formcontrol}>
               <label htmlFor=''>Giới tính:</label>
-              <select name="gender" id="gender" value={sex} onChange={(e) => setSex(e.target.value)}>
+              <select name="gender" id="gender" ref={gender} value={sex} onChange={(e) => setSex(e.target.value)}>
                 <option id='male' value={'Nam'}>Nam</option>
                 <option id='female' value={'Nữ'}>Nữ</option>
               </select>

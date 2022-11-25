@@ -1,19 +1,37 @@
 import {BrowserRouter ,Routes,Route} from 'react-router-dom'
-import {pageRoutes} from '~/routes'
+import {pagePrivate, pageRoutes} from '~/routes'
+
 import DefaultLayout from '~/Layout/DefaultLayout/DefaultLayout';
+import { PrivateRouter } from '~/page/PrivateRouter/privateRouter';
 
 function App() {
   return (
-    <BrowserRouter> 
+    <BrowserRouter>
         <Routes>
           {pageRoutes.map(function (route,index) {
               return (
-                <Route 
+                <Route
                   key={index}
-                  path={route.path} 
+                  path={route.path}
                   element={
                     <DefaultLayout>
                         <route.component/>
+                    </DefaultLayout>
+                  }
+                />
+              )
+            })
+          }
+          {pagePrivate.map(function (routes,index) {
+              return (
+                <Route
+                  key={index}
+                  path={routes.path}
+                  element={
+                    <DefaultLayout>
+                      <PrivateRouter>
+                        <routes.component/>
+                      </PrivateRouter>
                     </DefaultLayout>
                   }
                 />

@@ -3,40 +3,42 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { patchAPI } from '../../config/api';
+import { useRef } from 'react';
 
 export const ChangePassword = () => {
 
   const nav = useNavigate()
+  const oldPass = useRef(null)
+  const newPass = useRef(null)
+  const confirmPass = useRef(null)
 
   const handleUpdate = async () =>{
     try{
-      const oldPass = document.querySelector('#oldPass').value
-      const newPass = document.querySelector('#newPass').value
-      const confirmPass = document.querySelector('#confirmPass').value
-      if(oldPass === ''){
+      if(!oldPass.current.value){
         toast.error('Mật khẩu cũ không được để trống')
       }
-      if(newPass === ''){
+      else if(!newPass.current.value){
         toast.error('Mật khẩu mới không được để trống')
       }
-      if(confirmPass === ''){
+      else if(!confirmPass.current.value){
         toast.error('Vui lòng nhập lại mật khẩu')
       }
-      else if(confirmPass !== newPass){
-        toast.error('Mật khẩu không trùng khớp')
+      else if(confirmPass.current.value !== newPass.current.value){
+        toast.error('Mật khẩu mới không trùng khớp')
       }
      else{
         await patchAPI('/user/change-password', {
-          oldPass: oldPass,
-          newPass: newPass
+          oldPass: oldPass.current.value,
+          newPass: newPass.current.value
         })
-          toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
-          window.localStorage.removeItem('Token')
-          window.localStorage.removeItem('email')
-          nav('/login')
+        window.localStorage.removeItem('Token')
+        window.localStorage.removeItem('email')
+        toast.success('Đổi mật khẩu thành công ! Bạn sẽ được chuyển đến trang đăng nhập ngay bây giờ !')
+        setTimeout(() => {
+        nav('/login')
+        }, 3000)
      }
     }catch(err){
-      console.log(err);
       toast.error('Đổi mật khẩu thất bại !')
     }
   }
@@ -49,6 +51,7 @@ export const ChangePassword = () => {
               <label htmlFor=''>Mật khẩu cũ:</label>
               <input
                 name='oldPass'
+                ref={oldPass}
                 id='oldPass'
                 type='password'
                 placeholder='Vui lòng nhập mật khẩu cũ'
@@ -59,6 +62,7 @@ export const ChangePassword = () => {
                 <input
                   type='password'
                   id='newPass'
+                  ref={newPass}
                   placeholder='Vui lòng nhập mật khẩu mới'
                 />
             </div>
@@ -67,6 +71,7 @@ export const ChangePassword = () => {
               <input
                 type='password'
                 id='confirmPass'
+                ref={confirmPass}
                 placeholder='Vui lòng nhập lại mật khẩu mới'
               />
             </div>
